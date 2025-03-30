@@ -1,0 +1,77 @@
+
+  **1. Insurance Application (Policy & Claims Management)**  
+**Role:** Java Full Stack Developer | **Duration:** June 2024 – Present  
+
+  **Project Overview:**  
+This is an **insurance policy and claims management system** designed to streamline **policy issuance, claims processing, and customer service**. The system helps **agents, customers, and internal teams** manage insurance-related operations efficiently.  
+
+  **Functionalities & Enhancements:**  
+- **Policy Management:** Enables customers and agents to create, update, and renew policies.  
+- **Claims Processing:** Automates claim submissions, approvals, and payouts.  
+- **User Authentication & Authorization:** Implemented **JWT-based authentication** and **OAuth2** for security.  
+- **Notifications & Alerts:** Sends automated emails/SMS for policy updates, claims status, and reminders.  
+- **Performance Monitoring & Logging:** Integrated **Splunk & Dynatrace** to monitor application health.  
+
+  **Roles & Responsibilities:**  
+- Developed and optimized **Spring Boot microservices** for policy and claims processing.  
+- Implemented **CI/CD pipelines using GitLab**, containerized services with **Docker & Kubernetes**, and deployed them on **AWS**.  
+- Worked on **React.js frontend** to improve UI/UX.  
+- Integrated third-party APIs for **payment processing and fraud detection**.  
+- Debugged and optimized application performance using **Splunk & Dynatrace**.  
+- Collaborated with cross-functional teams using **Agile methodology (Scrum)**.  
+
+  **Challenges & Solutions:**  
+- **Slow API responses** → Implemented **caching** for frequently accessed data.  
+- **Security concerns** → Strengthened authentication using **OAuth2 & JWT**.  
+- **Scalability issues** → Deployed services using **Docker & Kubernetes** for better load handling.  
+
+---
+
+  **2. Lync OMS (Order Management System)**  
+**Role:** Java Full Stack Developer | **Duration:** Jan 2022 – May 2024  
+
+  **Project Overview:**  
+Lync OMS is an **Order Management System** that simplifies **order processing, tracking, and fulfillment**. It helps businesses manage orders efficiently by automating workflows and improving order accuracy.  
+
+  **Functionalities & Enhancements:**  
+- **Order Creation & Processing:** Allows users to place, modify, and track orders in real time.  
+- **Customer Search & Order Search:** Integrated **stored procedures** to enhance search performance.  
+- **Authentication & Authorization:** Implemented **JWT-based authentication** for secure access.  
+- **Performance Optimization:** Improved **API response times** and reduced processing errors.  
+- **Issue Resolution:** Fixed critical **production issues** where orders were getting stuck.  
+
+  **Roles & Responsibilities:**  
+- Developed and maintained **Spring Boot REST APIs** to handle order workflows.  
+- Worked on **Angular frontend** to enhance UI components.  
+- Managed **Bitbucket repositories** and collaborated with teams for **code reviews & deployments**.  
+- Integrated **SonarQube & SonarLint** for continuous code quality monitoring.  
+- Worked closely with QA teams to ensure **bug-free releases**.  
+- Optimized database queries and **improved API response times**.  
+
+  **Challenges & Solutions:**  
+- **Orders getting stuck** → Debugged and fixed **workflow inconsistencies** in backend services.  
+- **Slow search performance** → Used **stored procedures** to optimize customer & order searches.  
+- **Frequent UI issues** → Implemented **responsive design enhancements** in Angular.  
+
+---
+
+  **3. NIFI Development (PDF/RTF to Text Conversion)**  
+**Role:** Java Developer | **Duration:** Sep 2022 – Dec 2022  
+
+  **Project Overview:**  
+The project involved developing **custom NIFI processors** to automate the **conversion of PDF/RTF files to text** for easy data extraction and analysis.  
+
+  **Functionalities & Enhancements:**  
+- **PDF/RTF to Text Conversion:** Extracts text from PDF & RTF files and stores it in **MySQL database**.  
+- **Custom NIFI Processors:** Created new processors that integrate seamlessly into **Apache NIFI framework**.  
+- **Database Integration:** Automatically stores extracted text into **MySQL for further processing**.  
+
+  **Roles & Responsibilities:**  
+- Designed and developed **custom NIFI processors** to handle file conversion.  
+- Integrated processors into the **NIFI framework** for easy selection & use.  
+- Wrote technical documentation for end-users to understand processor functionality.  
+- Debugged and optimized performance to handle **large file conversions efficiently**.  
+
+  **Challenges & Solutions:**  
+- **Handling large files** → Optimized processing to ensure **faster & memory-efficient conversions**.  
+- **Data loss during conversion** → Implemented **error handling & retry mechanisms**.  
