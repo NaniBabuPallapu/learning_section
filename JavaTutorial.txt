@@ -1898,255 +1898,24 @@
 		Inner classes can be useful for implementing encapsulation, achieving better code organization, and enhancing code readability. 
 		The choice of which type of inner class to use depends on the specific requirements of your program and the level of access needed to the outer class's members.
 
-		## Java 8 Features 
-
-		---
-
-		### 🔹 1. Lambda Expressions
-		**Definition:**  
-		Lambda expressions are anonymous functions that provide a concise way to implement functional interfaces. 
-		They help reduce boilerplate code in Java, especially when working with APIs that expect single-method interfaces.
-
-		**Key Benefits:**
-		- Simplifies syntax
-		- Enhances code readability
-		- Encourages functional programming style
-
-		**Real-life Use Case:** Used in thread creation, event handling, and stream operations.
-
-		---
-
-		### 🔹 2. Functional Interfaces
-		**Definition:**  
-		A functional interface is an interface with exactly **one abstract method**. It can have multiple default or static methods. 
-		These interfaces are the foundation for lambda expressions.
-
-		**Annotation Used:** `@FunctionalInterface` (optional but recommended)
-
-		**Real-life Use Case:** Used with lambda expressions to provide clean and expressive logic blocks.
-
-		---
-
-		### 🔹 3. Stream API
-		**Definition:**  
-		The Stream API allows processing of data in **declarative, functional style** rather than the traditional imperative approach. 
-		It supports operations like `filter()`, `map()`, `reduce()`, and `collect()`.
-
-		**Key Features:**
-		- Supports both sequential and parallel execution
-		- Does not modify the original data structure
-		- Lazy evaluation improves performance
-
-		**Real-life Use Case:** Processing lists, filtering data, aggregating results from collections.
-
-		---
-
-		### 🔹 4. Default and Static Methods in Interfaces
-		**Definition:**  
-		Java 8 allows interfaces to contain:
-		- **Default methods:** Provide a default implementation to avoid breaking existing classes.
-		- **Static methods:** Can be called without an object, directly using the interface name.
-
-		**Real-life Use Case:** Enhancing interfaces like `List`, `Map` without breaking older implementations.
-
-		---
-
-		### 🔹 5. Method References
-		**Definition:**  
-		A method reference is a shorthand for a lambda expression that calls an existing method. It's denoted by `ClassName::methodName`.
-
-		**Types:**
-		- Static method reference
-		- Instance method reference
-		- Constructor reference
-
-		**Real-life Use Case:** Simplifying lambda expressions in `forEach()`, stream operations.
-
-		---
-
-		### 🔹 6. Optional Class
-		**Definition:**  
-		The `Optional` class is a container object that may or may not contain a non-null value. 
-		It helps prevent **null pointer exceptions** and promotes cleaner null-checking.
-
-		**Key Methods:**
-		- `isPresent()`
-		- `orElse()`
-		- `ifPresent()`
-
-		**Real-life Use Case:** Handling API responses that might return null (e.g., database fetch).
-
-		---
-
-		### 🔹 7. Date and Time API (java.time)
-		**Definition:**  
-		Introduced to replace outdated and error-prone `Date` and `Calendar` classes. The new API is immutable and thread-safe.
-
-		**Common Classes:**
-		- `LocalDate`, `LocalTime`, `LocalDateTime`
-		- `Period`, `Duration`
-		- `ZoneId`, `ZonedDateTime`
-
-		**Real-life Use Case:** Calculating age, due dates, or working with time zones.
-
-		---
-
-		### 🔹 8. Collectors
-		**Definition:**  
-		Collectors are used to accumulate elements of a stream into various data structures like `List`, `Set`, or `Map`. It is a terminal operation.
-
-		**Popular Methods:**
-		- `toList()`
-		- `joining()`
-		- `groupingBy()`
-
-		**Real-life Use Case:** Collecting processed data into a specific collection after filtering or transformation.
-
-		---
-
-		### 🔹 9. Built-in Functional Interfaces
-		**Definition:**  
-		Java 8 introduced a package `java.util.function` that contains common functional interfaces used in functional programming.
-
-		**Most Used Interfaces:**
-		- **Predicate<T>** – returns boolean based on condition
-		- **Function<T, R>** – transforms T into R
-		- **Consumer<T>** – performs operation on T without returning
-		- **Supplier<T>** – provides objects of T without input
-
-		**Real-life Use Case:** Used in stream operations, condition checking, and lazy initialization.
-
-		---
-
-		### 🔹 10. Parallel Streams
-		**Definition:**  
-		A parallel stream splits the data into multiple parts and processes them concurrently using multiple threads. It improves performance for large datasets.
-
-		**Key Point:** Order of execution is **not guaranteed**. Use carefully when order matters.
-
-		**Real-life Use Case:** Faster data processing in CPU-bound operations like large file reading or statistical analysis.
-
-		---
-
-		### 🔹 11. Base64 Encoding and Decoding
-		**Definition:**  
-		Java 8 includes built-in support for **Base64 encoding/decoding** using the `java.util.Base64` class. 
-		It's used to encode binary data into a string format and vice versa.
-
-		**Types Provided:**
-		- Basic
-		- URL and Filename safe
-		- MIME
-
-		**Real-life Use Case:** Used in email encoding, JWT tokens, image data transfer, and credentials.
-
-		ONE EXAMPLE FOR ALL OF THE ABOVE FEATURES:
-		==========================================
-
-		import java.util.*;
-		import java.util.function.*;
-		import java.util.stream.*;
-		import java.time.*;
-		import java.util.Base64;
-		import java.util.Optional;
-
-		@FunctionalInterface
-		interface Greet {
-			void sayHello();
-		}
-		// Interface for Default & Static Method Example
-		interface Car {
-			default void start() {
-				System.out.println("Car started (default method)");
-			}
-
-			static void service() {
-				System.out.println("Car serviced (static method)");
-			}
-		}
-
-		class MyCar implements Car {
-			// Uses default implementation
-		}
-
-		public class Java8FeaturesDemo {
-
-			public static void main(String[] args) {
-
-				// 1. Lambda Expression
-				// Allows functional-style syntax for implementing interfaces
-				Runnable r = () -> System.out.println("1️⃣ Lambda: Running thread...");
-				new Thread(r).start();
-
-				// 2. Functional Interface
-				// Interface with one abstract method
-				Greet greet = () -> System.out.println("2️⃣ Functional Interface: Hello Nani!");
-				greet.sayHello();
-
-				// 3. Stream API
-				// Functional-style processing of collections
-				List<String> names = Arrays.asList("nani", "ram", "sita");
-				System.out.print("3️⃣ Stream API: ");
-				names.stream().filter(n -> n.startsWith("n")).forEach(System.out::println);
-
-				// 4. Default & Static Methods in Interface
-				Car car = new MyCar();
-				car.start(); // default method
-				Car.service(); // static method
-
-				// 5. Method Reference
-				List<String> items = Arrays.asList("A", "B", "C");
-				System.out.println("5️⃣ Method Reference:");
-				items.forEach(System.out::println);
-
-				// 6. Optional Class
-				Optional<String> opt = Optional.ofNullable(null);
-				System.out.println("6️⃣ Optional: " + opt.orElse("Default Value"));
-
-				// 7. Date and Time API
-				LocalDate today = LocalDate.now();
-				LocalDate dob = LocalDate.of(1998, Month.AUGUST, 15);
-				Period age = Period.between(dob, today);
-				System.out.println("7️⃣ Date & Time: Age = " + age.getYears() + " years");
-
-				// 8. Collectors
-				List<String> upper = names.stream()
-						.map(String::toUpperCase)
-						.collect(Collectors.toList());
-				System.out.println("8️⃣ Collectors: " + upper);
-
-				// 9. Built-in Functional Interfaces
-				Predicate<String> isEmpty = s -> s.isEmpty();
-				Function<String, Integer> lengthFn = s -> s.length();
-				Consumer<String> printer = s -> System.out.println("9️⃣ Consumer: " + s);
-				Supplier<String> message = () -> "9️⃣ Supplier: Hello from Supplier";
-
-				System.out.println("9️⃣ Predicate: " + isEmpty.test(""));
-				System.out.println("9️⃣ Function: Length = " + lengthFn.apply("Java8"));
-				printer.accept("Printed using Consumer");
-				System.out.println(message.get());
-
-				// 10. Parallel Streams
-				System.out.println("🔟 Parallel Stream:");
-				List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5);
-				nums.parallelStream().forEach(System.out::println); // order may vary
-
-				// 11. Base64 Encoding/Decoding
-				String original = "nani123";
-				String encoded = Base64.getEncoder().encodeToString(original.getBytes());
-				System.out.println("1️⃣1️⃣ Base64 Encoded: " + encoded);
-				byte[] decodedBytes = Base64.getDecoder().decode(encoded);
-				System.out.println("1️⃣1️⃣ Base64 Decoded: " + new String(decodedBytes));
-			}
-		}
-
-
-
-
-
-
-	Functional Interface
-	======================
+JAVA 8 FEATURES:
+================
+
+Sure, here’s a list of key **Java 8 features**:
+
+1. **Lambda Expressions**  
+2. **Functional Interfaces**  
+3. **Method References**  
+4. **Default & Static Methods in Interfaces**  
+5. **Streams API**  
+6. **Optional Class**  
+7. **Date and Time API (java.time package)**  
+8. **Collectors (java.util.stream.Collectors)**  
+9. **Parallel Streams**  
+10. **Base64 Encoding and Decoding (java.util.Base64)**  
+
+	1. Functional Interface
+	=======================
 
 		A functional interface in Java is an interface that has exactly one abstract method. Functional interfaces are also known as Single Abstract Method (SAM) interfaces. 
 		These interfaces are a fundamental concept in Java's support for lambda expressions and the Java Stream API. 
@@ -2200,6 +1969,10 @@
 			   - T: denotes the type of the result. we can use Supplier for Lazy Loading.
 			   - It has a single method `get()` that returns a result.
 
+				syntax : T get();
+				
+				Supplier<T> supplier = () -> "Hello, world!";
+
 			   ```java
 			   import java.util.function.Supplier;
 
@@ -2216,7 +1989,10 @@
 			   - It has a single method `R apply(T t)`.
 			   - T: denotes the type of the input argument
 			   - R: denotes the return type of the function
-
+			   
+			   syntax : R apply(T t);
+			   Function<T, R> square = x -> x * x;
+			   
 			   ```java
 			   import java.util.function.Function;
 
@@ -2392,7 +2168,7 @@
 			}
 
 
-		**Lambda Expressions**
+		**2. Lambda Expressions**
 		============================
 
 		Lambda expressions in Java provide a concise way to represent anonymous functions (functions that don't have a name) and are a part of the Java programming language since Java 8. Lambda expressions are primarily used for writing code more briefly and with less boilerplate code, making your code more readable and expressive.
@@ -2449,8 +2225,8 @@
 
 
 
-	Java Streams
-	==================
+	3. Java Streams API
+	====================
 
 		Java Streams are a powerful and versatile feature introduced in Java 8 for processing sequences of elements (e.g., collections) in a functional and declarative manner. 
 		They provide a concise and expressive way to perform operations on data, making your code more readable and efficient.
@@ -2511,6 +2287,364 @@
 		```
 
 		This example demonstrates how you can use Stream operations to perform data processing in a concise and readable way. Streams are a fundamental part of modern Java programming and are widely used in a variety of applications.
+
+		
+		
+		
+		
+	4. Default and Static Methods in Interfaces
+	============================================
+		**Definition:**  
+		Java 8 allows interfaces to contain:
+		- **Default methods:** Provide a default implementation to avoid breaking existing classes.
+		- **Static methods:** Can be called without an object, directly using the interface name.
+
+		**Real-life Use Case:** Enhancing interfaces like `List`, `Map` without breaking older implementations.
+
+
+
+		### ✅ Example: `UserService` Interface
+
+		Let’s say we have a system that manages users. The interface provides:
+		- A `registerUser(String username)` method to be implemented.
+		- A **default** method to validate the username.
+		- A **static** method to show common rules.
+
+		---
+
+		### 💡 Java Code
+
+		```java
+		@FunctionalInterface
+		interface UserService {
+
+			// Abstract method
+			void registerUser(String username);
+
+			// Default method with validation logic
+			default boolean isValidUser(String username) {
+				if (username == null || username.trim().isEmpty()) {
+					System.out.println("❌ Username cannot be empty.");
+					return false;
+				}
+				if (username.length() < 3) {
+					System.out.println("❌ Username must be at least 3 characters.");
+					return false;
+				}
+				return true;
+			}
+
+			// Static method to print common rules
+			static void printUserRules() {
+				System.out.println("📌 Rules:");
+				System.out.println("1. Username must not be empty.");
+				System.out.println("2. Username must be at least 3 characters.");
+			}
+		}
+		```
+
+		---
+
+		### ✅ Implementation Class
+
+		```java
+		class UserServiceImpl implements UserService {
+
+			@Override
+			public void registerUser(String username) {
+				if (isValidUser(username)) {
+					System.out.println("✅ User '" + username + "' registered successfully.");
+				} else {
+					System.out.println("⚠️ Registration failed for username: " + username);
+				}
+			}
+		}
+		```
+
+		---
+
+		### 🧪 `Main.java`
+
+		```java
+		public class Main {
+			public static void main(String[] args) {
+
+				// Call static method directly via interface
+				UserService.printUserRules();
+
+				System.out.println();
+
+				// Create object
+				UserService service = new UserServiceImpl();
+
+				// Valid registration
+				service.registerUser("nani");
+
+				// Invalid registration
+				service.registerUser("");
+			}
+		}
+		```
+
+		---
+
+		### ✅ Output
+
+		```
+		📌 Rules:
+		1. Username must not be empty.
+		2. Username must be at least 3 characters.
+
+		✅ User 'nani' registered successfully.
+		❌ Username cannot be empty.
+		⚠️ Registration failed for username:
+		```
+
+		---
+
+		### ✅ Summary
+
+		| Part          | Used for                                      |
+		|---------------|-----------------------------------------------|
+		| `abstract`    | Main business logic → `registerUser()`        |
+		| `default`     | Shared reusable logic → `isValidUser()`       |
+		| `static`      | Utility info → `printUserRules()`             |
+		
+		
+
+	5. **Method References**
+	========================
+
+	**Definition:**
+	A method reference is a **short-hand notation of a lambda expression** to call an existing method. It improves code readability and reusability.
+
+	**Syntax:**
+	```java
+	ClassName::methodName
+	```
+
+	**Types of Method References:**
+	1. **Reference to a static method**
+	2. **Reference to an instance method of a particular object**
+	3. **Reference to an instance method of an arbitrary object of a particular type**
+	4. **Reference to a constructor**
+
+	---
+
+	**🧪 Example 1: Static Method Reference**
+	```java
+	class Utils {
+		public static void greet() {
+			System.out.println("Hello from static method!");
+		}
+	}
+
+	public class Demo {
+		public static void main(String[] args) {
+			Runnable r = Utils::greet; // Method reference
+			r.run();
+		}
+	}
+	```
+
+	---
+
+	**🧪 Example 2: Instance Method of a Particular Object**
+	```java
+	class Printer {
+		public void print(String message) {
+			System.out.println("Message: " + message);
+		}
+	}
+
+	public class Demo {
+		public static void main(String[] args) {
+			Printer printer = new Printer();
+			Consumer<String> c = printer::print; // Method reference
+			c.accept("Java is awesome!");
+		}
+	}
+	```
+
+	---
+
+	**🧪 Example 3: Constructor Reference**
+	```java
+	class Message {
+		Message(String msg) {
+			System.out.println("Message: " + msg);
+		}
+	}
+
+	interface MessageCreator {
+		Message create(String msg);
+	}
+
+	public class Demo {
+		public static void main(String[] args) {
+			MessageCreator creator = Message::new; // Constructor reference
+			creator.create("Hello, World!");
+		}
+	}
+	```
+
+
+
+	6. **Optional Class**
+	=====================
+
+	**Definition:**
+	The `Optional<T>` class is a container object used to **avoid null checks** and **prevent NullPointerExceptions**.
+
+	---
+
+	**🧪 Example: Using Optional**
+	```java
+	import java.util.Optional;
+
+	public class Demo {
+		public static void main(String[] args) {
+			Optional<String> name = Optional.of("Nani");
+
+			// Check if value is present
+			if (name.isPresent()) {
+				System.out.println(name.get());
+			}
+
+			// orElse
+			Optional<String> empty = Optional.empty();
+			System.out.println(empty.orElse("Default"));
+
+			// ifPresent
+			name.ifPresent(n -> System.out.println("Hi " + n));
+		}
+	}
+	```
+
+
+	7. **Date and Time API (`java.time`)**
+	======================================
+	
+	**Definition:**
+	Java 8 introduced the `java.time` package to replace legacy `Date` and `Calendar`. It’s **immutable**, **thread-safe**, and **easy to use**.
+
+	---
+
+	**🧪 Example: Basic Usage**
+	```java
+	import java.time.*;
+
+	public class Demo {
+		public static void main(String[] args) {
+			LocalDate today = LocalDate.now();
+			LocalTime time = LocalTime.now();
+			LocalDateTime dateTime = LocalDateTime.now();
+
+			System.out.println("Today: " + today);
+			System.out.println("Time: " + time);
+			System.out.println("DateTime: " + dateTime);
+
+			LocalDate birthDate = LocalDate.of(1990, 5, 10);
+			Period age = Period.between(birthDate, today);
+			System.out.println("Age: " + age.getYears());
+		}
+	}
+	```
+
+
+
+	8. **Collectors**
+	==================
+
+	**Definition:**
+	`Collectors` are used to gather elements from a stream into a collection (List, Set, Map). It is used with `.collect()` terminal operation.
+
+	---
+
+	**🧪 Example: Collectors Usage**
+	```java
+	import java.util.*;
+	import java.util.stream.Collectors;
+
+	public class Demo {
+		public static void main(String[] args) {
+			List<String> names = Arrays.asList("Nani", "Babu", "Pallapu");
+
+			List<String> upper = names.stream()
+									  .map(String::toUpperCase)
+									  .collect(Collectors.toList());
+
+			System.out.println(upper);
+
+			String joined = names.stream().collect(Collectors.joining(", "));
+			System.out.println("Joined: " + joined);
+		}
+	}
+	```
+
+	---
+
+	9. **Parallel Streams**
+	========================
+
+	**Definition:**
+	Parallel streams divide the source into multiple parts and process them **concurrently using multiple threads**.
+
+	---
+
+	**🧪 Example: Normal vs Parallel Stream**
+	```java
+	import java.util.Arrays;
+
+	public class Demo {
+		public static void main(String[] args) {
+			Arrays.asList("A", "B", "C", "D", "E")
+				  .stream()
+				  .forEach(s -> System.out.print(s + " "));  // Sequential
+
+			System.out.println();
+
+			Arrays.asList("A", "B", "C", "D", "E")
+				  .parallelStream()
+				  .forEach(s -> System.out.print(s + " ")); // Parallel
+		}
+	}
+	```
+
+	> **Note:** Use parallel stream when you have CPU-bound operations or large datasets.
+
+
+
+	10. **Base64 Encoding and Decoding**
+	============================================
+	**Definition:**
+	Java 8 introduced `java.util.Base64` to encode and decode binary data in **Base64 format**.
+
+
+	**🧪 Example: Base64 Usage**
+	```java
+	import java.util.Base64;
+
+	public class Demo {
+		public static void main(String[] args) {
+			String original = "secret123";
+
+			// Encoding
+			String encoded = Base64.getEncoder().encodeToString(original.getBytes());
+			System.out.println("Encoded: " + encoded);
+
+			// Decoding
+			byte[] decodedBytes = Base64.getDecoder().decode(encoded);
+			String decoded = new String(decodedBytes);
+			System.out.println("Decoded: " + decoded);
+		}
+	}
+	```
+
+
+
+
+
 
 	Hashing
 	=======
