@@ -125,7 +125,6 @@
 
 	REACT JS - TUTORIAL 
 	====================
-	Sure, Nani. Here is a clear and simple explanation of **React.js**, **JSX**, **Components**, **Props**, and **State** — without styling or bold text, written in easy English, and with simple code examples.
 
 	**basic React.js commands** :
 	=============================
@@ -269,7 +268,8 @@
 
 	#### 4. State
 
-	State is a special React feature used to store data in a component. When the state changes, the component re-renders and updates the UI.
+	state is an object that holds data or information about the component.
+	When the state changes, React re-renders the component to reflect the new state.
 
 	Example:
 
@@ -295,6 +295,25 @@
 	#### 5. Events
 
 	You can handle events like clicks using React. React uses camelCase for event names, and functions are passed without calling them directly.
+	
+	### 🔍 Explanation:
+	| Feature           | Behavior |
+	|-------------------|----------|
+	| `onClick`         | Increments & decrements a counter. Shows error if counter < 0. |
+	| `onChange`        | Captures name input and resets error on typing. |
+	| `onSubmit`        | Submits name if not empty, shows error otherwise. |
+	| `onMouseOver`     | Updates text when hovered. |
+	| `onKeyDown`       | Displays the last key pressed in input field. |
+
+
+	- Uses **`useState`** for tracking values.
+	- Handles all five events:
+	  - `onClick` (button to increase/decrease counter)
+	  - `onChange` (input field to update a name)
+	  - `onSubmit` (form submission with validation)
+	  - `onMouseOver` (hover effect changes text)
+	  - `onKeyDown` (detect keys and update a message)
+	- Displays **custom error messages**.
 
 	Example:
 
@@ -337,7 +356,6 @@ Great, Nani. Below is a **complete React App.js** example that combines all the 
 - State  
 - Event handling  
 
-It is written in **simple English**, has **no styling**, and is easy to understand.
 
 ---
 
@@ -397,10 +415,6 @@ export default App;
 5. `setCount(count + 1)` increases the count by 1 when the button is clicked.
 
 ---
-
-
-
-
 
 
 

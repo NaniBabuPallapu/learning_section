@@ -1967,9 +1967,7 @@ Sure, here’s a list of key **Java 8 features**:
 			1. **Supplier**:
 			   - `Supplier` represents a supplier of results. It is functional interface. It does not accept any arguments but produces a result(T).
 			   - T: denotes the type of the result. we can use Supplier for Lazy Loading.
-			   - It has a single method `get()` that returns a result.
-
-				syntax : T get();
+			   - It has a single method `T get()` that returns a result.
 				
 				Supplier<T> supplier = () -> "Hello, world!";
 
@@ -1990,7 +1988,6 @@ Sure, here’s a list of key **Java 8 features**:
 			   - T: denotes the type of the input argument
 			   - R: denotes the return type of the function
 			   
-			   syntax : R apply(T t);
 			   Function<T, R> square = x -> x * x;
 			   
 			   ```java
@@ -2111,67 +2108,85 @@ Sure, here’s a list of key **Java 8 features**:
 
 			One Example Program for Important Functional INTERFACES
 			---------------------------------------------------------
-			package test.com;
+			package company.com.java8features;
 
-			import mypractice.com.collections.Student;
+			import java.util.function.*;
 
-			import java.util.ArrayList;
-			import java.util.Arrays;
-			import java.util.List;
-			import java.util.function.Consumer;
-			import java.util.function.Function;
-			import java.util.function.Predicate;
-			import java.util.function.Supplier;
-			import java.util.stream.Collectors;
-
-			public class PracticeTest {
-
-				public static void main(String[] args) {
-
-					// 1. Supplier
-					Supplier<Double> value = () -> Math.random();
-					System.out.println(value.get()); //output : 0.1301492672379272
-
-					// 2. Function
-
-					Function<String, Integer> function = string -> string.length(); //it gives 5
-
-					function = function.andThen(data -> 3 * data); // (5 * 3) = 15
-
-					function = function.compose(element -> 3 + element); // 15+3 = 18
-
-					System.out.println(function.apply("Hello")); // output : 18
-
-					// 3. Predicate interface
-
-					Predicate<Integer> isEven = number -> number % 2 == 0; // checking even or not
-					System.out.println(isEven.test(10)); // true 
-
-					// 4. Consumer Interface
-
-					Consumer<Integer> consumer = element -> System.out.println("Printing "+element);
-
-					consumer.accept(10); // output : Printing 10
-
-					Consumer<List<Student>> listConsumer = student -> System.out.println(student);
-
-					List<Student> students = new ArrayList<>();
-					students.add(new Student(1, "Nani", 25));
-					students.add(new Student(2, "Babu", 30));
-					students.add(new Student(3, "Priya", 40));
-					students.add(new Student(4, "Praneetha", 50));
-
-					listConsumer.accept(students); // output : [Student{id=1, name='Nani', age=25}, Student{id=2, name='Babu', age=30}, Student{id=3, name='Priya', age=40}, Student{id=4, name='Praneetha', age=50}]
-
+			public class SomeFunctionalInterfacesExample {
+				public static void supplierExample() {
+					Supplier<String> supplier = () -> "Nani Babu";
+					Supplier<Integer> integerSupplier = () -> 26;
+					System.out.println("I am " + supplier.get() + ". My Age is " + integerSupplier.get());
 				}
 
+				public static void functionExample() {
+					Function<String, Integer> function = name -> name.length();
+					System.out.println("Length Of Given Name : " + function.apply("Nani Babu"));
+				}
+
+				public static void biFunctionExample() {
+					BiFunction<Integer, Double, Boolean> biFunction = (value1, value2) -> value1 > value2;
+					System.out.println(biFunction.apply(5,4.5));
+				}
+				public static void unaryOperatorExample(){
+					UnaryOperator<Integer> unaryOperator = value -> value * value;
+					System.out.println(unaryOperator.apply(5));
+				}
+				public static void binaryOperator(){
+					BinaryOperator<Integer> binaryOperator = (value1, value2) -> value1 * value2;
+					System.out.println(binaryOperator.apply(3, 2));
+				}
+
+				public static void predicateExample(){
+					Predicate<Integer> predicate = value -> value % 2 == 0; // checking even or odd number which returns boolean and takes input as Integer
+					System.out.println(predicate.test(4));
+					System.out.println(predicate.test(9));
+				}
+				public static void consumerExample(){
+					Consumer<String> consumer = (name) -> System.out.println("Hello "+name);
+					consumer.accept("Nani Babu");
+				}
+				public static void biConsumerExample(){
+					BiConsumer<String, Integer> biConsumer = (value1, value2) -> System.out.println("I am "+value1+". My age is : "+value2);
+					biConsumer.accept("Nani Babu", 26);
+				}
+
+				public static void main(String[] args) {
+					System.out.println("\n");
+					supplierExample();
+					System.out.println("\n");
+
+					functionExample();
+					System.out.println("\n");
+
+					biFunctionExample();
+					System.out.println("\n");
+
+					unaryOperatorExample();
+					System.out.println("\n");
+
+					binaryOperator();
+					System.out.println("\n");
+
+					predicateExample();
+					System.out.println("\n");
+
+					consumerExample();
+					System.out.println("\n");
+
+					biConsumerExample();
+					System.out.println("\n");
+
+				}
 			}
+
 
 
 		**2. Lambda Expressions**
 		============================
 
-		Lambda expressions in Java provide a concise way to represent anonymous functions (functions that don't have a name) and are a part of the Java programming language since Java 8. Lambda expressions are primarily used for writing code more briefly and with less boilerplate code, making your code more readable and expressive.
+		Lambda expressions in Java provide a concise way to represent anonymous functions (functions that don't have a name) and are a part of the Java programming language since Java 8. 
+		Lambda expressions are primarily used for writing code more briefly and with less boilerplate code, making your code more readable and expressive.
 
 		Here's a breakdown of lambda expressions in Java:
 
@@ -2416,8 +2431,9 @@ Sure, here’s a list of key **Java 8 features**:
 	========================
 
 	**Definition:**
-	A method reference is a **short-hand notation of a lambda expression** to call an existing method. It improves code readability and reusability.
-
+	A method reference is just a shorthand for a lambda expression that calls an existing method. 
+	And lambda expressions can only be assigned to functional interfaces — i.e., interfaces with exactly one abstract method.
+	
 	**Syntax:**
 	```java
 	ClassName::methodName
@@ -2600,13 +2616,15 @@ Sure, here’s a list of key **Java 8 features**:
 		public static void main(String[] args) {
 			Arrays.asList("A", "B", "C", "D", "E")
 				  .stream()
-				  .forEach(s -> System.out.print(s + " "));  // Sequential
+				  .forEach(s -> System.out.print(s + " "));  // Sequential	A B C D E 
+
 
 			System.out.println();
 
 			Arrays.asList("A", "B", "C", "D", "E")
 				  .parallelStream()
-				  .forEach(s -> System.out.print(s + " ")); // Parallel
+				  .forEach(s -> System.out.print(s + " ")); // Parallel C E D B A
+			  
 		}
 	}
 	```

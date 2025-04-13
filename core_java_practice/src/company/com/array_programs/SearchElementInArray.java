@@ -1,20 +1,15 @@
-package company.com;
+package company.com.array_programs;
 
-public class SumOfNumber {
-    public static void sumOfNumbers(){
-        int sum = 0;
-        for(int i=1;i<=10;i++){
-            sum = sum + i;
-        }
-        System.out.println(sum);
-    }
-    public static void search(int[] array, int target){
-        for(int i=0;i<array.length;i++){
-            if(array[i] == target){
-                System.out.println("Element Found At "+i+" position");
+public class SearchElementInArray {
+
+    public static void search(int[] array, int target) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == target) {
+                System.out.println("Element Found At " + i + " position");
             }
         }
     }
+
     public static int binarySearch(int[] arr, int target) {
         int left = 0, right = arr.length - 1;
 
@@ -31,10 +26,13 @@ public class SumOfNumber {
         }
         return -1; // Target not found
     }
+
     public static void main(String[] args) {
-        sumOfNumbers();
-        search(new int[]{2,7,2,5,5,6,8,10}, 5);
-        int result = binarySearch(new int[]{2,7,2,5,5,6,8,10}, 5);
+        search(new int[]{2, 7, 2, 5, 5, 6, 8, 10}, 5);
+
+        System.out.println("\n");
+
+        int result = binarySearch(new int[]{2, 7, 2, 5, 5, 6, 8, 10}, 5);
         // Output result
         if (result != -1) {
             System.out.println("Element found at index: " + result);
