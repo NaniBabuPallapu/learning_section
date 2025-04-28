@@ -74,7 +74,18 @@
 	Thank you for the update and for the opportunity to discuss the salary for the Java Full Stack Developer role. I am comfortable with the proposed salary of 5500RM per month.
 
 	Looking forward to moving forward with the next steps.
+	
+	
+	ABOUT HTC GLOBAL SERVICE
+	========================
 
+	**HTC Global Services** is an IT company started in 1990, based in **Troy, Michigan**. It has offices in many countries and over **6000 employees** worldwide.
+	
+	The **CEO of HTC Global Services** is **Madhava Reddy**, who is also the **founder** of the company.
+	
+	The company provides **software and business solutions** to industries like **insurance, healthcare, manufacturing, and retail**.  
+
+	HTC is known for its **quality work, long-term client relationships**, and strong global presence.  
 
 
 	SELF-INTRODUCTION:
@@ -85,9 +96,8 @@
 	I'm Nani Babu Pallapu, a Java Full Stack Developer holding a Bachelor's degree in Computer Science from Nova College of Engineering & Technology, graduated in 2020. 
 	I was born and brought up in Eluru, Andhra Pradesh.  
 
-	My professional journey began as a Trainee & Contract-based Java Developer at TechEra IT Consulting, where I completed an intensive 6-month training program 
-	before joining Innova Solutions in December 2021 as a Contract-based Java Developer. Within four months, I demonstrated hard work and dedication, leading to a transition to a permanent employee role. 
-	I completed a total of three years at Innova Solutions, including the contract period.  
+	My professional journey began as a Trainee & Contract-based Java Developer at TechEra IT Consulting, where I completed an intensive 6-month training program before joining Innova Solutions in December 2021 as a Contract-based Java Developer. 
+	Within four months, I demonstrated hard work and dedication, leading to a transition to a permanent employee role. I completed a total of three years at Innova Solutions, including the contract period.  
 
 	Currently, I am working as a Java Full Stack Developer at HTC Global Services with around 4 years of hands-on experience.  
 
@@ -102,11 +112,8 @@
 
 	2. **NIFI Development Project** – Led the development of customized NiFi processors for PDF/RTF to text conversion. As the sole team member, I analyzed client requirements and developed specialized processors to convert files into plain text format, storing them in a MySQL database.  
 
-	3. **Insurance Domain Project (HTC Global Services – B2B Team)** –  Working on a project for a leading U.S. insurance provider as part of the B2B team. 
-																		My role involves developing and maintaining microservices-based solutions for policy processing and customer data management, 
-																		handling API integrations, improving system performance, and ensuring seamless business-to-business communication. 
-																		Additionally, I contribute to optimizing GitLab CI/CD pipelines and leveraging AWS services for cloud-based deployments.  
-
+	3. **Insurance Partner Portal** (HTC Global Services – B2B Team)** – Worked on a secure, role-based Business Partner Portal that allows external partners like suppliers, medical providers, and lenders to manage their services, billing, and communication with the insurance enterprise.
+	
 	These projects have helped me enhance my technical skills and provided valuable experience in problem-solving and client collaboration.  
 
 	Outside of work, I am known for my positive attitude, hard work, and dedication. I approach challenges with confidence and always strive to find solutions and grow professionally.  
@@ -2560,7 +2567,7 @@ Sure, here’s a list of key **Java 8 features**:
 			System.out.println("Time: " + time);
 			System.out.println("DateTime: " + dateTime);
 
-			LocalDate birthDate = LocalDate.of(1990, 5, 10);
+			LocalDate birthDate = LocalDate.of(1990, 5, 25);
 			Period age = Period.between(birthDate, today);
 			System.out.println("Age: " + age.getYears());
 		}
@@ -2669,121 +2676,160 @@ Sure, here’s a list of key **Java 8 features**:
 
 	Hashing is a technique used to convert input data, such as passwords, into a fixed-size string of characters, called a hash value, using a hashing algorithm. 
 	In Spring Boot projects, password hashing is crucial for securely storing passwords in databases.
+	It is a **one-way process**, meaning you cannot convert the hash back to the original value.
 
 	BCrypt is a widely-used hashing algorithm specifically designed for securely hashing passwords. 
 	It incorporates a salt (randomly generated data) and a cost factor (iteration count) to make the hashing process computationally expensive, which increases the difficulty of brute-force attacks.
 
+
+	Hashing is commonly used for:
+	- Password storage
+	- Data integrity checks
+	- Digital signatures
+
+	Characteristics of Hashing:
+	- One-way: cannot reverse a hash to get the original data
+	- Deterministic: same input always gives same output
+	- Fixed size: output length is constant
+	- Collision-resistant: different inputs should not result in the same hash
+	- Fast computation: hash is generated quickly
+
+	Example in Java using BCrypt
+	----------------------------
+
+	Below is a simple Java example of hashing a password using BCrypt:
+
+	```java
+	
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+
+	import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+	public class HashingExample {
+
+		public static void main(String[] args) {
+			String originalPassword = "mySecret123";
+			
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+			// Hash the password
+			String hashedPassword = encoder.encode(originalPassword);
+
+			System.out.println("Original: " + originalPassword);
+			System.out.println("Hashed:   " + hashedPassword);
+
+			// Verify password
+			boolean isMatch = encoder.matches("mySecret123", hashedPassword);
+			System.out.println("Password Match: " + isMatch);
+		}
+	}
+	```
+
+	Sample Output:
+	--------------
+	Original: mySecret123  
+	Hashed:   $2a$10$AfJ5ZL7RzOpI1qyt0xKs3e3XfJZZcNAlZ3dpG4F0vTfrMz4v8XwPO  
+	Password Match: true
+
+	Why Hashing is Important for Passwords:
+	---------------------------------------
+	- Even if someone gets access to the database, they can't see the real passwords.
+	- Helps protect users who use the same password across different sites.
+	- BCrypt automatically adds salt and increases the complexity of brute-force attacks.
+
+	---
+
 	HASHCODE
 	=========
 
-	In Java, hashCode() is a method defined in the Object class that returns a hash code value for an object. This hash code is a numerical representation of the object's memory address or some other unique identifier associated with the object. 
-	The primary purpose of hashCode() is to provide a way to efficiently store and retrieve objects in hash-based data structures such as HashMap, HashSet, Hashtable, etc
+		In Java, the `hashCode()` method is defined in the **`Object`** class. 
+		It returns an integer value (called the hash code), which is used to uniquely identify objects—especially when they're stored in **hash-based data structures** like:
+		- `HashMap`
+		- `HashSet`
+		- `Hashtable`
+		
+		This hash code is a numerical representation of the object's memory address or some other unique identifier associated with the object. 
 
+		The purpose of `hashCode()` is to make searching and storing objects faster and more efficient.
 
-	class Employee {
-		private int id;
+		---
 
-		public Employee(int id) {
-			this.id = id;
-		}
+		### 🔹 Example: Using `hashCode()` with a HashMap
 
-		public int getId() {
-			return id;
-		}
+		```java
+		class Employee {
+			private int id;
 
-		@Override
-		public int hashCode() {
-			return id;
-		}
-	}
+			public Employee(int id) {
+				this.id = id;
+			}
 
+			public int getId() {
+				return id;
+			}
 
-	import java.util.HashMap;
-	import java.util.Map;
-
-	public class Main {
-		public static void main(String[] args) {
-			Map<Integer, Employee> employeeMap = new HashMap<>();
-
-			Employee employee1 = new Employee(101);
-			Employee employee2 = new Employee(102);
-
-			employeeMap.put(employee1.getId(), employee1);
-			employeeMap.put(employee2.getId(), employee2);
-
-			// Searching for an employee by id
-			int searchId = 101;
-			Employee foundEmployee = employeeMap.get(searchId);
-
-			if (foundEmployee != null) {
-				System.out.println("Employee found: " + foundEmployee.getId());
-			} else {
-				System.out.println("Employee not found with id: " + searchId);
+			@Override
+			public int hashCode() {
+				return id;
 			}
 		}
-	}
+		```
 
+		### 🔹 Using the `Employee` class in a `HashMap`
 
+		```java
+		import java.util.HashMap;
+		import java.util.Map;
 
-	Certainly! Let's illustrate the advantages of hashCode() with an example:
+		public class Main {
+			public static void main(String[] args) {
+				Map<Integer, Employee> employeeMap = new HashMap<>();
 
-	Suppose you have a class called Employee with attributes id, name, and department. You want to store Employee objects in a HashMap where the id of each employee serves as the key. In this case, having a proper implementation of the hashCode() method is crucial for efficient searching operations.
+				Employee employee1 = new Employee(101);
+				Employee employee2 = new Employee(102);
 
-	Here's a simplified version of the Employee class with only the id attribute:
+				// Storing employees using their IDs as keys
+				employeeMap.put(employee1.getId(), employee1);
+				employeeMap.put(employee2.getId(), employee2);
 
-	
-	class Employee {
-		private int id;
+				// Searching for an employee by ID
+				int searchId = 101;
+				Employee foundEmployee = employeeMap.get(searchId);
 
-		public Employee(int id) {
-			this.id = id;
-		}
-
-		public int getId() {
-			return id;
-		}
-
-		@Override
-		public int hashCode() {
-			return id;
-		}
-	}
-	And here's how you might use this class in a HashMap:
-
-	
-	import java.util.HashMap;
-	import java.util.Map;
-
-	public class Main {
-		public static void main(String[] args) {
-			Map<Integer, Employee> employeeMap = new HashMap<>();
-
-			Employee employee1 = new Employee(101);
-			Employee employee2 = new Employee(102);
-
-			employeeMap.put(employee1.getId(), employee1);
-			employeeMap.put(employee2.getId(), employee2);
-
-			// Searching for an employee by id
-			int searchId = 101;
-			Employee foundEmployee = employeeMap.get(searchId);
-
-			if (foundEmployee != null) {
-				System.out.println("Employee found: " + foundEmployee.getId());
-			} else {
-				System.out.println("Employee not found with id: " + searchId);
+				if (foundEmployee != null) {
+					System.out.println("Employee found: " + foundEmployee.getId());
+				} else {
+					System.out.println("Employee not found with id: " + searchId);
+				}
 			}
 		}
-	}
-	In this example:
+		```
 
-	Each Employee object's hashCode() method returns the id of the employee.
-	When you put Employee objects into the HashMap, the id serves as the key.
-	When you want to search for an Employee object by its id, you simply provide the id to the get() method of the HashMap.
-	The HashMap uses the hash code of the id to quickly locate the bucket where the object might be located. If the hash code is unique (which is often the case with unique identifiers like id), the search operation is very efficient.
-	Once the bucket is located, the equals() method is used to compare the provided id with the id of the objects in that bucket to find the exact match.
-	Overall, having a proper implementation of hashCode() allows for efficient searching operations in hash-based data structures like HashMap. 
-	It helps in quickly locating the potential bucket where the object might be stored, which significantly improves the performance of search operations.
+		---
+
+		### 🔹 What's Happening Here?
+
+		1. **`hashCode()` returns the `id`** of the employee.  
+		   This makes it a simple and unique identifier for each object.
+
+		2. **The `HashMap` uses `id` as the key**.  
+		   When we call `employeeMap.get(101)`, the `HashMap`:
+		   - Calculates the hash using the key (`101`)
+		   - Quickly jumps to the bucket corresponding to that hash
+		   - Uses `equals()` to confirm the match and return the correct `Employee`
+
+		---
+
+		### 🔹 Why is `hashCode()` Important?
+
+		- It helps **quickly locate the bucket** where the object is stored.
+		- A well-designed `hashCode()` improves the **performance of search operations**.
+		- Without it, objects may not behave correctly in hash-based collections.
+
+		---
 
 
 
@@ -2794,13 +2840,20 @@ Sure, here’s a list of key **Java 8 features**:
 		Java Collection means a single unit of objects.
 		Java Collection framework provides many interfaces (Set, List, Queue, Deque) and classes (ArrayList, Vector, LinkedList, PriorityQueue, HashSet, LinkedHashSet, TreeSet).
 
-		Collection :  is used to represent a single unit with a group of individual objects.
+		### Difference Between Collection and Collections
 
-		Collections : is used to operate on collection with several utility methods.
+		- **Collection** :  
+		  → is used to represent a single unit with a group of individual objects.  
+		  → It's the root interface for all collection types like **List**, **Set**, and **Queue**.
+
+		- **Collections** :  
+		  → is used to operate on collections with several **utility methods**.  
+		  → It's a **final class** that contains static methods like `sort()`, `reverse()`, `min()`, `max()`, `shuffle()`, etc.
 
 		Iterable Interface
 		==================
-		The Iterable interface is the root interface for all the collection classes. The Collection interface extends the Iterable interface and therefore all the subclasses of Collection interface also implement the Iterable interface.
+		The Iterable interface is the root interface for all the collection classes. 
+			The Collection interface extends the Iterable interface and therefore all the subclasses of Collection interface also implement the Iterable interface.
 		It contains only one abstract method. i.e.,
 		
 		Iterator<T> iterator()  
@@ -2842,6 +2895,7 @@ Sure, here’s a list of key **Java 8 features**:
 		List interface is the child interface of Collection interface. It inhibits a list type data structure in which we can store the ordered collection of objects. It can have duplicate values.
 
 		List interface is implemented by the classes ArrayList, LinkedList, Vector, and Stack.
+		Null elements are not allowed.
 
 		To instantiate the List interface, we must use :
 
@@ -2866,7 +2920,8 @@ Sure, here’s a list of key **Java 8 features**:
 			ii. LinkedList
 			==============
 			Note : Each element in the list is represented by a Node object. Each Node contains a reference to the previous node (prev) and the next node (next), along with the actual data stored in the middle node.
-			
+			null <-- [Prev|Data|Next] <--> [Prev|Data|Next] <--> [Prev|Data|Next] --> null
+
 			1) LinkedList internally uses a doubly linked list to store the elements.
 			2) If any element is removed from the array, all the other elements are shifted in memory.	Manipulation with LinkedList is faster than ArrayList because it uses a doubly linked list, so no bit shifting is required in memory.
 			3) LinkedList class can act as a list and queue both because it implements List and Deque interfaces.
@@ -2874,7 +2929,47 @@ Sure, here’s a list of key **Java 8 features**:
 			5) The location for the elements of a linked list is not contagious.
 			6) There is no case of default capacity in a LinkedList. In LinkedList, an empty list is created when a LinkedList is initialized.
 			7) LinkedList implements the doubly linked list of the list interface.
+			8) This allows forward and backward traversal.
 			
+				// Access elements
+				cities.getFirst();
+				cities.getLast();
+				
+				// Add at beginning and end
+				cities.addFirst("Delhi");
+				cities.addLast("Mumbai");
+				
+
+			---
+
+			### ✅ **ArrayList vs LinkedList – Comparison Table**
+
+			| Feature                      | **ArrayList**                                                                 | **LinkedList**                                                                
+			|-----------------------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+			| **Underlying Structure**     | Dynamic array (contiguous memory)                                            | Doubly linked nodes (each has `prev` and `next` pointers)                                                     |
+			| **Access by Index**          | ✅ Fast (`O(1)`) – Direct index access                                        | ❌ Slow (`O(n)`) – Traverses from head/tail                                                                  | 
+			| **Insertion at End**         | ✅ Fast (`O(1)` usually, `O(n)` if resizing)                                  | ✅ Fast (`O(1)`)                                                                                             | 
+			| **Insertion at Middle/Start**| ❌ Slow – Shifts elements (`O(n)`)                                            | ✅ Fast (`O(1)` if node known, otherwise `O(n)`)                                                             | 
+			| **Deletion at Middle/Start** | ❌ Slow – Shifts elements (`O(n)`)                                            | ✅ Fast – Just update pointers (`O(1)` if node known)                                                        | 
+			| **Memory Overhead**          | ✅ Low – Only stores values                                                  | ❌ High – Stores values + pointers to prev/next                                                               | 
+			| **Iteration Performance**    | ✅ Faster – Data is in contiguous memory                                      | ❌ Slower – Data is scattered in heap                                                                        | 
+			| **Use Case Example**         | Best for **searching/filtering**, like viewing orders or claims list         | Best for **queues/workflows**, like processing order queues or Frequent Insert/Cancel in Middleor claim steps  |
+
+			---
+
+			### 💡 Summary Tips:
+
+			- Use **`ArrayList`** when:
+			  - You mostly read data.
+			  - You need random access (`list.get(i)`).
+			  - You filter/search frequently.
+
+			- Use **`LinkedList`** when:
+			  - You frequently add/remove from start/middle.
+			  - You're building a queue or stack (FIFO/LIFO).
+			  - You don’t need fast access by index.
+
+						
 			iii.Vector
 			==========
 
@@ -2885,10 +2980,40 @@ Sure, here’s a list of key **Java 8 features**:
 			5) If you don't need to use the thread-safe implementation, you should use the ArrayList, the ArrayList will perform better in such case.
 			6) The Iterators returned by the Vector class are fail-fast.
 			7) In case of concurrent modification, it fails and throws the ConcurrentModificationException.
+			8) Maintains insertion order
 
 				It is similar to the ArrayList, but with two differences-
 				a. Vector is synchronized.
 				b. Java Vector contains many legacy methods that are not the part of a collections' framework.
+			
+			✅ What is Thread-Safe?
+			Thread-safe means that a piece of code or a class can be safely used by multiple threads at the same time without causing errors or data corruption.
+
+			🔄 Why is this important?
+			In a multi-threaded environment, multiple threads may try to access and modify shared resources (like a variable or collection) simultaneously.
+
+			If access is not managed properly, you may face issues like:
+			Inconsistent data
+			Race conditions
+			Program crashes
+			
+				🧵 Example (Non-thread-safe):
+
+					List<Integer> list = new ArrayList<>();
+
+					// Thread 1 adds 1
+					// Thread 2 adds 2 at the same time
+
+					// If both threads access the list at the same time without synchronization, it may corrupt the list.
+
+				✅ Example (Thread-safe):
+					
+					Vector<Integer> vector = new Vector<>();
+
+					// Thread 1 adds 1
+					// Thread 2 adds 2
+
+					// Vector is synchronized internally, so it handles multiple threads accessing it at the same time safely.
 
 
 			iv. Stack
@@ -2899,7 +3024,13 @@ Sure, here’s a list of key **Java 8 features**:
 			4) In this section, we will discuss the Java Stack class, its methods, and implement the stack data structure in a Java program.
 			5) The stack data structure has the two most important operations that are push and pop.
 			6) The push operation inserts an element into the stack and pop operation removes an element from the top of the stack.
-
+			7) Maintains insertion order
+						Operation | Description
+						push() | Add an element on top of the stack
+						pop() | Remove and return the top element
+						peek() | Return the top element without removing it
+						isEmpty() | Check if stack is empty
+						search() | Returns position of an element from the top (1-based)
 
 		2. Queue Interface
 		====================
@@ -2916,7 +3047,11 @@ Sure, here’s a list of key **Java 8 features**:
 			1) PriorityQueue is also class that is defined in the collection framework that gives us a way for processing the objects on the basis of priority.
 			2) It is already described that the insertion and deletion of objects follows FIFO pattern in the Java queue.
 			3) However, sometimes the elements of the queue are needed to be processed according to the priority, that's where a PriorityQueue comes into action.
-			4. PriorityQueue uses offer() method to add objects and peek method to return high priority elements (usuallay lowest numbers have highest priority).
+			4) PriorityQueue uses offer() method to add objects and peek method to return high priority elements (usuallay lowest numbers have highest priority).
+			5) Null elements are not allowed.
+			use case : 
+			Orders are given different priorities: HIGH, MEDIUM, LOW.
+			High-priority (rush) orders are processed first.
 
 
 		3. Deque Interface
@@ -2953,7 +3088,10 @@ Sure, here’s a list of key **Java 8 features**:
 			// Removing elements from both sides
 			int firstElement = deque.removeFirst(); // Removing element from the beginning
 			int lastElement = deque.removeLast();   // Removing element from the end
-
+			
+			real time use cases :
+			a. Palindrome Checking :You can use a deque to check if a string is a palindrome by comparing characters from both ends.
+			b. Undo Operations: Deques can be used to store previous states of an application for undo/redo functionality.
 
 
 		4. Set Interface
@@ -3116,6 +3254,41 @@ Sure, here’s a list of key **Java 8 features**:
 		   f. ConcurrentHashMap class doesn't allow null key or value.
 		   g. The default initial capacity of ConcurrentHashMap is 16, and the default concurrency level is 16.
 		   
+		   
+		   
+		   
+		Internal Structure of HashMap
+		==============================
+
+		### 🧠 **HashMap Internal Working – Summary**
+
+		1. **Data Structure**:  
+		   Uses an **array of Node<K, V>** (buckets) internally.
+
+		2. **Node**:  
+		   Each node holds: `key`, `value`, `hash`, and a `next` pointer (for chaining collisions).
+
+		3. **Hashing**:  
+		   - Calculates `hashCode()` of the key.  
+		   - Converts it to an index in the array using: `(n - 1) & hash`.
+
+		4. **Collision Handling**:  
+		   - Uses **Linked List** initially.  
+		   - Converts to **Red-Black Tree** if a single bucket has ≥ 8 entries (since Java 8).
+
+		5. **Resizing**:  
+		   - Happens when size exceeds `capacity × loadFactor` (default 16 × 0.75 = 12).  
+		   - On resize, array size doubles and all entries are **rehashed**.
+
+		6. **Nulls**:  
+		   - **Allows one `null` key**.  
+		   - **Allows multiple `null` values**.
+
+		7. **Performance**:  
+		   - Average case: O(1) for `get()` and `put()`.  
+		   - Worst case: O(log n) for tree-based buckets.
+
+		---
 
 
 
@@ -3258,42 +3431,50 @@ Sure, here’s a list of key **Java 8 features**:
 			Here's a Java code example illustrating these states:
 
 			```java
-			public class ThreadLifecycleExample {
-				public static void main(String[] args) {
-					Thread thread = new Thread(() -> {
-						// Task to be executed by the thread
-						System.out.println("Thread is executing...");
-						try {
-							Thread.sleep(2000); // Simulating some work
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+					public class ThreadLifecycleExample {
+						public static void main(String[] args) {
+
+							// 1. NEW State: Thread object created but not started
+							Thread thread = new Thread(() -> {
+								// 3. RUNNABLE / RUNNING State
+								System.out.println("3️. Thread is executing...");
+
+								try {
+									Thread.sleep(2000); // Simulate some work (TIMED_WAITING)
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+
+								System.out.println("3️. Thread execution completed.");
+							});
+
+							System.out.println("1️. Thread is in NEW state (created but not started).");
+
+							// 2. STARTED -> RUNNABLE State
+							thread.start();
+							System.out.println("2️. Thread is in RUNNABLE state (started and eligible to run).");
+
+							try {
+								// 4. WAITING State: Main thread will be waiting for 'thread' to finish
+								thread.join();
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+
+							// 5. TERMINATED State
+							System.out.println("5️. Thread is in TERMINATED state (finished execution)."); // this only prints after thread is completed.
 						}
-						System.out.println("Thread execution completed.");
-					});
-
-					// New state
-					System.out.println("Thread is in New state.");
-
-					// Starting the thread
-					thread.start();
-
-					// Active state
-					System.out.println("Thread is in Active state.");
-
-					try {
-						// Waiting for the thread to complete
-						thread.join();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
 					}
 
-					// Terminated state
-					System.out.println("Thread is in Terminated state.");
-				}
-			}
 			```
 
-			This example demonstrates the lifecycle of a thread from new to terminated state.
+			Output :
+			--------
+			1️.Thread is in NEW state (created but not started).
+			2️.Thread is in RUNNABLE state (started and eligible to run).
+			3️.Thread is executing...
+			3️.Thread execution completed.
+			5️.Thread is in TERMINATED state (finished execution).
 
 	In Java, there are two main ways to create a thread:
 
@@ -3781,12 +3962,27 @@ Sure, here’s a list of key **Java 8 features**:
 
 
 	SerialVersionUID : 
-	The serialization process at runtime associates an id with each Serializable class which is known as SerialVersionUID. It is used to verify the sender and receiver of the serialized object. The sender and receiver must be the same. To verify it, SerialVersionUID is used. The sender and receiver must have the same SerialVersionUID, otherwise, InvalidClassException will be thrown when you deserialize the object. We can also declare our own SerialVersionUID in the Serializable class. To do so, you need to create a field SerialVersionUID and assign a value to it. It must be of the long type with static and final. It is suggested to explicitly declare the serialVersionUID field in the class and have it private also. For example:
+	The serialization process at runtime associates an id with each Serializable class which is known as SerialVersionUID. 
+	It is used to verify the sender and receiver of the serialized object. The sender and receiver must be the same. To verify it, SerialVersionUID is used. 
+	The sender and receiver must have the same SerialVersionUID, otherwise, InvalidClassException will be thrown when you deserialize the object. 
+	We can also declare our own SerialVersionUID in the Serializable class. To do so, you need to create a field SerialVersionUID and assign a value to it. 
+	It must be of the long type with static and final. It is suggested to explicitly declare the serialVersionUID field in the class and have it private also. For example:
 
 	private static final long serialVersionUID=1L; 
 
+	 Real Use Case: Version Compatibility :
+	 
+	1. Imagine a Banking App:
 
+		Server Side (v1.0): Saves Account object to a file.
+		Later... App Updated to v2.0: Adds email field to Account class.
+		You try to read the old file into the new version — 💣 boom! Exception.
+		✅ If you define serialVersionUID manually, this won’t be a problem.
 
+	2. Imagine you’re using Kafka or Redis cache:
+		You serialize and send an object from Microservice A.
+		Microservice B (with updated code) deserializes it.
+		⚠️ If the classes differ and serialVersionUID isn’t fixed — crash during deserialization!
 
 	### Singleton Class:
 	======================
@@ -4790,7 +4986,8 @@ Sure, here’s a list of key **Java 8 features**:
 
 	SPRING
 	======================
-	Spring is a widely used framework for building enterprise-level Java applications. It provides comprehensive infrastructure support for developing Java-based applications, making it easier to create robust, maintainable, and scalable software. Spring offers various modules for different purposes, such as dependency injection, aspect-oriented programming, data access, messaging, and more. In a Spring application, you can develop components as POJOs (Plain Old Java Objects) and use Spring to manage these components, their dependencies, and other aspects of the application.
+	Spring is a widely used framework for building enterprise-level Java applications. It provides comprehensive infrastructure support for developing Java-based applications, making it easier to create robust, maintainable, and scalable software. 
+	Spring offers various modules for different purposes, such as dependency injection, aspect-oriented programming, data access, messaging, and more. In a Spring application, you can develop components as POJOs (Plain Old Java Objects) and use Spring to manage these components, their dependencies, and other aspects of the application.
 
 	Here's a simplified example of a traditional Spring application (non-Spring Boot) to help you understand the fundamental concepts. We'll create a simple Spring application that manages a list of users.
 
@@ -4800,7 +4997,6 @@ Sure, here’s a list of key **Java 8 features**:
 
 	1) Predefined Templates
 	Spring framework provides templates for JDBC, Hibernate, JPA etc. technologies. So there is no need to write too much code. It hides the basic steps of these technologies.
-
 
 	Let's take the example of JdbcTemplate, you don't need to write the code for exception handling, creating connection, creating statement, committing transaction, closing connection etc. You need to write the code of executing query only. Thus, it save a lot of JDBC code.
 
@@ -5037,25 +5233,6 @@ Sure, here’s a list of key **Java 8 features**:
 		output: Welcome To Plant Rajesh!
 		
 		
-	**Spring Boot Annotation**
-	----------------------------
-	In Spring Boot, annotation refers to a special type of metadata that we can add to our code to provide additional information or instructions to the Spring framework. 
-	Annotations are used to simplify and streamline the development process by reducing the amount of configuration code we need to write.
-
-	Annotations in Spring Boot serve several purposes. Firstly, they help in defining the behavior of our application components, such as controllers, services, and repositories. 
-	By adding annotations to these components, we can specify their roles and responsibilities within the application.
-
-	Secondly, annotations enable Spring Boot to automatically configure and manage various aspects of our application. 
-	For example, by using the @Autowired annotation, we can let Spring Boot handle the dependency injection of required dependencies into our classes.
-
-	Annotations also play a crucial role in enabling features and functionalities provided by Spring Boot, such as security, caching, transaction management, and RESTful APIs. 
-	By using specific annotations, we can easily enable and customize these features without writing extensive configuration code.
-
-	Overall, annotations in Spring Boot simplify the development process, enhance code readability, and enable the framework to automatically handle various aspects of our application. 
-	They help in reducing boilerplate code and make it easier to build robust and scalable applications.
-		
-	Spring Boot is a popular Java framework that simplifies the development of standalone, production-grade Spring-based applications. It provides a range of annotations that help developers configure and customize their applications.
-
 	2. Spring Boot Restful Services:
 	===================================
 
@@ -5084,7 +5261,7 @@ Sure, here’s a list of key **Java 8 features**:
 
 
 
-	RequestBod for List<User>
+	@RequestBody for List<User>
 	==========================
 	[
 		{
@@ -5104,15 +5281,7 @@ Sure, here’s a list of key **Java 8 features**:
 			"email":"pryanka369@mail.com",
 			"phone":"8008142536"
 		},
-		
-		{
-			"firstName":"Divya",
-			"lastName":"Kommirisetti",
-			"loginName":"DKommirisetti",
-			"password":"Divya@2002",
-			"email":"divya2002@mail.com",
-			"phone":"9567892345"
-		}
+
 	]
 
 
@@ -5303,11 +5472,26 @@ Sure, here’s a list of key **Java 8 features**:
 			System.out.println("Car started");
 		}
 	}
+	
+	class Bike {
+		private final Engine engine;
 
+		public Bike() {
+			this.engine = new Engine();
+		}
+
+		public void start() {
+			engine.start();
+			System.out.println("Bike Started...");
+		}
+	}
+	
 	public class Main {
 		public static void main(String[] args) {
-			Car car = new Car(); // Car creates its own Engine
+			Car car = new Car(); // creates its own engine
 			car.start();
+			Bike bike = new Bike(); //creates its own engine
+			bike.start();
 		}
 	}
 
@@ -5324,7 +5508,7 @@ Sure, here’s a list of key **Java 8 features**:
 	}
 
 	class Car {
-		private Engine engine;
+		private final Engine engine;
 
 		public Car(Engine engine) {
 			this.engine = engine; // Injecting the engine from the outside
@@ -5335,14 +5519,55 @@ Sure, here’s a list of key **Java 8 features**:
 			System.out.println("Car started");
 		}
 	}
+	
+	class Bike {
+		private final Engine engine;
+
+		public Bike(Engine engine) {
+			this.engine = engine; // Injecting the engine from the outside
+		}
+
+		public void start() {
+			engine.start();
+			System.out.println("Bike Started...");
+		}
+	}
 
 	public class Main {
 		public static void main(String[] args) {
-			Engine carEngine = new Engine(); // Engine created externally
-			Car car = new Car(carEngine); // Car receives the Engine through injection
+			Engine engine = new Engine(); // Engine created externally
+			Car car = new Car(engine); // Car receives the Engine through injection
+			Bike bike = new Bike(engine); // Car receives the Engine through injection
 			car.start();
+			bike.start();
 		}
 	}
+
+	From Above Example :
+	=====================
+	
+	Without Dependency Injection:
+	- Tightly Coupled:
+	  - Car and Bike create their own Engine inside the class.
+	  - Hard to change or test the Engine easily.
+
+	With Dependency Injection:
+	- Loosely Coupled:
+	  - Car and Bike receive the Engine from outside (injected).
+	  - Makes it easier to change the Engine or test the classes.
+
+	Code Example:
+	- Without DI:
+	  - Car and Bike create an Engine themselves.
+	- With DI:
+	  - Engine is created outside and passed to Car and Bike.
+
+	Benefits of DI:
+	- Easier Testing: You can easily replace Engine with a mock.
+	- More Flexibility: You can switch between different Engine types.
+	- Better Code: Classes are cleaner and more reusable.
+
+
 
 
 	Here's why Dependency Injection is used and its advantages:
@@ -5442,8 +5667,6 @@ Sure, here’s a list of key **Java 8 features**:
 	Annotations in simple terms :
 	=============================
 
-	in simple format and simple terms explan this whaat is annotation in springboot and why we use them ?
-
 	In Spring Boot, annotation refers to a special type of metadata that we can add to our code to provide additional information or instructions to the Spring framework. Annotations are used to simplify and streamline the development process by reducing the amount of configuration code we need to write.
 
 	Annotations in Spring Boot serve several purposes. Firstly, they help in defining the behavior of our application components, such as controllers, services, and repositories. By adding annotations to these components, we can specify their roles and responsibilities within the application.
@@ -5455,9 +5678,9 @@ Sure, here’s a list of key **Java 8 features**:
 	1. @Component :  
 		- @Component indicates that an annotated class is a "Spring Bean / Component".
 		- @Component tells the spring container to automatically create the spring bean.
-		- Spring IOC container creates the object of the class and manage that object.
+		- Spring IOC container creates the object of the class and manage that object. You do not need to use the `new` keyword to create an object.
 		- Spring Contaier will give the name of the bean as Class name with first letter is small.(StudentComponent --> studentComponent) we can give our name also.
-		
+
 		example:
 		
 			@Component("studentComponent")
@@ -5469,7 +5692,28 @@ Sure, here’s a list of key **Java 8 features**:
 		- The @Autowired annotation is used for automatic dependency injection
 		- The @Autowired annotation is used to inject the bean automatically.
 		- The @Autowired annotation is used in filed injection, constructor injection and setter injection.
+		
+		// 1. Field Injection
+		@Autowired
+		private PaymentService paymentService;
+		
+		
+		// 2. Constructor Injection
+		private final PaymentService paymentService;
 
+		@Autowired
+		public OrderServiceConstructor(PaymentService paymentService) {
+			this.paymentService = paymentService;
+		}
+		
+		// 3. Setter Injection
+		private PaymentService paymentService;
+
+		@Autowired
+		public void setPaymentService(PaymentService paymentService) {
+			this.paymentService = paymentService;
+		}
+	
 	3. @Qualifier : 
 		- @Qualifier annotation is used in conjection with @Autowired to avoid confusion when we have two or more beans configured for same type.
 		Example : 
@@ -5569,6 +5813,13 @@ Sure, here’s a list of key **Java 8 features**:
 				// you can write the logic to delete the records while applicatino is being shutdown.
 				}
 			}
+			When to Use @Bean:
+			------------------
+			When you can’t modify the source code (e.g. external library example : RestTemplate, WebClient).
+
+			When using complex object creation/configuration.
+
+			When conditional bean creation is needed.
 			
 	6. @Lazy :
 
@@ -5579,8 +5830,24 @@ Sure, here’s a list of key **Java 8 features**:
 		- Eager initialization is recommended : to avoid and detect all possible errors immediately rather than at runtime.
 
 	7. @Scope :
+		- The scope of a bean defines the life cycle and visibility of that bean in the contexts we use it.
 		- @Scope annotatation is used to define the scope of the bean.
 		- We use @Scope to define the scope of @Component class or a @Bean definition.
+		
+			Scope OF Beans In Spring
+			==================================================
+
+			The latest version of the Spring framework defines 6 types of scopes:
+
+			1. singleton - only one instance of the bean is created and shared across the entire application. This is default scope. @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON) or @Scope(value="singleton") - It will give you only one bean with same hashcode if you try to create/call the beans and print multiple times.
+			2. prototype - new Instance of the bean is created everytime it is requested. @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) or @Scope(value = "prototype") - It will give you different beans with different hashcodes if you try to create/call the beans and print multiple times.
+			3. request : A new instance of the bean is created for each HTTP request. This scope is only available in a web-aware application. Beans with request scope are destroyed at the end of each HTTP request.@Scope(value = WebApplicationContext.SCOPE_REQUEST)
+			4. session: A single instance of the bean is created for each HTTP session. This scope is only available in a web-aware application. Beans with session scope persist throughout the duration of the HTTP session. @Scope(value = WebApplicationContext.SCOPE_SESSION)
+			5. application : A single instance of the bean is created for the entire lifecycle of the application context. This scope is not tied to any particular HTTP request or session and is available across the entire application. It is equivalent to the "singleton" scope, but with a broader application context.@Scope(value = WebApplicationContext.SCOPE_APPLICATION)
+			6. websocket : A single instance of the bean is created for each WebSocket connection. This scope is only available in applications that use WebSocket communication. Beans with websocket scope persist for the duration of the WebSocket connection.@Scope(value = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
+
+			The last four scopes mentioned, request, session, application and websocket, are only available in a web-aware application.
+
 
 	8. @Value :
 		- @Value annotatation is used to assign default values to variables and method arguments or constructor arguments or setters.
@@ -5836,31 +6103,12 @@ Sure, here’s a list of key **Java 8 features**:
 					.forEach(someData -> System.out.println(someData));
 					
 					
-	Scope OF Beans In Spring
-	==================================================
-
-	The scope of a bean defines the life cycle and visibility of that bean in the contexts we use it.
-
-		- @Scope annotatation is used to define the scope of the bean.
-		- We use @Scope to define the scope of @Component class or a @Bean definition.
-		
-	The latest version of the Spring framework defines 6 types of scopes:
-
-	1. singleton - only one instance of the bean is created and shared across the entire application. This is default scope. @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON) or @Scope(value="singleton") - It will give you only one bean with same hashcode if you try to create/call the beans and print multiple times.
-	2. prototype - new Instance of the bean is created everytime it is requested. @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) or @Scope(value = "prototype") - It will give you different beans with different hashcodes if you try to create/call the beans and print multiple times.
-	3. request : A new instance of the bean is created for each HTTP request. This scope is only available in a web-aware application. Beans with request scope are destroyed at the end of each HTTP request.@Scope(value = WebApplicationContext.SCOPE_REQUEST)
-	4. session: A single instance of the bean is created for each HTTP session. This scope is only available in a web-aware application. Beans with session scope persist throughout the duration of the HTTP session. @Scope(value = WebApplicationContext.SCOPE_SESSION)
-	5. application : A single instance of the bean is created for the entire lifecycle of the application context. This scope is not tied to any particular HTTP request or session and is available across the entire application. It is equivalent to the "singleton" scope, but with a broader application context.@Scope(value = WebApplicationContext.SCOPE_APPLICATION)
-	6. websocket : A single instance of the bean is created for each WebSocket connection. This scope is only available in applications that use WebSocket communication. Beans with websocket scope persist for the duration of the WebSocket connection.@Scope(value = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
-
-	The last four scopes mentioned, request, session, application and websocket, are only available in a web-aware application.
-
-
 
 	Spring-Boot Actuator
 	====================
 
-	Developing and Managing an application are the two most important aspects of the application’s life cycle. It is very crucial to know what’s going on beneath the application. Also when we push the application into production, managing it gradually becomes critically important. Therefore, it is always recommended to monitor the application both while at the development phase and at the production phase. 
+	Developing and Managing an application are the two most important aspects of the application’s life cycle. It is very crucial to know what’s going on beneath the application.
+	Also when we push the application into production, managing it gradually becomes critically important. Therefore, it is always recommended to monitor the application both while at the development phase and at the production phase. 
 
 	For the same use case, Spring Boot provides an actuator dependency that can be used to monitor and manage your Spring Boot application, By /actuator and /actuator/health endpoints you can achieve the purpose of monitoring.
 
@@ -5999,6 +6247,27 @@ Sure, here’s a list of key **Java 8 features**:
 	6. The embedded web server (e.g., Tomcat, Jetty) is started if the application includes web dependencies.
 	7. Request mapping and endpoint handling are configured based on controllers and REST endpoints defined in the application.
 	8. The application is ready to handle incoming requests and perform business logic as defined in the application components.
+	Client
+	  ↓
+	Embedded Server (Tomcat)
+	  ↓
+	Filter Chain [Security/JWT]
+	  ↓
+	DispatcherServlet
+	  ↓
+	HandlerMapping → Find Controller
+	  ↓
+	Controller Method Executes
+	  ↓
+	Response Created
+	  ↓
+	DispatcherServlet
+	  ↓
+	Filter Chain (if any post-processing)
+	  ↓
+	Embedded Server Sends Response
+	  ↓
+	Client receives it
 
 
 
@@ -6176,6 +6445,222 @@ Sure, here’s a list of key **Java 8 features**:
 					.retrieve()
 					.bodyToMono(String.class);
 		}
+		
+		
+		Here's your complete version of **`RestTemplate`**, **`WebClient`**, and **`FeignClient`** usage — with **proper HTTP method comments**, **endpoint URLs**, and **return types stored in variables**.
+
+
+	---
+
+	## 🔵 **1. RestTemplate – All Methods With Comments**
+
+	### ✅ `GET` → `/hello`
+	```java
+	// GET Request
+	String url = "http://localhost:8081/hello";
+	String response = restTemplate.getForObject(url, String.class); 
+	return response;
+	```
+
+	### ✅ `GET` with ResponseEntity → `/hello`
+	```java
+	// GET Request
+	String url = "http://localhost:8081/hello";
+	ResponseEntity<String> response = restTemplate.getForEntity(url, String.class); 
+	return response.getBody();
+	```
+
+	### ✅ `POST` → `/post`
+	```java
+	// POST Request
+	String url = "http://localhost:8081/post";
+	MyRequest request = new MyRequest("test");
+	String response = restTemplate.postForObject(url, request, String.class); 
+	return response;
+	```
+
+	### ✅ `POST` with ResponseEntity → `/post`
+	```java
+	// POST Request
+	String url = "http://localhost:8081/post";
+	ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class); 
+	return response.getBody();
+	```
+
+	### ✅ `PUT` → `/update`
+	```java
+	// PUT Request
+	String url = "http://localhost:8081/update";
+	restTemplate.put(url, request); 
+	return "Put executed";
+	```
+
+	### ✅ `DELETE` → `/delete/1`
+	```java
+	// DELETE Request
+	String url = "http://localhost:8081/delete/1";
+	restTemplate.delete(url); 
+	return "Deleted successfully";
+	```
+
+	### ✅ `exchange()` with Header → `/hello`
+	```java
+	// GET Request with Headers
+	String url = "http://localhost:8081/hello";
+	HttpHeaders headers = new HttpHeaders();
+	headers.set("Authorization", "Bearer token");
+	HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+	ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class); 
+	return response.getBody();
+	```
+
+	---
+
+	## 🔵 **2. WebClient – Full Methods With URL and HTTP Methods**
+
+	### ✅ Setup
+	```java
+	WebClient webClient = WebClient.builder().build();
+	```
+
+	### ✅ `GET` → `/hello`
+	```java
+	// GET Request
+	Mono<String> response = webClient.get()
+			.uri("http://localhost:8081/hello")
+			.retrieve()
+			.bodyToMono(String.class);
+	return response;
+	```
+
+	### ✅ `POST` → `/post`
+	```java
+	// POST Request
+	MyRequest request = new MyRequest("test");
+
+	Mono<String> response = webClient.post()
+			.uri("http://localhost:8081/post")
+			.bodyValue(request)
+			.retrieve()
+			.bodyToMono(String.class);
+	return response;
+	```
+
+	### ✅ `PUT` → `/update`
+	```java
+	// PUT Request
+	Mono<String> response = webClient.put()
+			.uri("http://localhost:8081/update")
+			.bodyValue(request)
+			.retrieve()
+			.bodyToMono(String.class);
+	return response;
+	```
+
+	### ✅ `DELETE` → `/delete/1`
+	```java
+	// DELETE Request
+	Mono<Void> response = webClient.delete()
+			.uri("http://localhost:8081/delete/1")
+			.retrieve()
+			.bodyToMono(Void.class);
+	return response;
+	```
+
+	### ✅ `GET` with Header → `/hello`
+	```java
+	// GET Request with Authorization Header
+	Mono<String> response = webClient.get()
+			.uri("http://localhost:8081/hello")
+			.header("Authorization", "Bearer token")
+			.retrieve()
+			.bodyToMono(String.class);
+	return response;
+	```
+
+	---
+
+	## 🔵 **3. FeignClient – Declarative with URLs and HTTP Methods**
+
+	### ✅ Feign Client Interface
+	```java
+	@FeignClient(name = "demo-client", url = "http://localhost:8081")
+	public interface DemoFeignClient {
+
+		// GET Request
+		@GetMapping("/hello")
+		String getHello();
+
+		// POST Request
+		@PostMapping("/post")
+		String createSomething(@RequestBody MyRequest request);
+
+		// PUT Request
+		@PutMapping("/update")
+		void updateSomething(@RequestBody MyRequest request);
+
+		// DELETE Request
+		@DeleteMapping("/delete/{id}")
+		void deleteSomething(@PathVariable("id") Long id);
+	}
+	```
+
+	### ✅ Controller using FeignClient
+	```java
+	@RestController
+	public class FeignClientController {
+
+		@Autowired
+		private DemoFeignClient demoFeignClient;
+
+		// GET Request
+		@GetMapping("/feign/hello")
+		public String callHello() {
+			String response = demoFeignClient.getHello();
+			return response;
+		}
+
+		// POST Request
+		@PostMapping("/feign/create")
+		public String create() {
+			MyRequest request = new MyRequest("data");
+			String response = demoFeignClient.createSomething(request);
+			return response;
+		}
+
+		// PUT Request
+		@PutMapping("/feign/update")
+		public String update() {
+			MyRequest request = new MyRequest("updated");
+			demoFeignClient.updateSomething(request);
+			return "Updated";
+		}
+
+		// DELETE Request
+		@DeleteMapping("/feign/delete/{id}")
+		public String delete(@PathVariable Long id) {
+			demoFeignClient.deleteSomething(id);
+			return "Deleted";
+		}
+	}
+	```
+
+	---
+
+	## ✅ Ready for ZIP?
+
+	Would you like me to generate a **complete Spring Boot project ZIP file** with:
+
+	- `RestTemplateController.java`
+	- `WebClientController.java`
+	- `FeignClientController.java`
+	- DTO: `MyRequest.java`
+	- Full setup (`pom.xml`, application files)
+
+	Let me know and I’ll generate it for you!
+		
+		
 	In summary, RestTemplate is a synchronous client suitable for traditional blocking applications, while WebClient is an asynchronous client suitable for reactive, non-blocking applications.
 
 
@@ -6954,28 +7439,44 @@ Sure, here’s a list of key **Java 8 features**:
 	Let's demonstrate these concepts with a simple example of finding the maximum element in an array:
 
 	```java
-	public class MaxElement {
+		import java.util.ArrayList;
 
-		// Function to find the maximum element in an array
-		public static int findMax(int[] arr) {
-			int max = arr[0];  // Initialize max with the first element
+		public class MaxElement {
 
-			// Traverse the array to find the maximum element
-			for (int i = 1; i < arr.length; i++) {
-				if (arr[i] > max) {
-					max = arr[i];
+			// Function to find the maximum element in an array
+			public static int findMax(int[] arr) {
+				int max = arr[0];  // Initialize max with the first element
+
+				// O(1) space if you do not add elements to this tempStorage. Its internal size is 0. The actual space complexity remains O(1). because no element-specific memory is used.
+				ArrayList<Integer> tempStorage = new ArrayList<>();
+
+				// This increases the space complexity to O(n) even if you do not store elements, because memory is already allocated with size arr.length.
+				int[] tempArray = new int[arr.length];
+
+				// Traverse the array to find the maximum element
+				for (int i = 1; i < arr.length; i++) {
+
+					// If you enable this line, space complexity becomes O(n) because each element is stored in tempStorage.
+					// tempStorage.add(arr[i]);
+
+					// If you enable or disable this line, time complexity is still O(n), but enabling it will increase space complexity to O(n).
+					// tempArray[i] = arr[i];
+
+					if (arr[i] > max) {
+						max = arr[i];
+					}
 				}
+
+				return max;
 			}
 
-			return max;
+			public static void main(String[] args) {
+				int[] array = {3, 7, 2, 8, 5};  // Sample input array
+				int maxElement = findMax(array);
+				System.out.println("Maximum element: " + maxElement);
+			}
 		}
 
-		public static void main(String[] args) {
-			int[] array = {3, 7, 2, 8, 5};  // Sample input array
-			int maxElement = findMax(array);
-			System.out.println("Maximum element: " + maxElement);
-		}
-	}
 	```
 
 	In this program, the `findMax` function traverses the input array once to find the maximum element. Let's analyze its time and space complexity:
@@ -7000,39 +7501,56 @@ Sure, here’s a list of key **Java 8 features**:
 	In Data Structures and Algorithms (DSA), various types of sorting algorithms, search algorithms, and data structures like stacks, queues, and lists are commonly used. Here's a brief overview of each:
 
 	### Sorting Algorithms:
-
-	1. **Bubble Sort:**
+	-----------------------
+	1. Bubble Sort:
 	   - Compares adjacent elements and swaps them if they are in the wrong order.
 	   - Repeats this process until the entire list is sorted.
+	   - Time Complexity: Best O(n), Average/Worst O(n^2)
+	   - Space Complexity: O(1)
 
-	2. **Selection Sort:**
+	2. Selection Sort:
 	   - Divides the input list into two parts: a sorted and an unsorted region.
 	   - In each iteration, finds the smallest element in the unsorted region and swaps it with the first element of the unsorted region.
+	   - Time Complexity: Best/Average/Worst O(n^2)
+	   - Space Complexity: O(1)
 
-	3. **Insertion Sort:**
+	3. Insertion Sort:
 	   - Builds the final sorted array one item at a time.
 	   - Takes each element from the unsorted list and inserts it into its correct position in the sorted list.
+	   - Time Complexity: Best O(n), Average/Worst O(n^2)
+	   - Space Complexity: O(1)
 
-	4. **Merge Sort:**
+	4. Merge Sort:
 	   - Divides the array into two halves, recursively sorts them, and then merges them.
 	   - Uses a divide-and-conquer strategy.
+	   - Time Complexity: Best/Average/Worst O(n log n)
+	   - Space Complexity: O(n)
 
-	5. **Quick Sort:**
+	5. Quick Sort:
 	   - Selects a pivot element and partitions the array into two sub-arrays: elements less than the pivot and elements greater than the pivot.
 	   - Recursively applies the same process to the sub-arrays.
+	   - Time Complexity: Best/Average O(n log n), Worst O(n^2)
+	   - Space Complexity: O(log n) (due to recursion stack)
 
-	6. **Heap Sort:**
+	6. Heap Sort:
 	   - Builds a binary heap and repeatedly extracts the maximum element, placing it in the sorted portion of the array.
 	   - Utilizes a binary heap data structure.
+	   - Time Complexity: Best/Average/Worst O(n log n)
+	   - Space Complexity: O(1)
 
 	### Searching Algorithms:
 
-	1. **Linear Search:**
+	1. Linear Search:
 	   - Checks each element in the list until a match is found or the end of the list is reached.
+	   - Time Complexity: Best O(1), Average/Worst O(n)
+	   - Space Complexity: O(1)
 
-	2. **Binary Search:**
+	2. Binary Search:
 	   - Applies to a sorted list and repeatedly divides the search interval in half.
 	   - Compares the target value to the middle element and narrows down the search.
+	   - Time Complexity: Best O(1), Average/Worst O(log n)
+	   - Space Complexity: O(1) (iterative), O(log n) (recursive)
+	   - imp: So, binary search is faster — especially for large, sorted arrays.
 
 	### Data Structures:
 
@@ -7633,118 +8151,6 @@ Sure, here’s a list of key **Java 8 features**:
 
 
 
-	JUNIT
-	========
-	It is an open-source testing framework for java programmers. The java programmer can create test cases and test his/her own code.
-
-	It is one of the unit testing framework. Current version is junit 4.
-
-	To perform unit testing, we need to create test cases. The unit test case is a code which ensures that the program logic works as expected.
-
-	The org.junit package contains many interfaces and classes for junit testing such as Assert, Test, Before, After etc.
-
-
-
-	1) Manual Testing
-	If you execute the test cases manually without any tool support, it is known as manual testing. It is time consuming and less reliable.
-
-	2) Automated Testing
-	If you execute the test cases by tool support, it is known as automated testing. It is fast and more reliable. script example : Selenium WebDriver
-
-
-	Annotations for Junit testing
-	-------------------------------
-	@Test annotation specifies that method is the test method.
-
-	@Test(timeout=1000) annotation specifies that method will be failed if it takes longer than 1000 milliseconds (1 second).
-
-	@BeforeClass annotation specifies that method will be invoked only once, before starting all the tests.
-
-	@Before annotation specifies that method will be invoked before each test.
-
-	@After annotation specifies that method will be invoked after each test.
-
-	@AfterClass annotation specifies that method will be invoked only once, after finishing all the tests.
-
-
-
-
-	Assert class
-	-------------
-	The org.junit.Assert class provides methods to assert the program logic.
-
-	The common methods of Assert class are as follows:
-
-	void assertEquals(boolean expected,boolean actual): checks that two primitives/objects are equal. It is overloaded.
-	void assertTrue(boolean condition): checks that a condition is true.
-	void assertFalse(boolean condition): checks that a condition is false.
-	void assertNull(Object obj): checks that object is null.
-	void assertNotNull(Object obj): checks that object is not null.
-
-
-
-	MOCKITO TESTING 
-	================
-
-	What is Mocking ?
-	-----------------
-	Mocking is a process of developing the objects that act as the mock or clone of the real objects. 
-	In other words, mocking is a testing technique where mock objects are used instead of real objects for testing purposes. 
-	Mock objects provide a specific (dummy) output for a particular (dummy) input passed to it.
-
-	The mocking technique is not only used in Java but also used in any object-oriented programming language. 
-	There are many frameworks available in Java for mocking, but Mockito is the most popular framework among them.
-
-	What is Mockito ?
-	-----------------
-	Mockito is a Java-based mocking framework used for unit testing of Java application. Mockito plays a crucial role in developing testable applications. 
-	Mockito was released as an open-source testing framework under the MIT (Massachusetts Institute of Technology) License. 
-	It internally uses the Java Reflection API to generate mock objects for a specific interface. 
-	Mock objects are referred to as the dummy or proxy objects used for actual implementations
-
-
-	Methods in MOCKITO
-	------------------
-	mock() : It is used to create mock objects of a given class or interface. Mockito contains five mock() methods with different arguments. 
-			 When we didn't assign anything to mocks, they will return default values. All five methods perform the same function of mocking the objects.
-			 
-			 Ex : Calculate calculate = mock(Calculate.class);  
-
-	when() : It enables stubbing methods. It should be used when we want to mock to return specific values when particular methods are called. 
-			 In simple terms, "When the XYZ() method is called, then return ABC." It is mostly used when there is some condition to execute.
-			 
-			 Ex : when(mock.someCode ()).thenReturn(5);  
-
-	verify(): The verify() method is used to check whether some specified methods are called or not. 
-			 In simple terms, it validates the certain behavior that happened once in a test. It is used at the bottom of the testing code to assure that the defined methods are called.
-			 
-	spy() 	: Mockito provides a method to partially mock an object, which is known as the spy method. 
-			  When using the spy method, there exists a real object, and spies or stubs are created of that real object.
-			  
-				spy() method: It creates a spy of the real object. The spy method calls the real methods unless they are stubbed. 
-							  We should use the real spies carefully and occasionally, for example, when dealing with the legacy code.
-					Syntax: <T> spy(T object)
-					
-				spy() method with Class: It creates a spy object based on class instead of an object. The spy(T object) method is particularly useful for spying abstract classes because they cannot be instantiated.
-					Syntax: <T> spy(Class<T> classToSpy)
-			  
-			  List spyArrayList = spy(ArrayList.class);  
-			  
-	reset() : The Mockito reset() method is used to reset the mocks. It is mainly used for working with the container injected mocks. 
-			  Usually, the reset() method results in a lengthy code and poor tests. 
-			  It's better to create new mocks rather than using reset() method. That is why the reset() method is rarely used in testing
-
-
-
-	1. We use the @ExtendWith(MockitoExtension.class) annotation at the class level to tell JUnit 5 to initialize mocks and prepare them for injection.
-
-	2. The @Mock annotation creates a mock implementation of the EmployeeRepository interface.
-
-	3. @InjectMocks is used to inject mock fields into the service instance.
-
-	4. In the test method testGetEmployeeDetails, we define the behavior of the mock (when(repository.findEmployeeById(1L)).thenReturn(emp);) and then execute the service method to be tested.
-
-
 	Additionally
 	==============
 
@@ -8032,37 +8438,228 @@ Sure, here’s a list of key **Java 8 features**:
 	These are basic examples. You may need to adjust them based on your project structure and requirements. Let me know if you need further explanation or assistance with any specific command or instruction!
 
 
-	DEPLOYING SAMPLE APPLICATION :
-	==============================
+	---
 
-	step : 1 : 
+	## 🚀 FULL DEPLOYMENT FLOW OF SPRING BOOT APP
+	=============================================
 
-				add this tag in pom.xml file
-				------------------------------
-				<!--		with this name, jar will be created-->
-				<finalName>spring-with-docker</finalName>
-				
-				DOCKER FILE (create a Dockerfile and add these fields in that file)
-				-------------------------------------------------------------------
-				FROM openjdk:17
-				EXPOSE 9191
-				ADD target/spring-with-docker.jar
-				ENTRYPOINT ["java", "-jar", "/spring-with-docker.jar"]
+	---
 
-	step : 2 : mvn clean install
+	### ✅ **STEP 1: Maven Build & Docker Image (Local Setup)**
 
-	step : 3 : build the docker image using below command
+	**Already done by you!**
 
-				docker build -t spring-with-docker.jar .
+	```pom.xml
+	<finalName>spring-with-docker</finalName>
+	```
 
-	step : 4 : run the docker container based on docker image using below command
-				
-				docker run -p 9192:9191 spring-with-docker.jar
+	```Dockerfile
+	FROM openjdk:17
+	EXPOSE 9191
+	ADD target/spring-with-docker.jar spring-with-docker.jar
+	ENTRYPOINT ["java", "-jar", "spring-with-docker.jar"]
+	```
 
+	```bash
+	mvn clean install
+	docker build -t spring-with-docker .
+	docker run -p 9192:9191 spring-with-docker
+	```
 
-	Now you will be able to access application using http://localhost:9192/message
+	✔️ **You can test app locally at:** `http://localhost:9192/message`
 
+	---
 
+	## 🛠️ STEP 2: Push Code to **GitLab**
+
+	### Why?
+	To enable CI/CD and store your source code remotely for automated builds.
+
+	### How?
+	1. Create a **GitLab repo**
+	2. Run:
+	```bash
+	git init
+	git remote add origin https://gitlab.com/your-username/your-repo.git
+	git add .
+	git commit -m "initial commit"
+	git push -u origin main
+	```
+
+	---
+
+	## 🐳 STEP 3: Push Docker Image to **Docker Hub**
+
+	### Why?
+	Docker Hub stores your image, so Kubernetes/AWS can pull and run it.
+
+	### How?
+	1. **Login** to Docker Hub:
+	```bash
+	docker login
+	```
+
+	2. **Tag** your image:
+	```bash
+	docker tag spring-with-docker your-dockerhub-username/spring-with-docker
+	```
+
+	3. **Push** the image:
+	```bash
+	docker push your-dockerhub-username/spring-with-docker
+	```
+
+	---
+
+	## 🔄 STEP 4: Automate Build & Push with **GitLab CI/CD**
+
+	### Why?
+	To automatically build and push Docker images when you push code.
+
+	### How?
+	Create `.gitlab-ci.yml` file in root directory:
+
+	```yaml
+	image: docker:latest
+
+	services:
+	  - docker:dind
+
+	stages:
+	  - build
+
+	variables:
+	  DOCKER_DRIVER: overlay2
+
+	before_script:
+	  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+
+	build:
+	  stage: build
+	  script:
+		- docker build -t your-dockerhub-username/spring-with-docker .
+		- docker push your-dockerhub-username/spring-with-docker
+	```
+
+	✅ This automates Docker image creation + pushing on every GitLab push.
+
+	---
+
+	## ☸️ STEP 5: Deploy to **Kubernetes (Minikube or Cloud)**
+
+	### Why?
+	To scale, manage, and auto-restart containers.
+
+	---
+
+	### 5.1 Create Deployment YAML:
+
+	```yaml
+	# deployment.yaml
+	apiVersion: apps/v1
+	kind: Deployment
+	metadata:
+	  name: spring-docker-app
+	spec:
+	  replicas: 2
+	  selector:
+		matchLabels:
+		  app: spring-app
+	  template:
+		metadata:
+		  labels:
+			app: spring-app
+		spec:
+		  containers:
+			- name: spring-app
+			  image: your-dockerhub-username/spring-with-docker
+			  ports:
+				- containerPort: 9191
+	```
+
+	---
+
+	### 5.2 Create Service YAML:
+
+	```yaml
+	# service.yaml
+	apiVersion: v1
+	kind: Service
+	metadata:
+	  name: spring-docker-service
+	spec:
+	  type: NodePort
+	  selector:
+		app: spring-app
+	  ports:
+		- port: 9191
+		  targetPort: 9191
+		  nodePort: 30091
+	```
+
+	---
+
+	### 5.3 Apply to Kubernetes:
+	```bash
+	kubectl apply -f deployment.yaml
+	kubectl apply -f service.yaml
+	```
+
+	✅ Access via: `http://<NodeIP>:30091/message`
+
+	---
+
+	## ☁️ STEP 6: Deploy to **AWS**
+
+	---
+
+	### 6.1 Using **EC2 Instance + Docker**
+
+	1. Launch EC2 (Amazon Linux or Ubuntu)
+	2. SSH into EC2:
+	```bash
+	ssh -i "your-key.pem" ec2-user@<your-ec2-ip>
+	```
+	3. Install Docker and run your app:
+	```bash
+	sudo yum update -y
+	sudo yum install docker -y
+	sudo service docker start
+	docker pull your-dockerhub-username/spring-with-docker
+	docker run -d -p 80:9191 your-dockerhub-username/spring-with-docker
+	```
+
+	✅ Open EC2 IP in browser: `http://<ec2-ip>/message`
+
+	---
+
+	### 6.2 Using **AWS EKS (Managed Kubernetes)**
+
+	> EKS = AWS Kubernetes. Better for scaling in production.
+
+	1. Create EKS Cluster (via AWS Console or Terraform)
+	2. Install `eksctl`, `kubectl`, and `aws-cli`
+	3. Deploy same `deployment.yaml` & `service.yaml`
+	4. Use `kubectl apply` to deploy
+
+	---
+
+	## 🎯 Summary Table:
+
+	| Step | Tool          | Purpose |
+	|------|---------------|---------|
+	| 1    | Maven + Docker | Build locally |
+	| 2    | GitLab         | Source version control |
+	| 3    | Docker Hub     | Store Docker image |
+	| 4    | GitLab CI/CD   | Automate Docker build & push |
+	| 5    | Kubernetes     | Scale/manage containers |
+	| 6    | AWS (EC2/EKS)  | Run app in the cloud |
+
+	---
+
+	Would you like a **PDF/Word version** of this full flow with diagrams?
+
+	Or want to explore **CI/CD with Kubernetes**, **AWS Terraform**, or **Monitoring with Prometheus** next?
 
 
 
@@ -8178,6 +8775,36 @@ Sure, here’s a list of key **Java 8 features**:
 
 	Understanding these commands and restrictions is essential for effectively managing and troubleshooting applications deployed on Kubernetes. Additionally, familiarizing yourself with Kubernetes documentation and best practices can help you navigate these complexities and optimize your application deployment process.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	KAFKA Tutorial
 	==============
 	Apache Kafka 
@@ -8231,27 +8858,89 @@ Sure, here’s a list of key **Java 8 features**:
 	In such a situation, the consumer is unable to consume the message again. Consequently, Apache Kafka has resolved the problem by reprocessing the data
 
 
-	Brokers
-	=======
+	Kafka key Concepts 
+	==================
+	Producer: A producer is an application or service that sends data (messages or events) to a Kafka topic.
 
-	A Kafka cluster is comprised of one or more servers which are known as brokers or Kafka brokers. 
-	A broker is a container that holds several topics with their multiple partitions. 
-	The brokers in the cluster are identified by an integer id only. 
-	Kafka brokers are also known as Bootstrap brokers because connection with any one broker means connection with the entire cluster. 
-	Although a broker does not contain whole data, but each broker in the cluster knows about all other brokers, partitions as well as topics.
+	Consumer: A consumer is an application or service that reads data from a Kafka topic.
 
+	Broker: A broker is a Kafka server that stores messages and serves them to consumers. Kafka clusters usually have multiple brokers.
 
+	Topic: A topic is a category or feed name where messages are published by producers and read by consumers. Topics help organize messages.
 
+	Partition: Each topic can be divided into partitions. Partitions allow Kafka to scale horizontally and process data in parallel.
 
+	Offset: An offset is a unique identifier assigned to each message in a partition. It helps keep track of the read position for consumers.
 
+	Consumer Group: A consumer group is a group of consumers that work together to consume messages from a topic. Each message is delivered to only one consumer in the group.
 
-
-
-
-
-
+	ZooKeeper: ZooKeeper was used for managing Kafka’s cluster metadata and coordination. Starting from Kafka version 3.0, it is optional and can be replaced with Kafka’s built-in KRaft mode.
 
 
+	Here are some practical example use cases for using **Kafka in an Employee Management System**:
+	----------------------------------------------------------------------------------------------
+	---
+
+	### 1. Audit Logging
+
+	Whenever an employee is created, updated, or deleted, send an event to Kafka like:
+
+	- "Employee ID 101 created by Admin"
+	- "Employee ID 205 updated: address changed"
+
+	Kafka stores this data in a topic, which can later be consumed by a logging or auditing service.
+
+	---
+
+	### 2. Asynchronous Email or SMS Notifications
+
+	Instead of sending emails directly after an employee is onboarded, send a message to a Kafka topic:
+
+	- Topic: `employee-notifications`
+	- Message: "Welcome email for employee ID 102"
+
+	A separate notification microservice consumes this topic and sends the email/SMS, making the main process faster and non-blocking.
+
+	---
+
+	### 3. Real-Time Dashboard Updates
+
+	For real-time analytics, stream data through Kafka:
+
+	- When new employees join, send the data to a topic.
+	- The dashboard service listens to that topic and updates the UI live.
+
+	---
+
+	### 4. Sync Data Across Microservices
+
+	If you have microservices like:
+
+	- employee-service
+	- payroll-service
+	- attendance-service
+
+	You can use Kafka to sync data changes across services. For example, when an employee's department changes, publish an event to Kafka. The payroll and attendance services consume it and update their local data.
+
+	---
+
+	### 5. Trigger Background Jobs
+
+	When an employee is deactivated or leaves the company, Kafka can trigger background tasks:
+
+	- Revoke system access
+	- Archive documents
+	- Remove from mailing lists
+
+	Each task is handled by a different service that listens to Kafka topics.
+
+	---
+
+	### 6. Integrate with External Systems
+
+	Suppose HR data needs to be sent to an external insurance provider. You can publish employee events to Kafka, and an external connector service consumes and pushes the data outside your system.
+
+	---
 
 
 
@@ -8260,3 +8949,1674 @@ Sure, here’s a list of key **Java 8 features**:
 
 
 
+
+
+
+
+
+
+
+
+
+
+	JUNIT
+	========
+	It is an open-source testing framework for java programmers. The java programmer can create test cases and test his/her own code.
+
+	It is one of the unit testing framework. Current version is junit 4.
+
+	To perform unit testing, we need to create test cases. The unit test case is a code which ensures that the program logic works as expected.
+
+	The org.junit package contains many interfaces and classes for junit testing such as Assert, Test, Before, After etc.
+
+
+
+	1) Manual Testing
+	If you execute the test cases manually without any tool support, it is known as manual testing. It is time consuming and less reliable.
+
+	2) Automated Testing
+	If you execute the test cases by tool support, it is known as automated testing. It is fast and more reliable. script example : Selenium WebDriver
+
+
+	Annotations for Junit testing
+	-------------------------------
+	@Test annotation specifies that method is the test method.
+
+	@Test(timeout=1000) annotation specifies that method will be failed if it takes longer than 1000 milliseconds (1 second).
+
+	@BeforeClass annotation specifies that method will be invoked only once, before starting all the tests.
+
+	@Before annotation specifies that method will be invoked before each test.
+
+	@After annotation specifies that method will be invoked after each test.
+
+	@AfterClass annotation specifies that method will be invoked only once, after finishing all the tests.
+
+
+
+	Assert class
+	-------------
+	The org.junit.Assert class provides methods to assert the program logic.
+
+	The common methods of Assert class are as follows:
+
+	void assertEquals(boolean expected,boolean actual): checks that two primitives/objects are equal. It is overloaded.
+	void assertTrue(boolean condition): checks that a condition is true.
+	void assertFalse(boolean condition): checks that a condition is false.
+	void assertNull(Object obj): checks that object is null.
+	void assertNotNull(Object obj): checks that object is not null.
+	
+	Example: JUnit Annotations with Test Case Example and Use Case Comments
+	-----------------------------------------------------------------------
+
+	import org.junit.jupiter.api.*;
+	import static org.junit.jupiter.api.Assertions.*;
+
+	public class ExampleTest {
+
+		// @BeforeAll: This method is executed once before any test methods are run. 
+		// Use case: Typically used to set up expensive or shared resources (e.g., database connections) that are required by all tests.
+		@BeforeAll
+		public static void beforeAllTests() {
+			System.out.println("Before all tests - @BeforeAll");
+		}
+
+		// @BeforeEach: This method is executed before each individual test method is run.
+		// Use case: Ideal for initializing common resources that need to be set up before each test (e.g., mocking dependencies, initializing objects).
+		@BeforeEach
+		public void beforeEachTest() {
+			System.out.println("Before each test - @BeforeEach");
+		}
+
+		// @Test(timeout = 1000): This annotation indicates that the test method will fail if it takes longer than the specified time (in this case, 1000 milliseconds or 1 second) to execute.
+		// Use case: Useful for ensuring that your test method completes in a reasonable amount of time. Can be used for performance testing or to avoid tests that hang indefinitely.
+		@Test(timeout = 1000) // Test will fail if execution takes more than 1 second
+		public void testMethod1() throws InterruptedException {
+			System.out.println("Running testMethod1 - @Test(timeout=1000)");
+			// Simulating some test logic that takes less than 1000ms
+			Thread.sleep(500); // Sleep for 500ms
+			assertTrue(true);  // This will pass as it is always true
+		}
+
+		// @Test: This annotation marks a method as a test case.
+		// Use case: Used to mark the actual test methods that you want to execute. It is the core annotation for running individual unit tests.
+		@Test
+		public void testMethod2() {
+			System.out.println("Running testMethod2 - @Test");
+			// Basic test case that checks if 2 + 3 equals 5
+			assertEquals(5, 2 + 3); // This will pass as the result is 5
+		}
+
+		// @AfterEach: This method is executed after each individual test method completes.
+		// Use case: Often used for cleanup activities, like resetting the state of a system or releasing resources (e.g., closing a database connection).
+		@AfterEach
+		public void afterEachTest() {
+			System.out.println("After each test - @AfterEach");
+		}
+
+		// @AfterAll: This method is executed once after all the test methods have been executed.
+		// Use case: Typically used for cleanup activities that need to happen once after all tests have completed, such as closing global resources or freeing up memory.
+		@AfterAll
+		public static void afterAllTests() {
+			System.out.println("After all tests - @AfterAll");
+		}
+	}
+
+	---
+
+	### ✅ JUnit 4 Annotations (older version)
+
+	| Annotation         | Description                                                                 |
+	|--------------------|-----------------------------------------------------------------------------|
+	| `@Test`            | Marks a method as a test.                                                   |
+	| `@Test(timeout=...)` | Fails if test takes longer than the specified time.                       |
+	| `@BeforeClass`     | Runs **once** before all tests. Method must be `static`.                   |
+	| `@Before`          | Runs **before each** test.                                                  |
+	| `@After`           | Runs **after each** test.                                                   |
+	| `@AfterClass`      | Runs **once** after all tests. Method must be `static`.                    |
+
+	These are from **JUnit 4**, and `Assert` class methods like `assertEquals`, `assertTrue` are used with **static imports**.
+
+	---
+
+	### ✅ JUnit 5 Annotations (latest version, also known as Jupiter)
+
+	| Annotation         | Description                                                                 |
+	|--------------------|-----------------------------------------------------------------------------|
+	| `@Test`            | Marks a method as a test. No `timeout` parameter in this version.           |
+	| `@BeforeAll`       | Runs once before all tests. Must be `static` unless using `@TestInstance`.  |
+	| `@BeforeEach`      | Runs before each test.                                                       |
+	| `@AfterEach`       | Runs after each test.                                                        |
+	| `@AfterAll`        | Runs once after all tests. Must be `static` unless using `@TestInstance`.   |
+
+	JUnit 5 uses `org.junit.jupiter.api.*` and methods from `org.junit.jupiter.api.Assertions`.
+
+	⚠️ **Important:**  
+	- `@Test(timeout = 1000)` **doesn't work in JUnit 5**. Instead, use:
+	  ```java
+	  @Test
+	  void testWithTimeout() {
+		  assertTimeout(Duration.ofMillis(1000), () -> {
+			  // test logic here
+		  });
+	  }
+	  ```
+
+	---
+
+	### Summary:
+
+	| Feature                      | JUnit 4                     | JUnit 5 (Jupiter)                |
+	|-----------------------------|-----------------------------|----------------------------------|
+	| Test method annotation      | `@Test`                     | `@Test`                          |
+	| Timeout                     | `@Test(timeout=1000)`       | `assertTimeout(Duration.ofMillis(1000), ...)` |
+	| Before all tests            | `@BeforeClass`              | `@BeforeAll`                     |
+	| Before each test            | `@Before`                   | `@BeforeEach`                    |
+	| After each test             | `@After`                    | `@AfterEach`                     |
+	| After all tests             | `@AfterClass`               | `@AfterAll`                      |
+	| Assertions class            | `org.junit.Assert`          | `org.junit.jupiter.api.Assertions` |
+
+	---
+
+
+	MOCKITO TESTING 
+	================
+
+
+	### **Theory: Mockito and Unit Testing**
+
+	**What is Mockito?**
+	Mockito is a Java-based mocking framework that helps in creating mock objects for unit testing. It is primarily used to isolate unit tests from external dependencies (such as databases, APIs, etc.) to test the business logic in isolation.
+
+	**Why Mockito?**
+	- Allows testing without interacting with real dependencies (like databases).
+	- It makes unit tests more focused, clear, and easy to maintain.
+	- Verifies that specific methods are called or not during a test.
+
+	**Key Methods in Mockito:**
+	- `mock(Class<T> classToMock)`: Creates a mock object of the given class.
+	- `when(...).thenReturn(...)`: Stubs a method to return a specific value when called.
+	- `verify(...)`: Verifies if a method was called.
+	- `@Mock`: Used to declare mock objects that Mockito will create for you.
+	- `@InjectMocks`: Automatically injects mock objects into the class under test.
+	- `@ExtendWith(MockitoExtension.class)`: Used to integrate Mockito with JUnit 5.
+
+	### **Example: Employee Management in Spring Boot**
+
+	This is a simple employee management example, with `Employee` having an embedded `Address` class.
+
+	---
+
+	#### **Model: Employee and Address Classes**
+
+	```java
+	@Entity
+	public class Employee {
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private Long id;
+		private String name;
+		private String role;
+
+		@Embedded
+		private Address address;  // Address is embedded as part of Employee
+
+		// Getters and setters
+	}
+
+	@Embeddable
+	public class Address {
+		private String street;
+		private String city;
+		private String zip;
+
+		// Getters and setters
+	}
+	```
+
+	---
+
+	#### **Repository: EmployeeRepository**
+
+	```java
+	@Repository
+	public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+		Optional<Employee> findByName(String name);  // Custom query to find by name
+	}
+	```
+
+	---
+
+	#### **Service: EmployeeService**
+
+	```java
+	@Service
+	public class EmployeeService {
+
+		@Autowired
+		private EmployeeRepository employeeRepository;
+
+		public Employee getEmployeeById(Long id) {
+			return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
+		}
+
+		public Employee saveEmployee(Employee employee) {
+			return employeeRepository.save(employee);
+		}
+
+		public Employee updateEmployee(Long id, Employee updatedEmployee) {
+			Employee existingEmployee = getEmployeeById(id);
+			existingEmployee.setName(updatedEmployee.getName());
+			existingEmployee.setRole(updatedEmployee.getRole());
+			existingEmployee.setAddress(updatedEmployee.getAddress());
+			return employeeRepository.save(existingEmployee);
+		}
+
+		public void deleteEmployee(Long id) {
+			employeeRepository.deleteById(id);
+		}
+	}
+	```
+
+	---
+
+	#### **Controller: EmployeeController**
+
+	```java
+	@RestController
+	@RequestMapping("/employees")
+	public class EmployeeController {
+
+		@Autowired
+		private EmployeeService employeeService;
+
+		@GetMapping("/{id}")
+		public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
+			Employee employee = employeeService.getEmployeeById(id);
+			return ResponseEntity.ok(employee);
+		}
+
+		@PostMapping("/")
+		public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+			Employee savedEmployee = employeeService.saveEmployee(employee);
+			return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee);
+		}
+
+		@PutMapping("/{id}")
+		public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee updatedEmployee) {
+			Employee employee = employeeService.updateEmployee(id, updatedEmployee);
+			return ResponseEntity.ok(employee);
+		}
+
+		@DeleteMapping("/{id}")
+		public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+			employeeService.deleteEmployee(id);
+			return ResponseEntity.noContent().build();
+		}
+	}
+	```
+
+	---
+
+	### **Service Test Class: EmployeeServiceTest**
+
+	**Explanation of Test Cases:**
+
+	We will use Mockito to mock the `EmployeeRepository` and test the `EmployeeService` methods.
+
+	```java
+	@ExtendWith(MockitoExtension.class)
+	public class EmployeeServiceTest {
+
+		@Mock
+		private EmployeeRepository employeeRepository;
+
+		@InjectMocks
+		private EmployeeService employeeService;
+
+		@Test
+		public void testSaveEmployee() {
+			Employee employee = new Employee();
+			employee.setName("John Doe");
+			employee.setRole("Developer");
+			employee.setAddress(new Address("123 Main St", "City", "12345"));
+
+			when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
+
+			Employee savedEmployee = employeeService.saveEmployee(employee);
+
+			assertNotNull(savedEmployee);
+			assertEquals("John Doe", savedEmployee.getName());
+			verify(employeeRepository, times(1)).save(employee);  // Verify that save was called once
+		}
+
+		@Test
+		public void testGetEmployeeById() {
+			Employee employee = new Employee();
+			employee.setId(1L);
+			employee.setName("John Doe");
+			employee.setRole("Developer");
+
+			when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
+
+			Employee fetchedEmployee = employeeService.getEmployeeById(1L);
+
+			assertNotNull(fetchedEmployee);
+			assertEquals("John Doe", fetchedEmployee.getName());
+			verify(employeeRepository, times(1)).findById(1L);  // Verify that findById was called once
+		}
+
+		@Test
+		public void testUpdateEmployee() {
+			Employee existingEmployee = new Employee();
+			existingEmployee.setId(1L);
+			existingEmployee.setName("John Doe");
+			existingEmployee.setRole("Developer");
+
+			Employee updatedEmployee = new Employee();
+			updatedEmployee.setName("John Doe Updated");
+			updatedEmployee.setRole("Senior Developer");
+
+			when(employeeRepository.findById(1L)).thenReturn(Optional.of(existingEmployee));
+			when(employeeRepository.save(any(Employee.class))).thenReturn(updatedEmployee);
+
+			Employee updatedEmp = employeeService.updateEmployee(1L, updatedEmployee);
+
+			assertNotNull(updatedEmp);
+			assertEquals("John Doe Updated", updatedEmp.getName());
+			assertEquals("Senior Developer", updatedEmp.getRole());
+			verify(employeeRepository, times(1)).save(updatedEmployee);  // Verify that save was called once
+		}
+
+		@Test
+		public void testDeleteEmployee() {
+			Long employeeId = 1L;
+
+			employeeService.deleteEmployee(employeeId);
+
+			verify(employeeRepository, times(1)).deleteById(employeeId);  // Verify that deleteById was called once
+		}
+	}
+	```
+
+		---
+	import static org.mockito.Mockito.*;
+	import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+	import com.fasterxml.jackson.databind.ObjectMapper;
+	import org.junit.jupiter.api.BeforeEach;
+	import org.junit.jupiter.api.Test;
+	import org.mockito.InjectMocks;
+	import org.mockito.Mock;
+	import org.springframework.beans.factory.annotation.Autowired;
+	import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+	import org.springframework.test.web.servlet.MockMvc;
+	import org.springframework.http.MediaType;
+
+	@WebMvcTest(EmployeeController.class)  // Load only the controller for testing
+	public class EmployeeControllerTest {
+
+		@Autowired
+		private MockMvc mockMvc;  // Used to perform HTTP requests in tests
+
+		@Mock
+		private EmployeeService employeeService;  // Mock the service layer
+
+		@InjectMocks
+		private EmployeeController employeeController;  // Inject the mocked service into the controller
+
+		@Autowired
+		private ObjectMapper objectMapper;  // To serialize the employee object
+
+		private Employee employee;
+
+		// @BeforeEach: This ensures that the setup() method is executed before each test method runs.
+		// The method initializes the employee object with a mock Employee instance that will be used across all tests in the class. This is helpful when you need to set up some common data or objects that all tests can share.
+		@BeforeEach
+		public void setup() {
+			// Setup a mock Employee object for testing
+			employee = new Employee(1L, "John Doe", "Software Engineer", 50000);
+		}
+
+		@Test
+		public void testGetEmployeeById() throws Exception {
+			// Mocking the service method
+			when(employeeService.getEmployeeById(1L)).thenReturn(employee);
+
+			// Perform a GET request to /employees/{id}
+			mockMvc.perform(get("/employees/{id}", 1L))
+					.andExpect(status().isOk())
+					.andExpect(jsonPath("$.id").value(1L))
+					.andExpect(jsonPath("$.name").value("John Doe"))
+					.andExpect(jsonPath("$.jobTitle").value("Software Engineer"));
+		}
+
+		@Test
+		public void testCreateEmployee() throws Exception {
+			// Mocking the service method for save
+			when(employeeService.saveEmployee(any(Employee.class))).thenReturn(employee);
+
+			// Perform a POST request to /employees/
+			mockMvc.perform(post("/employees/")
+							.contentType(MediaType.APPLICATION_JSON)
+							.content(objectMapper.writeValueAsString(employee)))
+					.andExpect(status().isCreated())
+					.andExpect(jsonPath("$.id").value(1L))
+					.andExpect(jsonPath("$.name").value("John Doe"));
+		}
+
+		@Test
+		public void testUpdateEmployee() throws Exception {
+			// Mocking the service method for update
+			when(employeeService.updateEmployee(eq(1L), any(Employee.class))).thenReturn(employee);
+
+			// Perform a PUT request to /employees/{id}
+			mockMvc.perform(put("/employees/{id}", 1L)
+							.contentType(MediaType.APPLICATION_JSON)
+							.content(objectMapper.writeValueAsString(employee)))
+					.andExpect(status().isOk())
+					.andExpect(jsonPath("$.id").value(1L))
+					.andExpect(jsonPath("$.name").value("John Doe"));
+		}
+
+		@Test
+		public void testDeleteEmployee() throws Exception {
+			// Mocking the service method for delete
+			doNothing().when(employeeService).deleteEmployee(1L);
+
+			// Perform a DELETE request to /employees/{id}
+			mockMvc.perform(delete("/employees/{id}", 1L))
+					.andExpect(status().isNoContent());
+		}
+	}
+
+
+	StateFarm B2B Portal 
+	=============================
+
+	The State Farm B2B Portal is a centralized platform designed to streamline interactions between State Farm and its business partners.  
+	Instead of handling everything over phone or mail, partners use this website to do things faster and online.
+
+
+	Select Service  
+	---------------------
+	Auto repair facilities can manage claims, create assignments, and access performance reports.  
+	A car repair shop can accept a vehicle claim and update repair progress.  
+	This helps repair shops stay connected with State Farm claims.
+
+	Medical Billing  
+	--------------------
+	Healthcare providers can submit medical claims related to auto accidents and access payment information.  
+	A hospital or clinic can send bills directly to State Farm for accident treatment.  
+	Helps doctors and clinics get paid for treating accident victims.
+
+	 Electronic Payments  
+	-------------------------
+	Partners can set up and manage Electronic Funds Transfer (EFT) payments, view remittances, and access related forms.  
+	Makes it easy to receive payments electronically.
+
+	Suppliers Portal  
+	-----------------------
+	Vendors can engage with State Farm's procurement processes through the Coupa platform, managing orders, invoices, and supplier information.  
+	A supplier can send an invoice and get paid quickly.  
+	Manages orders and payments through Coupa.
+
+	Home & Auto Lenders  
+	-------------------------
+	Financial institutions can verify insurance policies, manage escrow billing, and access mortgage payment systems.  
+	A bank can check if a house has the right insurance.  
+	Lenders can manage insurance data for escrow and home loans.
+
+	---
+
+	How It Works:
+	-------------
+
+	- It pulls claims data from State Farm’s internal systems (used by claims.statefarm.com).  
+	- It works with finance tools that connect to agent systems and the employee portal (sfnet).  
+	- It keeps everything secure and up-to-date across all platforms.
+
+	---
+
+	Advantages:
+
+	- Saves time for both State Farm and its partners.  
+	- Improves accuracy by avoiding manual errors.  
+	- Speeds up processes – claims get processed, payments made, services delivered.  
+	- Scales efficiently – thousands of partners can be handled smoothly.
+
+	---
+
+
+	Feature 				| Purpose 										| Used By
+	Create Assignments 		| Assigns claims to repair shops 				| State Farm
+	Remittance 				| Shows payment details for completed jobs 		| State Farm to Shop
+
+	✅ 1. Select Service - Vehicle Claims for Repair Shops
+
+	// Enum
+	public enum ClaimStatus {
+		RECEIVED, ACCEPTED, REPAIRS_IN_PROGRESS, COMPLETED, REJECTED
+	}
+
+	// Entity
+	public class RepairClaim {
+		private String claimId;
+		private String vehicleNumber; // or VIN
+		private String repairShopId;
+		private String policyNumber;
+		private String customerName;
+		private String insuranceAdjuster;
+		private ClaimStatus status;
+		private LocalDateTime repairStartDate;
+		private LocalDateTime expectedCompletionDate;
+		private String estimateDocumentUrl;
+	}
+
+	// Service Interface
+	public interface SelectServiceClaimService {
+		List<RepairClaim> getClaimsByRepairShop(String shopId);
+		RepairClaim getClaimDetails(String claimId);
+		void acceptClaim(String claimId, String repairShopId);
+		void updateRepairProgress(String claimId, ClaimStatus status);
+	}
+
+
+	✅ 2. Medical Billing - Clinics and Hospitals
+
+	// Enum
+	public enum BillStatus {
+		SUBMITTED, PROCESSING, APPROVED, REJECTED
+	}
+
+	// Supporting Class
+	public class Treatment {
+		private String treatmentCode;
+		private String description;
+		private double cost;
+		private LocalDate treatmentDate;
+	}
+
+	// Entity
+	public class MedicalBill {
+		private String billId;
+		private String claimId;
+		private String providerId; // hospital or clinic ID
+		private String patientName;
+		private List<Treatment> treatments;
+		private double totalAmount;
+		private BillStatus status;
+		private LocalDate submissionDate;
+	}
+
+	// Service Interface
+	public interface MedicalBillingService {
+		MedicalBill submitBill(MedicalBill bill);
+		List<MedicalBill> getBillsByProvider(String providerId);
+		MedicalBill getBillById(String billId);
+		void updateBillStatus(String billId, BillStatus status);
+	}
+
+
+	✅ 3. EFT Setup - Electronic Fund Transfer for Business Partners
+
+	// Enum
+	public enum AccountType {
+		CHECKING, SAVINGS
+	}
+
+	// Entity
+	public class EFTAccount {
+		private String partnerId;
+		private String accountHolderName;
+		private String bankName;
+		private String accountNumber; // Encrypted/masked
+		private String routingNumber;
+		private AccountType accountType;
+		private boolean isVerified;
+		private LocalDate setupDate;
+	}
+
+	// Service Interface
+	public interface EFTSetupService {
+		void registerEFT(EFTAccount account);
+		EFTAccount getAccountDetails(String partnerId);
+		boolean verifyAccount(String partnerId, String microDepositCode);
+	}
+
+
+	✅ 4. Supplier Center - Coupa Integration for Invoicing
+
+	// Enum
+	public enum InvoiceStatus {
+		SUBMITTED, APPROVED, REJECTED, PAID
+	}
+
+	// Entity
+	public class SupplierInvoice {
+		private String invoiceId;
+		private String supplierId;
+		private String orderId;
+		private LocalDate invoiceDate;
+		private double amount;
+		private InvoiceStatus status;
+		private String paymentReference;
+	}
+
+	// Service Interface
+	public interface CoupaIntegrationService {
+		void submitInvoice(SupplierInvoice invoice);
+		List<SupplierInvoice> getInvoicesBySupplier(String supplierId);
+		void updateInvoiceStatus(String invoiceId, InvoiceStatus status);
+	}
+
+
+
+
+	✅ 5. Mortgage Tools - Insurance Lookup for Lenders
+
+	// Enum
+	public enum InsuranceStatus {
+		ACTIVE, LAPSED, CANCELLED, PENDING_VERIFICATION
+	}
+
+	// Entity
+	public class MortgageInsuranceInfo {
+		private String loanNumber;
+		private String propertyAddress;
+		private String lenderId;
+		private String borrowerName;
+		private String insurancePolicyNumber;
+		private boolean isPolicyActive;
+		private LocalDate coverageStartDate;
+		private LocalDate coverageEndDate;
+		private InsuranceStatus status;
+	}
+
+	// Service Interface
+	public interface MortgageToolsService {
+		MortgageInsuranceInfo getInsuranceByLoan(String loanNumber);
+		void updatePolicyDetails(String loanNumber, MortgageInsuranceInfo record);
+		List<MortgageInsuranceInfo> getPoliciesByLender(String lenderId);
+	}
+
+
+
+
+	One Example How it works for one vendor
+	========================================
+
+
+	Select Service Use Case: Car Accident Repair Process
+
+	Scenario:  
+	A customer is involved in a car accident and initiates an auto claim with State Farm.
+
+	Step-by-Step Breakdown of How a Repair Shop Uses the B2B Portal
+
+	1. Claim Assignment
+
+	- Customer Action:  
+	  The customer files an auto claim via a State Farm agent or online.
+
+	- State Farm Action:  
+	  A claims adjuster reviews the claim.
+
+	- Repair Shop Trigger:  
+	  If the vehicle is drivable or towed to a Select Service shop, the shop receives the claim via the B2B portal.
+
+	- Portal Action (Repair Shop):  
+	  - Login to the B2B portal  
+	  - Navigate to “Select Service” section  
+	  - View list of newly assigned claims
+
+	2. Claim Acceptance
+
+	- Repair Shop Reviews:  
+	  - Vehicle Info (VIN, Make, Model)  
+	  - Customer Contact Info  
+	  - Damage Details
+
+	- Portal Action:  
+	  - Click “Accept Claim” to begin the repair process
+
+	3. Estimate Submission
+
+	- Repair Shop Action:  
+	  - Inspect the vehicle  
+	  - Prepare cost estimate
+
+	- Portal Action:  
+	  - Upload estimate documents (PDF, Images)  
+	  - Enter parts and labor cost  
+	  - Submit estimate for State Farm review
+
+	4. Status Updates
+
+	- Repair Shop Status Options:  
+	  - In Progress  
+	  - Waiting on Parts  
+	  - Ready for Pickup  
+	  - Completed
+
+	- Portal Action:  
+	  - Update status in the B2B portal to keep both State Farm and the customer informed in real time
+
+	5. Repair Completion and Billing
+
+	- Repair Shop Final Steps:  
+	  - Mark the claim as “Completed”  
+	  - Submit final invoice (if required)  
+	  - If EFT is set up, payment is processed automatically
+
+	Example Portal View for a Repair Shop:
+
+	Claim ID     | Vehicle      | Status             | Estimate | Last Updated  
+	-------------|--------------|--------------------|----------|----------------  
+	CLM12345     | 2019 Camry   | In Progress        | $2,340   | April 25, 2025  
+	CLM12346     | 2021 Civic   | Estimate Submitted | $1,890   | April 24, 2025  
+
+	Why the B2B Portal is Important for Repair Shops:
+
+	- Eliminates the need for constant calls or emails to adjusters  
+	- Enables real-time communication with State Farm  
+	- Speeds up claim handling and repair process  
+	- Integrated payment flow ensures quicker payouts
+
+	---
+
+
+
+=================================================================================================================================================================================================================
+=================================================================================================================================================================================================================
+MY WEAK AREA
+=========================================================
+Quick Study Recommendations:
+Java Memory Management
+→ Study Garbage Collector types + JVM tuning basics (YouTube, GeeksforGeeks articles) Java Memory Management (Heap, Stack, Garbage Collection)
+
+Multithreading
+→ Focus on Executors, Future, Thread pools, Synchronization, Locks, Basic Thread Concepts (volatile, race conditions)
+
+SOLID Principles
+→ Each principle + 1 real-world example.
+
+Collections
+→ Deep dive into Concurrent Collections, HashMap improvements in Java 8 and Hashtable
+
+SQL
+→ Focus on Indexing, ACID properties, types of Views and types of keys and key words.
+
+Testing
+→ Learn JUnit5 basics, what is Unit vs Integration test, read about Test Containers (basic).
+
+Problem Solving
+→ Focus on streams more and how to reduce the time complexity like (reverse a string n/2)
+
+
+
+
+	JVM Memory Or Java Memory Management
+============================================
+
+	1. Method area: In the method area, all class level information like class name, immediate parent class name, methods and variables information etc are stored, including static variables. 
+	   There is only one method area per JVM, and it is a shared resource. 
+
+	2. Heap area: The Heap Area is where all objects in a Java application are stored. It is one of the key components of memory management in the Java Virtual Machine (JVM). There is only one heap area for each JVM instance
+	   All dynamically created objects, such as instances of classes, are allocated memory in the heap. The heap is shared by all threads in the JVM, meaning all threads can access and work with objects stored in the heap.
+		
+		The heap area is divided into two main generations to optimize memory management and garbage collection:
+		i. Young Generation: The Young Generation is where new objects are initially created.
+		ii.Old Generation: The Old Generation is for objects that have lived longer and survived multiple garbage collection cycles in the Young Generation.
+
+		Minor GC handles garbage collection for the Young Generation, and major GC handles it for the Old Generation.
+
+	3. Stack area: For every thread, JVM creates one run-time stack which is stored here. Every block of this stack is called activation record/stack frame which stores methods calls. 
+	   All local variables of that method are stored in their corresponding frame. After a thread terminates, its run-time stack will be destroyed by JVM. It is not a shared resource.
+	   (The stack area simply stores method calls and local variables per stack frame.)
+	   
+	4. PC Registers: Store address of current execution instruction of a thread. Obviously, each thread has separate PC Registers.
+
+	5. Native method stacks: For every thread, a separate native stack is created. It stores native method information or it stores native method calls (e.g., methods written in C, C++).
+
+
+	### Garbage Collection (GC)
+
+	Garbage Collection is the process by which unused objects (no longer referenced) are removed from the heap to free up memory. This prevents memory leaks and ensures the program doesn't run out of memory.
+
+	#### Types of Garbage Collectors
+
+	1. **Serial GC**  
+	   - Single-threaded GC.
+	   - Best for small applications with single-threaded execution.
+	   - Example:  
+		 Use `-XX:+UseSerialGC` to enable.
+
+	2. **Parallel GC**  
+	   - Multi-threaded GC for high-throughput.
+	   - Best for multi-threaded applications.
+	   - Example:  
+		 Use `-XX:+UseParallelGC` to enable.
+
+	3. **G1 GC (Garbage-First)**  
+	   - Low-latency GC that aims for predictable pause times.
+	   - Best for applications with large heaps.
+	   - Example:  
+		 Use `-XX:+UseG1GC` to enable.
+
+	4. **ZGC (Z Garbage Collector)**  
+	   - Designed for low-latency with large heaps.
+	   - Aimed at applications where pause time must be minimal.
+	   - Example:  
+		 Use `-XX:+UseZGC` to enable.
+
+	---
+
+	### Garbage Collection Example
+
+	```java
+	public class GCDemo {
+		public static void main(String[] args) {
+			Person person = new Person("Alice");  // Object created in Heap
+			person = null;  // Object is eligible for GC
+			
+			// Suggest to JVM to perform garbage collection
+			System.gc();  
+		}
+
+		static class Person {
+			String name;
+			
+			Person(String name) {
+				this.name = name;
+			}
+
+			// This method is called when GC happens
+			@Override
+			protected void finalize() throws Throwable {
+				System.out.println(name + " has been garbage collected!");
+			}
+		}
+	}
+	```
+
+	- Explanation:  
+	  In this example, we create an object `Person` and then set the reference to `null`. The object becomes eligible for garbage collection. We call `System.gc()` to suggest garbage collection. The `finalize()` method is called when the object is collected.
+
+	### Conclusion
+
+	Java's memory management and garbage collection processes ensure that your applications run smoothly without running out of memory. By understanding how memory is allocated in Method Area, Heap, Stack, etc., and how Garbage Collection works, you can optimize your application for better performance.
+
+	### Multithreading in Java
+=====================================
+	Multithreading is the ability of a CPU, or a single core in a multi-core processor, to execute multiple threads concurrently. Threads are lightweight processes that share the same memory space. In Java, threads allow for parallel execution, improving the performance of applications that need to perform many tasks simultaneously.
+
+	Let's break down the key concepts related to multithreading in Java:
+
+	---
+
+	### 1. **Basic Thread Concepts**
+
+	#### **Thread:**
+	A thread is a single unit of execution within a process. In Java, you can create threads in two main ways:
+	1. By extending the `Thread` class.
+	2. By implementing the `Runnable` interface.
+
+	#### **volatile keyword:**
+	The `volatile` keyword is used to indicate that a variable's value can be modified by multiple threads concurrently. It ensures that the latest value of a variable is always visible to all threads, and it prevents caching of the variable in registers.
+
+	**Example:**
+	```java
+	public class VolatileExample {
+		private volatile boolean flag = false;
+
+		public void startThread() {
+			Thread t = new Thread(() -> {
+				while (!flag) {
+					// Some work
+				}
+				System.out.println("Thread finished.");
+			});
+			t.start();
+		}
+
+		public void stopThread() {
+			flag = true;  // Once flag is set, the other thread will stop.
+		}
+	}
+	```
+
+	#### **Race Conditions:**
+	A race condition occurs when two or more threads try to change shared data at the same time. This can lead to unpredictable behavior. The solution is synchronization or other concurrency control mechanisms like locks.
+
+	**Example of a Race Condition:**
+	```java
+	public class RaceConditionExample {
+		private int counter = 0;
+
+		public void increment() {
+			counter++;
+		}
+
+		public int getCounter() {
+			return counter;
+		}
+
+		public static void main(String[] args) throws InterruptedException {
+			RaceConditionExample example = new RaceConditionExample();
+			Runnable task = () -> {
+				for (int i = 0; i < 1000; i++) {
+					example.increment();
+				}
+			};
+
+			Thread t1 = new Thread(task);
+			Thread t2 = new Thread(task);
+
+			t1.start();
+			t2.start();
+
+			t1.join();
+			t2.join();
+
+			System.out.println("Counter: " + example.getCounter());
+		}
+	}
+	```
+	In this example, `counter` is modified by two threads, and due to a race condition, the result is inconsistent.
+
+	---
+
+	### 2. **Thread Pools and Executors**
+
+	In Java, creating a new thread every time you need to execute a task can be inefficient. Instead, **thread pools** can be used to manage a group of worker threads.
+
+	#### **Executor Service:**
+	The `Executor` framework in Java provides a higher-level replacement for the traditional approach of using `Thread` and `Runnable`. It allows you to manage a pool of threads and execute tasks asynchronously.
+
+	**Executor Interface** is the root interface for the executor framework, and it has two main implementations:
+	1. **ExecutorService:** Adds functionality to manage tasks and retrieve results.
+	2. **ScheduledExecutorService:** Adds functionality to schedule tasks.
+
+	#### **Creating an Executor Service:**
+	```java
+	import java.util.concurrent.ExecutorService;
+	import java.util.concurrent.Executors;
+
+	public class ExecutorServiceExample {
+		public static void main(String[] args) {
+			// Create a thread pool with 5 threads
+			ExecutorService executor = Executors.newFixedThreadPool(5);
+			
+			// Submit tasks to the thread pool
+			for (int i = 0; i < 10; i++) {
+				executor.submit(() -> {
+					System.out.println(Thread.currentThread().getName() + " is executing task");
+				});
+			}
+			
+			// Shut down the executor
+			executor.shutdown();
+		}
+	}
+	```
+
+	In the above example, a **FixedThreadPool** is created, where 5 threads are available to execute 10 tasks. The `submit()` method is used to submit tasks, and `shutdown()` shuts down the executor service.
+
+	#### **Future and Callable:**
+	- **Callable**: Similar to `Runnable`, but it can return a result or throw an exception.
+	- **Future**: Represents the result of an asynchronous computation. It can be used to check the status or retrieve the result.
+
+	**Example with Callable and Future:**
+	```java
+	import java.util.concurrent.*;
+
+	public class CallableFutureExample {
+		public static void main(String[] args) throws ExecutionException, InterruptedException {
+			ExecutorService executor = Executors.newSingleThreadExecutor();
+			
+			Callable<Integer> task = () -> {
+				Thread.sleep(2000);
+				return 123;
+			};
+			
+			Future<Integer> future = executor.submit(task);
+			
+			// Do some other work
+			System.out.println("Task submitted...");
+			
+			// Get the result of the task (this will block until the task finishes)
+			System.out.println("Task result: " + future.get());
+			
+			executor.shutdown();
+		}
+	}
+	```
+	In this example, the `Callable` task returns a result, and `Future.get()` is used to retrieve the result once the task completes.
+
+	---
+
+	### 3. **Synchronization and Locks**
+
+	In multithreaded programming, it is crucial to manage shared resources properly. This can be done using **synchronization** or **locks**.
+
+	#### **Synchronized Methods/Blocks:**
+	The `synchronized` keyword ensures that only one thread can access a method or block of code at a time.
+
+	**Example of Synchronized Method:**
+	```java
+	public class SynchronizedExample {
+		private int counter = 0;
+
+		public synchronized void increment() {
+			counter++;
+		}
+
+		public synchronized int getCounter() {
+			return counter;
+		}
+
+		public static void main(String[] args) throws InterruptedException {
+			SynchronizedExample example = new SynchronizedExample();
+			Runnable task = () -> {
+				for (int i = 0; i < 1000; i++) {
+					example.increment();
+				}
+			};
+
+			Thread t1 = new Thread(task);
+			Thread t2 = new Thread(task);
+
+			t1.start();
+			t2.start();
+
+			t1.join();
+			t2.join();
+
+			System.out.println("Counter: " + example.getCounter());
+		}
+	}
+	```
+	Here, the `increment()` method is synchronized, ensuring that only one thread can update the `counter` at a time, thus avoiding a race condition.
+
+	#### **Locks:**
+	Locks are more flexible and powerful than synchronized blocks. They provide additional features like the ability to try locking and unlocking explicitly, allowing for better control over thread execution.
+
+	**Example using ReentrantLock:**
+	```java
+	import java.util.concurrent.locks.Lock;
+	import java.util.concurrent.locks.ReentrantLock;
+
+	public class LockExample {
+		private int counter = 0;
+		private Lock lock = new ReentrantLock();
+
+		public void increment() {
+			lock.lock();
+			try {
+				counter++;
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		public int getCounter() {
+			return counter;
+		}
+
+		public static void main(String[] args) throws InterruptedException {
+			LockExample example = new LockExample();
+			Runnable task = () -> {
+				for (int i = 0; i < 1000; i++) {
+					example.increment();
+				}
+			};
+
+			Thread t1 = new Thread(task);
+			Thread t2 = new Thread(task);
+
+			t1.start();
+			t2.start();
+
+			t1.join();
+			t2.join();
+
+			System.out.println("Counter: " + example.getCounter());
+		}
+	}
+	```
+	In this example, we use a `ReentrantLock` to ensure that the `increment()` method is executed safely by multiple threads. The `lock.lock()` ensures exclusive access, and `lock.unlock()` releases the lock.
+
+	---
+
+	### 4. **Thread Pooling**
+
+	Using thread pools allows efficient management of threads. Instead of creating a new thread for each task, thread pools reuse a set of threads, which reduces the overhead of thread creation and destruction.
+
+	**Example of Thread Pool Usage:**
+	```java
+	import java.util.concurrent.*;
+
+	public class ThreadPoolExample {
+		public static void main(String[] args) {
+			// Create a thread pool with 3 threads
+			ExecutorService pool = Executors.newFixedThreadPool(3);
+
+			// Submit tasks to the pool
+			for (int i = 0; i < 5; i++) {
+				pool.submit(() -> {
+					System.out.println(Thread.currentThread().getName() + " is executing task");
+				});
+			}
+
+			pool.shutdown();
+		}
+	}
+	```
+
+	---
+
+	### Summary
+
+	1. **Basic Concepts**: Threads are fundamental units of execution, and synchronization/volatile keywords are used to handle concurrency issues like race conditions.
+	2. **Executor Service**: Provides better control over threads via thread pools.
+	3. **Future and Callable**: Useful for asynchronous execution and retrieving results.
+	4. **Synchronization and Locks**: These are key techniques for managing concurrent access to shared resources.
+	5. **Thread Pooling**: Reduces the overhead of thread creation by reusing existing threads.
+
+	These concepts are essential for building robust, scalable multithreaded applications.	
+	
+	
+	
+	### SOLID Principles
+==========================================
+
+	The SOLID principles are a set of five design principles that help make software designs more understandable, flexible, and maintainable. They were introduced by Robert C. Martin (Uncle Bob). Let's go over each principle with real-world examples to better understand their application.
+
+	---
+
+	### 1. **Single Responsibility Principle (SRP)**
+
+	#### **Definition:**
+	A class should have only one reason to change, meaning it should have only one job or responsibility.
+
+	#### **Real-World Example:**
+	Imagine a **Book** class in a library system. If the **Book** class is responsible for both storing book information (like title, author, etc.) and managing its printing format (e.g., PDF, HTML), it violates SRP. Instead, it would be better to split the responsibilities into two classes:
+
+	- **Book Class**: Handles book details.
+	- **BookPrinter Class**: Handles the printing functionality.
+
+	**Why it matters:**  
+	By adhering to SRP, each class can evolve independently. Changes to printing logic don’t affect the book’s properties and vice versa.
+
+	---
+
+	### 2. **Open/Closed Principle (OCP)**
+
+	#### **Definition:**
+	Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+
+	#### **Real-World Example:**
+	Imagine an **Invoice** system that calculates discounts for different customer types. Initially, you might have a class like this:
+
+	```java
+	public class Invoice {
+		public double calculateDiscount(Customer customer) {
+			if (customer.getType().equals("Regular")) {
+				return 5.0;
+			} else if (customer.getType().equals("Premium")) {
+				return 10.0;
+			}
+			return 0;
+		}
+	}
+	```
+
+	If you need to add a **VIP** customer type, you'd modify the `calculateDiscount` method. Instead, following OCP, you could refactor it like this:
+
+	```java
+	public interface DiscountStrategy {
+		double calculateDiscount(Customer customer);
+	}
+
+	public class RegularCustomerDiscount implements DiscountStrategy {
+		public double calculateDiscount(Customer customer) {
+			return 5.0;
+		}
+	}
+
+	public class PremiumCustomerDiscount implements DiscountStrategy {
+		public double calculateDiscount(Customer customer) {
+			return 10.0;
+		}
+	}
+
+	public class Invoice {
+		private DiscountStrategy discountStrategy;
+		
+		public Invoice(DiscountStrategy discountStrategy) {
+			this.discountStrategy = discountStrategy;
+		}
+
+		public double calculateDiscount(Customer customer) {
+			return discountStrategy.calculateDiscount(customer);
+		}
+	}
+	```
+
+	With this structure, you can easily extend the system to handle new customer types without modifying the `Invoice` class, just by adding new strategies.
+
+	---
+
+	### 3. **Liskov Substitution Principle (LSP)**
+
+	#### **Definition:**
+	Objects of a superclass should be replaceable with objects of its subclass without affecting the correctness of the program.
+
+	#### **Real-World Example:**
+	Consider a **Bird** superclass with a **FlyableBird** subclass:
+
+	```java
+	public class Bird {
+		public void eat() {
+			// eat food
+		}
+	}
+
+	public class FlyableBird extends Bird {
+		public void fly() {
+			// fly in the sky
+		}
+	}
+
+	public class Penguin extends Bird {
+		// Penguins cannot fly, so this violates LSP
+	}
+	```
+
+	Here, the **Penguin** subclass should ideally be a separate class that doesn’t inherit from `FlyableBird` because a penguin is not a flyable bird. This violates the Liskov Substitution Principle.
+
+	**Better Approach:**
+	```java
+	public class Bird {
+		public void eat() {
+			// eat food
+		}
+	}
+
+	public class FlyableBird extends Bird {
+		public void fly() {
+			// fly
+		}
+	}
+
+	public class Penguin extends Bird {
+		// Penguins can't fly but still inherit Bird to keep consistency
+	}
+	```
+
+	By ensuring subclasses adhere to the parent class behavior, we follow LSP, ensuring that the system remains predictable.
+
+	---
+
+	### 4. **Interface Segregation Principle (ISP)**
+
+	#### **Definition:**
+	Clients should not be forced to depend on interfaces they do not use. This principle suggests that larger interfaces should be split into smaller, more specific ones.
+
+	#### **Real-World Example:**
+	Consider an interface for a **Printer** that includes methods for both printing and scanning:
+
+	```java
+	public interface MultiFunctionPrinter {
+		void print();
+		void scan();
+		void fax();
+	}
+
+	public class LaserPrinter implements MultiFunctionPrinter {
+		public void print() {
+			// Print document
+		}
+
+		public void scan() {
+			// Scan document
+		}
+
+		public void fax() {
+			// Fax document
+		}
+	}
+
+	public class InkjetPrinter implements MultiFunctionPrinter {
+		public void print() {
+			// Print document
+		}
+
+		public void scan() {
+			// This is problematic for an Inkjet printer that doesn't scan.
+		}
+
+		public void fax() {
+			// This is problematic for an Inkjet printer that doesn't fax.
+		}
+	}
+	```
+
+	The `InkjetPrinter` is forced to implement methods it doesn't need, violating ISP. Instead, we can separate the interfaces:
+
+	```java
+	public interface Printer {
+		void print();
+	}
+
+	public interface Scanner {
+		void scan();
+	}
+
+	public interface FaxMachine {
+		void fax();
+	}
+
+	public class LaserPrinter implements Printer, Scanner, FaxMachine {
+		public void print() { /* Print document */ }
+		public void scan() { /* Scan document */ }
+		public void fax() { /* Fax document */ }
+	}
+
+	public class InkjetPrinter implements Printer {
+		public void print() { /* Print document */ }
+	}
+	```
+
+	Now, `InkjetPrinter` only implements the `Printer` interface, adhering to the Interface Segregation Principle.
+
+	---
+
+	### 5. **Dependency Inversion Principle (DIP)**
+
+	#### **Definition:**
+	High-level modules should not depend on low-level modules. Both should depend on abstractions. Additionally, abstractions should not depend on details. Details should depend on abstractions.
+
+	#### **Real-World Example:**
+	In a **Payment System**, a high-level class might directly depend on a low-level class for payment processing. For instance:
+
+	```java
+	public class PaymentProcessor {
+		private CreditCardPayment creditCardPayment;
+
+		public PaymentProcessor() {
+			creditCardPayment = new CreditCardPayment();
+		}
+
+		public void processPayment() {
+			creditCardPayment.process();
+		}
+	}
+	```
+
+	Here, the `PaymentProcessor` is tightly coupled to `CreditCardPayment`, violating DIP. Instead, we can abstract the payment processing:
+
+	```java
+	public interface PaymentMethod {
+		void process();
+	}
+
+	public class CreditCardPayment implements PaymentMethod {
+		public void process() {
+			// Process credit card payment
+		}
+	}
+
+	public class PaymentProcessor {
+		private PaymentMethod paymentMethod;
+
+		public PaymentProcessor(PaymentMethod paymentMethod) {
+			this.paymentMethod = paymentMethod;
+		}
+
+		public void processPayment() {
+			paymentMethod.process();
+		}
+	}
+	```
+
+	Now, `PaymentProcessor` is not dependent on any specific payment method. You can inject any payment method, such as `PayPalPayment`, making it flexible and adhering to DIP.
+
+	---
+
+	### Summary of SOLID Principles
+
+	1. **SRP (Single Responsibility Principle)**: A class should have only one responsibility.
+	2. **OCP (Open/Closed Principle)**: A class should be open for extension but closed for modification.
+	3. **LSP (Liskov Substitution Principle)**: Subtypes must be substitutable for their base types.
+	4. **ISP (Interface Segregation Principle)**: Don't force clients to implement interfaces they don't need.
+	5. **DIP (Dependency Inversion Principle)**: High-level modules should depend on abstractions, not concrete classes.
+
+	By following these SOLID principles, you can create maintainable, flexible, and scalable software.
+
+
+
+
+### **Collections**
+===================================================================
+#### **Concurrent Collections**
+
+In multithreaded environments, where multiple threads access or modify collections, ensuring thread safety becomes crucial. Java provides several **concurrent collections** that handle synchronization internally, eliminating the need for external synchronization mechanisms like `synchronized` blocks.
+
+1. **ConcurrentHashMap**:  
+   This is a thread-safe variant of `HashMap`. It is designed to handle concurrent read and write operations without locking the entire map, by partitioning the map into multiple segments. Each segment can be locked independently, thus allowing high concurrency.
+
+   **Example**:  
+   `ConcurrentHashMap` is widely used in scenarios such as caching, where many threads need to concurrently access or update a shared cache.
+
+   **Usage**:
+   - Highly effective when you need to perform frequent read and write operations on a map concurrently.
+   - It ensures that the map does not get locked completely during operations, improving performance in multi-threaded applications.
+
+2. **CopyOnWriteArrayList**:  
+   This is another thread-safe collection where each modification (like `add`, `remove`) creates a new copy of the list. It allows safe iteration even when other threads are modifying the list. However, due to the cost of creating copies, it’s not suitable for applications with high write operations.
+
+   **Example**:  
+   `CopyOnWriteArrayList` is used in scenarios where the list is frequently read but infrequently modified, such as event listener lists.
+
+3. **BlockingQueue**:  
+   This is an interface that extends `Queue` and adds blocking operations. It supports methods such as `put()`, `take()`, and `offer()`, which block the thread when the queue is full (in case of `put()`) or empty (in case of `take()`).
+
+   **Example**:  
+   In producer-consumer problems, a `BlockingQueue` can be used to store data that producers add and consumers remove. The `BlockingQueue` ensures that producers wait when the queue is full, and consumers wait when the queue is empty.
+
+4. **ConcurrentSkipListMap/ConcurrentSkipListSet**:  
+   These collections use a skip list data structure to maintain a sorted order of elements. They allow concurrent reads and writes with thread-safe behavior and can be used when you need a thread-safe, ordered collection.
+
+   **Example**:  
+   `ConcurrentSkipListMap` can be used in scenarios where you need to maintain key-value pairs in sorted order while handling concurrent operations, such as maintaining a live leaderboard in a multiplayer game.
+
+---
+
+#### **HashMap Improvements in Java 8**
+
+In Java 8, `HashMap` was enhanced to handle large numbers of collisions more efficiently and introduced several new methods that simplify working with maps.
+
+1. **Red-Black Tree for Collision Handling**:  
+   In Java 8, if the number of elements in a bucket exceeds a threshold (typically 8), the map converts the bucket to a red-black tree to optimize performance. This conversion improves search time from O(n) to O(log n), where `n` is the number of elements in the bucket.
+
+   **Example**:  
+   If you're using `HashMap` to store a large number of records, and many hash collisions occur (i.e., multiple entries end up in the same bucket), this feature helps maintain efficient access and reduces the impact of collisions.
+
+2. **Compute, Merge, and Replace Methods**:  
+   Java 8 introduced several methods to simplify operations on `HashMap`, such as:
+   - `compute()`: Modifies the value for a specific key using the provided remapping function.
+   - `computeIfAbsent()`: Computes the value for a key only if it is absent, ensuring thread safety in cases where the value should be lazily initialized.
+   - `merge()`: Merges the values for a key, using the provided remapping function.
+
+   **Example**:  
+   ```java
+   map.computeIfAbsent("key1", k -> "default");
+   ```
+
+---
+
+#### **Hashtable**
+
+`Hashtable` is an older collection class that is **synchronized**, making it thread-safe. However, it has several drawbacks, such as:
+- **No `null` keys or values**: Unlike `HashMap`, `Hashtable` does not allow `null` as a key or value.
+- **Slower performance**: `Hashtable` synchronizes on every method, which makes it slower when compared to modern alternatives like `ConcurrentHashMap`.
+
+**Example**:  
+`Hashtable` might still be useful in legacy systems where thread safety is critical, but modern applications usually prefer `ConcurrentHashMap` for better performance.
+
+---
+
+#### ** SQL Indexing**
+========================
+
+An **index** is a data structure that improves the speed of data retrieval operations on a database table at the cost of additional space and maintenance overhead during write operations. Indexes help in reducing the number of disk reads required to retrieve rows.
+
+1. **Single-Column Index**:  
+   An index is created on a single column to speed up queries that filter on that column.
+
+   **Example**:
+   ```sql
+   CREATE INDEX idx_name ON employees(name);
+   ```
+
+2. **Composite Index**:  
+   An index created on multiple columns helps optimize queries that filter based on a combination of columns.
+
+   **Example**:
+   ```sql
+   CREATE INDEX idx_name_age ON employees(name, age);
+   ```
+
+3. **Unique Index**:  
+   Ensures all values in a column (or combination of columns) are unique, helping to enforce integrity.
+
+   **Example**:
+   ```sql
+   CREATE UNIQUE INDEX idx_email ON users(email);
+   ```
+
+---
+
+#### **ACID Properties**
+==============================
+
+ACID stands for **Atomicity**, **Consistency**, **Isolation**, and **Durability**, which are the four key properties that guarantee reliable processing of database transactions.
+
+1. **Atomicity**:  
+   A transaction is atomic, meaning that all its operations succeed or none at all. If any operation fails, the entire transaction is rolled back.
+
+2. **Consistency**:  
+   After a transaction completes, the database must be in a valid state. Any changes to the database must preserve its integrity constraints.
+
+3. **Isolation**:  
+   Transactions are isolated from each other. A transaction's intermediate results are not visible to other transactions until the transaction is committed.
+
+4. **Durability**:  
+   Once a transaction is committed, its changes are permanent, even in the case of a system failure.
+
+---
+
+#### **Types of Views**
+========================
+A **view** is a virtual table based on the result set of a query. Views can simplify complex queries, restrict access to sensitive data, and aggregate results.
+
+1. **Simple View**:  
+   A view based on a single table without complex joins or calculations.
+
+   **Example**:
+   ```sql
+   CREATE VIEW simple_view AS
+   SELECT id, name FROM employees WHERE age > 30;
+   ```
+
+2. **Complex View**:  
+   A view that involves joins, subqueries, or complex calculations.
+
+   **Example**:
+   ```sql
+   CREATE VIEW complex_view AS
+   SELECT e.name, d.department_name
+   FROM employees e
+   JOIN departments d ON e.department_id = d.id;
+   ```
+
+3. **Updatable View**:  
+   Allows updates, inserts, or deletes on the underlying tables.
+
+4. **Non-Updatable View**:  
+   Does not allow direct modification of the underlying data.
+
+---
+
+#### **Types of Keys**
+=====================
+1. **Primary Key**:  
+   Uniquely identifies each record in a table. A table can have only one primary key, and it cannot contain `NULL` values.
+
+   **Example**:
+   ```sql
+   CREATE TABLE employees (
+       id INT PRIMARY KEY,
+       name VARCHAR(100)
+   );
+   ```
+
+2. **Foreign Key**:  
+   A field (or collection of fields) in one table that uniquely identifies a row of another table, establishing a relationship between the two.
+
+3. **Unique Key**:  
+   Ensures that values in a column or set of columns are unique across the table, but unlike primary keys, `NULL` values are allowed.
+
+4. **Composite Key**:  
+   A key made up of multiple columns.
+
+---
+
+### **Testing**
+====================
+#### **JUnit 5 Basics**
+
+JUnit 5 is a widely used testing framework for Java that is composed of three sub-projects: **JUnit Platform**, **JUnit Jupiter**, and **JUnit Vintage**. It provides several annotations to define and manage tests.
+
+1. **@Test**: Marks a method as a test case to be run by JUnit.
+
+2. **@BeforeEach/@AfterEach**: Run before/after each test method.
+
+3. **@BeforeAll/@AfterAll**: Run once before/after all test methods in the test class.
+
+**Example**:
+```java
+@Test
+public void testAddition() {
+    assertEquals(4, 2 + 2);
+}
+```
+
+#### **Unit vs Integration Tests**
+
+- **Unit Test**: Focuses on testing a single unit (such as a method or class) in isolation. Dependencies are usually mocked using frameworks like Mockito.
+  
+- **Integration Test**: Tests how different units or components work together. It may involve database, APIs, and other services.
+
+---
+
+#### **Test Containers (Basic)**
+========================================
+
+Testcontainers is a Java library used for running Docker containers in your tests. It is useful for integration testing where you need services like databases or message brokers.
+
+Example:
+
+@Container
+public PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:latest");
+
+@Test
+void testDatabaseConnection() {
+    try (Connection conn = DriverManager.getConnection(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())) {
+        assertNotNull(conn);
+    }
+}
+Conclusion
+These concepts form the foundation for building robust and scalable applications. With this detailed understanding, you can now handle complex scenarios, optimize performance, and write better, more maintainable code.

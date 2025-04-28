@@ -7,6 +7,14 @@ import OnClickExample from './events/OnClickExample';
 import OnKeyDownExample from './events/OnKeyDownExample';
 // import OnMouseOverExample from './events/OnMouseOverExample';
 import OnSubmitExample from './events/OnSubmitExample';
+import UseContextExample from './hooks/use-context-hook/UseContextExample';
+import UseCallBackExample from './hooks/UseCallBackExample';
+import UseEffectExample from './hooks/UseEffectExample';
+import UseFormExample from './hooks/UseFormExample';
+import UseMemoExample from './hooks/UseMemoExample';
+import UseReducerExample from './hooks/UseReducerExample';
+import UseRefExample from './hooks/UseRefExample';
+import UseStateExample from './hooks/UseStateExample';
 import PropsClassComponent from './props/PropsClassComponent';
 import PropsFunctionalComponent from './props/PropsFunctionalComponent';
 import PropsFunctionalComponentArrow from './props/PropsFunctionalComponentArrow';
@@ -47,6 +55,21 @@ function App() {
         {/* // enable it if you want to see its example */}
         {/* <OnMouseOverExample />  */}
         <OnKeyDownExample />
+      </div>
+
+      <div className='first-css'>
+        <h4>HOOKS In React</h4>
+        <UseStateExample /> 
+        <UseEffectExample />
+        <UseRefExample />
+        <UseContextExample />
+        <UseReducerExample />
+        <UseMemoExample />
+        <UseCallBackExample/>
+        <UseFormExample/>
+      </div>
+      <div className='first-css'>
+        <h4>REACT ROUTERS</h4>
       </div>
     </div>
   );

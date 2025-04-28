@@ -68,3 +68,46 @@ input{
   padding: 10px;
   border: 1px solid #13171c;
 }
+
+
+.form-container {
+  max-width: 200px;
+  margin: 30px auto;
+  padding: 30px;
+  padding-right: 50px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container input {
+  display: block;
+  width: 100%;
+  padding: 12px 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.form-container button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+.form-container p {
+  margin: 0;
+  font-size: 14px;
+  color: red;
+}
