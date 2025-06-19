@@ -1,0 +1,2816 @@
+	
+	
+	**Database (DB)**:
+
+	A database is a structured collection of data that is organized and stored in a way that allows for efficient data retrieval, management, and manipulation. Databases are used to store and manage various types of information, ranging from simple lists to complex business data. They serve as a central repository for data, enabling multiple users or applications to access and interact with the stored information. Databases are commonly used in software applications, business operations, and various other domains.
+
+	Key characteristics of databases:
+
+	- **Structured Data**: Databases store data in a structured format, often using tables or collections to organize related information.
+
+	- **Data Integrity**: Databases enforce data integrity constraints to maintain the accuracy and consistency of data.
+
+	- **Data Security**: Access to databases can be controlled through user authentication and authorization mechanisms.
+
+	- **Concurrent Access**: Databases support concurrent access by multiple users or applications, ensuring that data remains consistent.
+
+	- **Scalability**: Databases can scale to handle large volumes of data and high numbers of transactions.
+
+	- **Data Retrieval**: Users and applications can retrieve, query, and manipulate data from databases.
+
+	**Database Management System (DBMS)**:
+
+	A Database Management System (DBMS) is software that provides tools and services for creating, managing, and interacting with databases. The primary purpose of a DBMS is to enable efficient and secure data storage, retrieval, and manipulation. It acts as an intermediary between users or applications and the physical database, handling tasks like data storage, indexing, transaction management, and security.
+
+
+
+
+	Common DBMS features:
+
+	- **Data Storage**: DBMS systems store data on disk or in memory, managing how data is organized and accessed.
+
+	- **Data Retrieval**: DBMS systems provide SQL-based interfaces for retrieving and querying data.
+
+	- **Data Security**: DBMS systems offer authentication, authorization, and encryption to protect data.
+
+	- **Data Integrity**: DBMS systems enforce constraints and rules to maintain data accuracy and consistency.
+
+	- **Concurrency Control**: DBMS systems manage concurrent access to the database to prevent data corruption.
+
+	- **Backup and Recovery**: DBMS systems offer backup and restore mechanisms to protect data in case of failure.
+
+	- **Indexing**: DBMS systems create and manage indexes to improve data retrieval performance.
+
+	- **Transactions**: DBMS systems support transactions, allowing a series of operations to be executed atomically.
+
+
+
+
+	Types of DBMS:
+
+	1. **Relational DBMS (RDBMS)**: Data is organized in tables with rows and columns, and relationships between data are established. Examples include MySQL, Oracle Database, and Microsoft SQL Server.
+
+	2. **NoSQL DBMS**: Designed for handling unstructured or semi-structured data. Types include document-oriented (e.g., MongoDB), key-value stores (e.g., Redis), and column-family stores (e.g., Apache Cassandra).
+
+	3. **Object-Oriented DBMS (OODBMS)**: Designed to work with object-oriented programming languages and data models.
+
+	4. **Graph DBMS**: Specialized for managing graph-like data structures.
+
+
+
+
+	**Types of SQL Commands**:
+
+	Structured Query Language (SQL) is a domain-specific language for managing and querying relational databases. SQL commands are used to interact with a database, including retrieving, inserting, updating, and deleting data. Common types of SQL commands include:
+
+	1. **Data Query Language (DQL)**:
+	   - `SELECT`: Retrieves data from one or more tables.
+	   - `FROM`: Specifies the table(s) to query.
+	   - `WHERE`: Filters rows based on specified conditions.
+	   - `GROUP BY`: Groups rows by one or more columns.
+	   - `HAVING`: Filters groups based on specified conditions.
+	   - `ORDER BY`: Sorts rows based on specified columns.
+
+	2. **Data Manipulation Language (DML)**:
+	   - `INSERT INTO`: Adds new rows to a table.
+	   - `UPDATE`: Modifies existing data in a table.
+	   - `DELETE`: Removes rows from a table.
+
+	3. **Data Definition Language (DDL)**:
+	   - `CREATE TABLE`: Defines a new table and its structure.
+	   - `ALTER TABLE`: Modifies an existing table's structure.
+	   - `DROP TABLE`: Deletes a table and its data.
+	   - `CREATE INDEX`: Creates an index for improving data retrieval.
+	   - `DROP INDEX`: Removes an index.
+
+	4. **Data Control Language (DCL)**:
+	   - `GRANT`: Grants privileges or permissions to users or roles.
+	   - `REVOKE`: Revokes previously granted privileges.
+
+	5. **Transaction Control Language (TCL)**:
+	   - `COMMIT`: Confirms and persists changes made within a transaction.
+	   - `ROLLBACK`: Reverts changes made within a transaction.
+	   - `SAVEPOINT`: Sets a savepoint within a transaction for later rollback.
+
+	SQL commands allow users and applications to interact with relational databases, making it possible to store, retrieve, and manage data effectively.
+
+
+
+
+
+
+					
+
+	MYSQL QUERIES
+	=====================================================
+
+
+
+
+	/* employee table and user table */
+	emp_id, emp_company_name, 		emp_name, emp_salary
+	1, 		'Innova Solutions', 	'Nani'	, '55000.2'
+	2, 		'ACS Solutions',		'Pinky', '45000.2'
+	3, 		'HCL', 					'Srinivas', '56000.2'
+	4, 		'TECHERA Solutions', 	'Ramu', '51000.2'
+	5, 		'IBM', 					'Raju', '58000.2'
+	6, 		'TCS', 					'Pavan', '65000.2'
+
+
+	CREATING TABLE 
+	================
+	CREATE TABLE user (
+	id int NOT NULL AUTO_INCREMENT,
+	name varchar(60) not null,
+	age int not null,
+	occupation varchar(60),
+	PRIMARY KEY(id)
+	)
+
+	/** ALTER TABLE **/
+
+	/* add a column */
+	alter table user add dob varchar(60) not null after name;
+
+	/* add multiple columns */
+	alter table user add dob varchar(60) not null after name , add salary VARCHAR(60) not null after occupation;
+
+	/* modify column is used to modify the definition of the COLUMN */
+	alter table user modify dob VARCHAR(40) ;
+
+	/* drop a column */
+	alter table user drop column dob;
+
+	/* change column name */
+	Syntax : ALTER TABLE table_name  CHANGE COLUMN old_name new_name   column_definition  [ FIRST | AFTER column_name ]  
+	alter table user change name user_name after age
+
+	/* Rename table */
+	alter table rename to users
+
+	/* delete the row data from a table */
+	delete user where id in (4,6)
+
+	/* delete entire table data or TRUNCATE table data without deleting columns */
+	TRUNCATE table user;
+
+	/* drop table or delete table with columns */
+	drop table user;
+
+	/* drop table or delete table with columns */
+	drop table IF EXISTS user, employee, customer ;
+
+	/* show table STRUCTURE */
+	desc user;
+
+	/* show columns from table from any database */
+
+	syntax : SHOW COLUMNS FROM database_name.table_name;  
+
+
+
+
+	MySQL CONSTRAINTS 
+	==================
+	The constraint in MySQL is used to specify the rule that allows or restricts what values/data will be stored in the table. 
+	They provide a suitable method to ensure data accuracy and integrity inside the table. 
+	It also helps to limit the type of data that will be inserted inside the table. 4
+
+	If any interruption occurs between the constraint and data action, the action is failed.
+
+		Types of MySQL Constraints
+		Constraints in MySQL is classified into two types:
+		i) Column Level Constraints: These constraints are applied only to the single column that limits the type of particular column data.
+		ii) Table Level Constraints: These constraints are applied to the entire table that limits the type of data for the whole table.
+
+
+	1) NOT NULL Constraint
+		This constraint specifies that the column cannot have NULL or empty values. The below statement creates a table with NOT NULL constraint.
+		mysql> CREATE TABLE Student(Id INTEGER, LastName TEXT NOT NULL, FirstName TEXT NOT NULL, City VARCHAR(35));  
+		
+	2) UNIQUE Constraint
+		mysql> CREATE TABLE ShirtBrands(Id INTEGER, BrandName VARCHAR(40) UNIQUE, Size VARCHAR(30));  
+		
+		mysql> INSERT INTO ShirtBrands(Id, BrandName, Size) VALUES(1, 'Pantaloons', 38), (2, 'Cantabil', 40);  
+	  
+		mysql> INSERT INTO ShirtBrands(Id, BrandName, Size) VALUES(1, 'Raymond', 38), (2, 'Cantabil', 40);   // gives an error in 'Cantabil' value(duplicate entry for key)
+
+	3) CHECK Constraint
+		
+		It controls the value in a particular column. It ensures that the inserted value in a column must be satisfied with the given condition. 
+		In other words, it determines whether the value associated with the column is valid or not with the given condition.
+		The CHECK constraint ensures that the inserted value in a column must be satisfied with the given condition means the Age of a person should be greater than or equal to 18.
+		
+
+		
+		mysql> CREATE TABLE Persons (  
+		ID int NOT NULL,  
+		Name varchar(45) NOT NULL,  
+		Age int CHECK (Age>=18)  
+		);  
+		
+		mysql> INSERT INTO Persons(Id, Name, Age) VALUES (1,'Robert', 28), (2, 'Joseph', 35), (3, 'Peter', 40);  
+		  
+		mysql> INSERT INTO Persons(Id, Name, Age) VALUES (1,'Robert', 15);  // gives an error check_constraint 'persons_chk_1' is violated (because of value '15')
+
+	4) DEFAULT Constraint
+		This constraint is used to set the default value for the particular column where we have not specified any value. 
+		It means the column must contain a value, including NULL.
+
+		For example, the following statement creates a table "Persons" that contains DEFAULT constraint on the "City" column. 
+		If we have not specified any value to the City column, it inserts the default value:
+		
+		mysql> CREATE TABLE Persons (  
+		ID int NOT NULL,  
+		Name varchar(45) NOT NULL,  
+		Age int,  
+		City varchar(25) DEFAULT 'New York'  
+		);  
+		
+		mysql> INSERT INTO Persons(Id, Name, Age, City) VALUES (1,'Robert', 15, 'Florida'), (2, 'Joseph', 35, 'California'),(3, 'Peter', 40, 'Alaska');  
+		mysql> INSERT INTO Persons(Id, Name, Age) VALUES (1,'Brayan', 15);  // after 15  city was not given, it will take 'New_York' as DEFAULT value.
+
+	5) AUTO_INCREMENT Constraint
+		This constraint automatically generates a unique number whenever we insert a new record into the table. 
+		Generally, we use this constraint for the primary key field in a table.
+		
+		mysql> CREATE TABLE Animals(  
+		id int NOT NULL AUTO_INCREMENT,   
+		name CHAR(30) NOT NULL,   
+		PRIMARY KEY (id)
+		);  
+
+	6) ENUM Constraint
+		
+		The ENUM data type in MySQL is a string object. It allows us to limit the value chosen from a list of permitted values in the column specification at the time of table creation. 
+		It is short for enumeration, which means that each column may have one of the specified possible values. 
+		It uses numeric indexes (1, 2, 3…) to represent string values.
+		
+		mysql> CREATE TABLE Shirts (    
+		id INT PRIMARY KEY AUTO_INCREMENT,     
+		name VARCHAR(35),     
+		size ENUM('small', 'medium', 'large', 'x-large')    
+		);  
+		
+		mysql> INSERT INTO Shirts(id, name, size) VALUES (1,'t-shirt', 'medium'),(2, 'casual-shirt', 'small'),(3, 'formal-shirt', 'large');  
+
+
+	7) INDEX Constraint
+		This constraint allows us to create and retrieve values from the table very quickly and easily. 
+		An index can be created using one or more than one column. It assigns a ROWID for each row in that way they were inserted into the table.
+		
+		mysql> CREATE TABLE Shirts (    
+		id INT PRIMARY KEY AUTO_INCREMENT,     
+		name VARCHAR(35),     
+		size ENUM('small', 'medium', 'large', 'x-large')    
+		);  
+		
+		
+		mysql> INSERT INTO Shirts(id, name, size) VALUES (1,'t-shirt', 'medium'), (2, 'casual-shirt', 'small'), (3, 'formal-shirt', 'large');  
+		
+		mysql> CREATE INDEX idx_name ON Shirts(name);  // creating index query 
+		mysql> SELECT * FROM Shirts USE INDEX(idx_name); 
+
+	8) Foreign Key Constraint
+		This constraint is used to link two tables together. It is also known as the referencing key.
+		A foreign key column matches the primary key field of another table. It means a foreign key field in one table refers to the primary key field of another table.
+		
+		Let us consider the structure of these tables: Persons and Orders.
+		
+		persons table :
+		
+		CREATE TABLE Persons (  
+		Person_ID int NOT NULL PRIMARY KEY,   
+		Name varchar(45) NOT NULL,   
+		Age int,   
+		City varchar(25)  
+		);  
+		
+		Orders table : 
+		CREATE TABLE Orders (  
+		Order_ID int NOT NULL PRIMARY KEY,  
+		Order_Num int NOT NULL,  
+		Person_ID int,  
+		FOREIGN KEY (Person_ID) REFERENCES Persons(Person_ID)  
+		);  
+		
+		In the above table structures, we can see that the "Person_ID" field in the "Orders" table points to the "Person_ID" field in the "Persons" table. 
+		The "Person_ID" is the PRIMARY KEY in the "Persons" table, while the "Person_ID" column of the "Orders" table is a FOREIGN KEY.
+
+
+	/* Copy data from one table to another table (coping from product row 1 data to product_info table row1 */
+	insert into product_info(id, expiry_date, product_name, product_price )  select id, expiry_date, product_name, product_price from product where id =1
+
+
+	MySQL CLAUSES 
+	=================
+
+	1. WHERE - is used to filter the results. It specifies a specific position where you have to do the operation.
+		Ex: select * from student where name = "Nani";
+
+	2. DISTINCT - is used to remove duplicate records from table and fetch only the unique records. The DISTINCT clause is used only with SELECT statement.
+		Ex: select  distinct  product_price from product 
+
+	3. ORDER BY - is used to sort the records in ascending or descending order.
+
+		Ex: SELECT * FROM product  ORDER BY product_name ASC; // ascending order 
+
+			SELECT * FROM product  ORDER BY product_name DESC; // descnding order.
+			
+			SELECT * FROM product  ORDER BY product_name; // by default ascending order.
+			
+	4. GROUP BY - The MYSQL GROUP BY Clause is used to collect data from multiple records and group the result by one or more column. It is generally used in a SELECT statement.
+
+				  You can also use some aggregate functions like COUNT, SUM, MIN, MAX, AVG etc. on the grouped column.
+				  
+			Ex: select product_name , count(*) from product group by product_name // group by with COUNT function.
+			
+				select emp_name , sum(work_hours) as total_work_hours from emp_work_hours group by emp_name //group by with SUM() function.
+				
+				select emp_name ,MIN(work_hours) as minimum_work_hours from emp_work_hours group by emp_name // group by with MIN() function.
+				
+				select emp_name ,MAX(work_hours) as maximum_work_hours from emp_work_hours group by emp_name // group by with MAX() function.
+				
+				select emp_name ,AVG(work_hours) as avg_work_hours from emp_work_hours group by emp_name // group by with AVG() function.
+
+	5. HAVING - MySQL HAVING Clause is used with GROUP BY clause. It always returns the rows where condition is TRUE.
+
+				select emp_name , sum(work_hours) as total_work_hours from emp_work_hours group by emp_name having sum(work_hours) > 13 // returns records whose sum of work_hours is above  13 work_hours.
+
+
+	MYSQL CONTROL FLOW :
+	=====================
+
+	Syntax: SELECT IF(expression1(check condition) , expression 2(true), expression 3(false);
+
+	IF EXPRESSION: 
+	----------------
+
+	 SELECT IF(30<20, 'Yes', 'No');
+	 SELECT IF(200=30, 'CORRECT' , 'WRONG');
+	 SELECT IF(STRCMP('WELCOME', 'UNWELCOME')=0, 'SAME',  'DIFFERENT'); // comparing the strings
+	 
+	 SELECT emp_name,emp_salary, IF(emp_salary >55000, 'ELIGIBLE FOR LOAN', 'NOT ELIGIBLE FOR LOAN') AS result from employee;
+	 
+	 SELECT IFNULL('Welcome', 'Unwelcome'); /* it returns Welcome because , first expression is not null.*/
+	 SELECT IFNULL(NULL, 'Unwelcome'); /* it returns Unwelcome because , first expression is null.*/
+
+	 
+	CASE EXPRESSION:
+	----------------
+	 Syntax:
+		CASE value   
+			WHEN [compare_value] THEN result   
+			[WHEN [compare_value] THEN result ...]   
+			[ELSE result]   
+		END  
+		
+	EX: 1
+		
+	SELECT CASE 'getout'
+		WHEN 'welcome' THEN 'THANK YOU'
+		WHEN 'Unwelcome' THEN 'NO PROBLEM'
+		WHEN 'getout' THEN 'SAD'   /* This will be returned */
+		ELSE 'INVALID'
+	END
+
+
+	EX: 2
+
+	SELECT emp_id, emp_name ,
+	CASE 
+		WHEN emp_salary > 50000 THEN 'Eligible for loan'
+		WHEN emp_salary  < 50000 THEN 'Not eligible for loan'
+		WHEN emp_salary = 60000 THEN 'Interest will be less'
+		ELSE 'INVALID'
+	END AS result from employee 
+
+
+
+
+
+	MySQL CONDITIONS:
+	=================
+
+	1. AND :  select * from employee where emp_name ='Nani' AND emp_salary = 55000.2;
+
+	2. OR  : select * from employee where emp_name = 'nani' OR emp_name = 'ramu';
+
+	3. AND OR : select * from employee where (emp_name = 'nani' AND emp_name = 'ramu') OR emp_salary>=55000
+
+	4. Boolean : SELECT studentid, name, pass FROM student1 WHERE pass = TRUE;  
+
+	5. LIKE	: LIKE condition is used to perform pattern matching to find the correct result. It is used in SELECT, INSERT, UPDATE and DELETE statement with the combination of WHERE clause.
+				select * from employee where emp_name LIKE '%van'; /* search for name based on given ending characters('van' - 'Pavan') */
+				select * from employee where emp_name LIKE '%an%'; /* search for name based on given middle characters('%an%' - 'Pavan') */
+				select * from employee where emp_name LIKE 'Pav%'; /* search for name based on given first characters('Pav%' - 'Pavan') */
+				
+				select * from employee where emp_name LIKE 'P_v_n%'; // search for name based on given index characters('Pav%' - 'Pavan') - using underscore
+				
+				
+	6. IN   : The MySQL IN condition is used to reduce the use of multiple OR conditions in a SELECT, INSERT, UPDATE and DELETE statement.
+				
+				select * from employee where id IN (3,7,8); /* it will fetch the records whose id's are 3,7,8 */
+			
+				select * from employee where emp_name IN ('nani', 'pavan',  'raju');
+				
+				
+	7.  ANY : The ANY keyword is a MySQL operator that returns the Boolean value TRUE if the comparison is TRUE for ANY of the subquery condition. In other words, this keyword returns true if any of the subquery condition is fulfilled when the SQL query is executed. The ANY keyword must follow the comparison operator. 
+			  It is noted that ALL SQL operator works related to ANY operator, but it returns true when all the subquery values are satisfied by the condition in MySQL.
+			  The ANY operator works like comparing the value of a table to each value in the result set provided by the subquery condition. And then, if it finds any value that matches at least one value/row of the subquery, it returns the TRUE result.
+
+				select emp_salary from employee where emp_salary > ANY (select product_price from product) /** it returns true that mean employee salaries will be printed because salaries are greater than product_prices */
+				
+				select product_price from product where product_price > ANY(select emp_salary from employee ) /** it returns false(empty table) because product_prices are not greater than employee salaries */
+				
+	8. 	NOT : select * from employee where emp_name NOT IN ('nani', 'pavan',  'raju');
+			  select * from employee where id IN (3, 7); 
+			  
+			  
+	9.  NOT EQUAL : select * from  employee where emp_id <> 6; /* NOT EQUAL */
+					select * from  employee where emp_id != 6; /* NOT EQUAL : Above and this query will give same results */
+					
+				
+	10. NULL/NOT NULL    : 	select * from employee where emp_name IS NULL; /* returns records whose names are having null value */
+						 :  select * from employee where emp_name IS NOT NULL; /* returns records whose names are not having null value */
+
+				
+
+		
+		
+		
+	MySQL JOINS :
+	====================
+
+	MySQL JOINS are used with SELECT statement. It is used to retrieve data from multiple tables. It is performed whenever you need to fetch records from two or more tables.
+
+	1. INNER JOIN :
+	========================
+	The MySQL Inner Join is used to returns only those results from the tables that match the specified condition and hides other rows and columns. 
+	MySQL assumes it as a default Join, so it is optional to use the Inner Join keyword with the query.
+
+		Syntax :SELECT columns  
+				FROM table1  
+				INNER JOIN table2 ON condition1  
+				INNER JOIN table3 ON condition2  
+				...;
+		
+		ex: select e.emp_id, ew.working_date,e.emp_name, work_hours, emp_salary from employee e INNER JOIN emp_work_hours ew  ON e.emp_id = ew.emp_id;
+		
+		
+		MySQL Inner Join with GROUP BY CLAUSE 
+		------------------------------------
+		
+		select   ew.day_id , e.emp_name, e.emp_id, e.emp_salary , ew.working_date from emp_work_hours  ew LEFT JOIN   employee e  ON  e.emp_id = ew.emp_id;
+
+		
+		MySQL Inner Join with USING clause:
+		----------------------------------
+		
+		Sometimes, the name of the columns is the same in both the tables. In that case, we can use a USING keyword to access the records. The following query explains it more clearly:
+
+		
+		select   employee.emp_id, emp_work_hours.working_date,employee.emp_name, work_hours, emp_salary from employee  INNER JOIN emp_work_hours   USING(emp_id);
+
+
+	2. LEFT JOIN 
+	=======================
+
+	The Left Join in MySQL is used to query records from multiple tables. 
+	This clause is similar to the Inner Join clause that can be used with a SELECT statement immediately after the FROM keyword. 
+	When we use the Left Join clause, it will return all the records from the first (left-side) table, even no matching records found from the second (right side) table. 
+	If it will not find any matches record from the right side table, then returns null.
+		
+		
+		Syntax : 	SELECT columns    
+					FROM table1    
+					LEFT JOIN table2    
+					ON Join_Condition; 
+	example : 
+	select   ew.day_id , e.emp_name, e.emp_id, e.emp_salary , ew.working_date from emp_work_hours  ew LEFT JOIN   employee e  ON  e.emp_id = ew.emp_id;
+					
+		
+		MySQL LEFT JOIN with GROUP BY CLAUSE 
+		----------------------------------------
+	select   ew.day_id , e.emp_name, e.emp_id, e.emp_salary , ew.working_date from emp_work_hours  ew LEFT JOIN   employee e  ON  e.emp_id = ew.emp_id GROUP BY e.emp_company_name
+
+
+
+	3. RIGHT-JOIN
+	===========================
+	The Right Join is used to joins two or more tables and returns all rows from the right-hand table, and only those results from the other table that fulfilled the join condition. 
+	If it finds unmatched records from the left side table, it returns Null value. 
+	It is similar to the Left Join, except it gives the reverse result of the join tables. 
+	It is also known as Right Outer Join. So, Outer is the optional clause used with the Right Join.
+		
+		
+		
+		
+		
+	Syntax: SELECT column_list  
+			FROM Table1  
+			RIGHT JOIN Table2   
+			ON join_condition;  
+		
+		
+	Example : 	SELECT  emp_name,c.id, customer_name,state from customer c 
+				RIGHT JOIN employee e ON  c.id = e.emp_id
+				RIGHT JOIN product p ON c.id = p.id
+
+
+
+	4. CROSS-JOIN
+	=========================
+	MySQL CROSS JOIN is used to combine all possibilities of the two or more tables and returns the result that contains every row from all contributing tables. 
+	The CROSS JOIN is also known as CARTESIAN JOIN, which provides the Cartesian product of all associated tables. 
+	The Cartesian product can be explained as all rows present in the first table multiplied by all rows present in the second table. 
+	It is similar to the Inner Join, where the join condition is not available with this clause.
+
+
+	Syntax : 	SELECT *  
+				FROM customers  
+				CROSS JOIN contacts;  
+				
+				
+	Example : SELECT * FROM employee CROSS JOIN emp_work_hours
+
+
+
+
+	5. SELF-JOIN
+	=========================
+	A SELF JOIN is a join that is used to join a table with itself. 
+	In the previous sections, we have learned about the joining of the table with the other tables using different JOINS, such as INNER, LEFT, RIGHT, and CROSS JOIN. 
+	However, there is a need to combine data with other data in the same table itself. In that case, we use Self Join.
+
+	We can perform Self Join using table aliases. The table aliases allow us not to use the same table name twice with a single statement. 
+	If we use the same table name more than one time in a single query without table aliases, it will throw an error.
+
+	The table aliases enable us to use the temporary name of the table that we are going to use in the query. 
+	Let us understand the table aliases with the following explanation.
+
+	Suppose we have a table named "student" that is going to use twice in the single query. To aliases the student table, we can write it as:
+
+	Select … FROM student AS S1   
+	INNER JOIN student AS S2;  
+
+
+
+	Syntax : 	SELECT s1.col_name, s2.col_name...  
+				FROM table1 s1, table1 s2  
+				WHERE s1.common_col_name = s2.common_col_name;  
+				
+				
+				
+	example : 	SELECT  s1.student_id, s1.name  
+				FROM student AS s1, student s2  
+				WHERE s1.student_id=s2.student_id  
+				AND s1.course_id<>s2.course_id;  // <> is equal to !=
+				
+
+		i. SELF JOIN using INNER JOIN clause
+		-----------------------------------------------
+					SELECT  s1.student_id, s1.name  
+					FROM student s1  
+					INNER JOIN student s2  
+					ON s1.student_id=s2.student_id  
+					AND s1.course_id<>s2.course_id  
+					GROUP BY student_id;  
+					
+		ii. SELF-JOIN using LEFT JOIN clause
+		----------------------------------------------
+
+					SELECT (CONCAT(s1.stud_lname, ' ', s2.stud_fname)) AS 'Monitor', s1.city  
+					FROM students s1  
+					LEFT JOIN students s2 ON s1.student_id=s2.student_id  
+					ORDER BY s1.city DESC;  
+					
+					
+					
+					
+					
+					
+	MySQL STORED PROCEDURES
+	=========================
+
+	Certainly! Here's a tutorial on MySQL stored procedures with explanations for each step:
+
+	**MySQL Stored Procedures Tutorial**
+
+	A stored procedure is a collection of SQL statements that can be executed as a single unit. It allows for code reusability, improved performance, and enhanced security. This tutorial will guide you through creating a MySQL stored procedure, using input and output parameters, executing the procedure, and implementing error handling.
+
+
+	MySQL stored procedures offer several features that make them valuable for database development and management:
+
+	1. **Code Reusability**: Stored procedures allow you to encapsulate a sequence of SQL statements into a single, reusable unit. This promotes code reusability, reducing the need to duplicate code in multiple parts of your application.
+
+	2. **Performance Optimization**: Stored Procedure increases the performance of the applications. Once stored procedures are created, they are compiled and stored in the database.
+
+	3. **Reduced Network Traffic**: Stored procedure reduces the traffic between application and database server. Because the application has to send only the stored procedure's name and parameters instead of sending multiple SQL statements.
+
+	4. **Improved Security**: A procedure is always secure. The database administrator can grant permissions to applications that access stored procedures in the database without giving any permissions on the database tables.
+
+	5. **Error Handling**: Stored procedures enable you to implement robust error handling with DECLARE...HANDLER statements, so you can gracefully handle exceptions and errors that might occur during execution.
+
+
+	Overall, MySQL stored procedures are a powerful tool for enhancing database development, ensuring data integrity, improving performance, and centralizing business logic within the database server. They can be particularly valuable in enterprise applications with complex data manipulation and security requirements.
+
+
+	1 Creating a MySQL stored procedure.
+	2. Using input and output parameters.
+	3. Executing the stored procedure.
+	4. Error handling.
+
+
+
+
+	**Step 1: Creating a MySQL Stored Procedure**
+
+	1. **Definition**: To create a MySQL stored procedure, use the `CREATE PROCEDURE` statement, followed by the procedure name, input parameters (if any), and the SQL statements enclosed within a `BEGIN...END` block.
+
+	2. **Example**:
+	   ```sql
+	   DELIMITER //
+	   CREATE PROCEDURE InsertProduct(IN product_name VARCHAR(255), IN price DECIMAL(10, 2))
+	   BEGIN
+		   INSERT INTO products (product_name, price) VALUES (product_name, price);
+	   END //
+	   DELIMITER ;
+	   ```
+
+	   - Explanation: In this example, we create a stored procedure named `InsertProduct`. It takes two input parameters, `product_name` and `price`, and inserts a new product record into the "products" table.
+
+	**Step 2: Using Input and Output Parameters**
+
+	1. **Definition**: Stored procedures can have input and output parameters. Input parameters are values passed into the procedure, while output parameters return results.
+
+	2. **Example**:
+	   ```sql
+	   DELIMITER //
+	   CREATE PROCEDURE AddTwoNumbers(IN num1 INT, IN num2 INT, OUT result INT)
+	   BEGIN
+		   SET result = num1 + num2;
+	   END //
+	   DELIMITER ;
+	   ```
+
+	   - Explanation: In this example, `num1` and `num2` are input parameters, and `result` is an output parameter. The procedure calculates the sum of the input parameters and stores it in the output parameter.
+
+	**Step 3: Executing the Stored Procedure**
+
+	1. **Definition**: To execute a stored procedure, use the `CALL` statement. Provide the procedure name and input parameter values.
+
+	2. **Example**:
+	   ```sql
+	   CALL InsertProduct('Sample Product', 29.99);
+	   ```
+
+	   - Explanation: This `CALL` statement executes the `InsertProduct` procedure with specific values for the `product_name` and `price` input parameters. It inserts a new product into the "products" table.
+
+	3. **Example (with output parameter)**:
+	   ```sql
+	   CALL AddTwoNumbers(5, 7, @sum);
+	   SELECT @sum;
+	   ```
+
+	   - Explanation: This example calls the `AddTwoNumbers` procedure with input parameters 5 and 7. It also stores the result in an output parameter `@sum` and then selects and displays the sum.
+
+	**Step 4: Error Handling**
+
+	1. **Definition**: MySQL stored procedures allow you to handle errors using `DECLARE...HANDLER` statements. These handlers specify how to react to specific errors that might occur during procedure execution.
+
+	2. **Example**:
+	   ```sql
+	   DELIMITER //
+	   CREATE PROCEDURE DivideNumbers(IN dividend INT, IN divisor INT, OUT quotient DECIMAL(10, 2))
+	   BEGIN
+		   DECLARE CONTINUE HANDLER FOR 1365
+		   SET quotient = NULL;  -- Handle division by zero error (error code 1365)
+		   
+		   SET quotient = dividend / divisor;
+	   END //
+	   DELIMITER ;
+	   ```
+
+	   - Explanation: In this example, a handler is declared to catch the division by zero error (error code 1365). If the error occurs, the output parameter `quotient` is set to NULL.
+
+	===============================================================================================================================================================================================
+	SQL Practice 
+	=============
+	create database practice_sql;
+
+
+	--CREATING TABLES FOR PRACTICE
+	--============================
+
+	-- Create a table for storing customers
+	CREATE TABLE customers (
+		customer_id INT AUTO_INCREMENT PRIMARY KEY,
+		first_name VARCHAR(50) NOT NULL,
+		last_name VARCHAR(50) NOT NULL,
+		email VARCHAR(100) UNIQUE,
+		phone_number VARCHAR(15)
+	);
+
+	-- Create a table for storing addresses
+	CREATE TABLE addresses (
+		address_id INT AUTO_INCREMENT PRIMARY KEY,
+		customer_id INT,
+		street VARCHAR(100),
+		city VARCHAR(50),
+		state VARCHAR(50),
+		postal_code VARCHAR(20),
+		country VARCHAR(50),
+		FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+	);
+
+
+	-- Create a table for storing orders
+	CREATE TABLE orders (
+		order_id INT AUTO_INCREMENT PRIMARY KEY,
+		customer_id INT,
+		order_date DATE,
+		total_amount DECIMAL(10, 2),
+		FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+	);
+
+	-- Create a table for storing order items
+	CREATE TABLE order_items (
+		order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+		order_id INT,
+		product_name VARCHAR(100),
+		quantity INT,
+		unit_price DECIMAL(10, 2),
+		FOREIGN KEY (order_id) REFERENCES orders(order_id)
+	);
+
+
+
+	--INSERTING DATA INTO TABLES TO PRACTICE
+	--=======================================
+
+	-- Insert data into the customers table
+	INSERT INTO customers (first_name, last_name, email, phone_number)
+	VALUES
+		('Ramesh', 'Kumar', 'ramesh@example.com', '9876543210'),
+		('Suresh', 'Sharma', 'suresh@example.com', '8765432109'),
+		('Preeti', 'Patel', 'preeti@example.com', '7654321098'),
+		('Vikram', 'Singh', 'vikram@example.com', '6543210987'),
+		('Priya', 'Mishra', 'priya@example.com', '5432109876'),
+		('Amit', 'Verma', 'amit@example.com', '4321098765'),
+		('Anita', 'Reddy', 'anita@example.com', '3210987654'),
+		('Rajesh', 'Gupta', 'rajesh@example.com', '2109876543'),
+		('Deepak', 'Shah', 'deepak@example.com', '1098765432'),
+		('Neha', 'Jain', 'neha@example.com', '0987654321');
+
+
+	-- Insert data into the addresses table
+	INSERT INTO addresses (customer_id, street, city, state, postal_code, country)
+	VALUES
+		(1, '123 ABC Street', 'Mumbai', 'Maharashtra', '400001', 'India'),
+		(2, '456 XYZ Street', 'Delhi', 'Delhi', '110001', 'India'),
+		(3, '789 PQR Street', 'Bangalore', 'Karnataka', '560001', 'India'),
+		(4, '101 QWE Street', 'Kolkata', 'West Bengal', '700001', 'India'),
+		(5, '888 JKL Street', 'Chennai', 'Tamil Nadu', '600001', 'India'),
+		(6, '222 MNO Street', 'Hyderabad', 'Telangana', '500001', 'India'),
+		(7, '555 UVW Street', 'Pune', 'Maharashtra', '411001', 'India'),
+		(8, '999 XYZ Street', 'Ahmedabad', 'Gujarat', '380001', 'India'),
+		(9, '777 FGH Street', 'Jaipur', 'Rajasthan', '302001', 'India'),
+		(10, '333 IJK Street', 'Lucknow', 'Uttar Pradesh', '226001', 'India');
+
+	-- Insert data into the orders table
+	INSERT INTO orders (customer_id, order_date, total_amount)
+	VALUES
+		(1, '2024-03-15', 500.00),
+		(2, '2024-03-16', 750.00),
+		(3, '2024-03-17', 1000.00),
+		(4, '2024-03-18', 600.00),
+		(5, '2024-03-19', 900.00),
+		(6, '2024-03-20', 1200.00),
+		(7, '2024-03-21', 850.00),
+		(8, '2024-03-22', 950.00),
+		(9, '2024-03-23', 1100.00),
+		(10, '2024-03-24', 700.00);
+
+	-- Insert data into the order_items table
+	INSERT INTO order_items (order_id, product_name, quantity, unit_price)
+	VALUES
+		(1, 'Product A', 2, 100.00),
+		(1, 'Product B', 1, 150.00),
+		(2, 'Product C', 3, 200.00),
+		(3, 'Product D', 1, 500.00),
+		(4, 'Product E', 2, 200.00),
+		(4, 'Product F', 1, 400.00),
+		(5, 'Product G', 3, 300.00),
+		(5, 'Product H', 1, 600.00),
+		(6, 'Product I', 2, 250.00),
+		(6, 'Product J', 1, 450.00),
+		(7, 'Product K', 4, 100.00),
+		(8, 'Product L', 2, 475.00),
+		(9, 'Product M', 1, 800.00),
+		(9, 'Product N', 3, 350.00),
+		(10, 'Product O', 2, 150.00),
+		(10, 'Product P', 1, 700.00);
+
+
+
+
+	---PRACTICE QUESTIONS
+	--===================
+
+	**Customers Table:**
+
+	1. Retrieve all customers' first names and last names.
+	2. Get the email addresses of customers whose first name starts with 'R'.
+	3. Find the phone numbers of customers whose last name ends with 'a'.
+	4. Count the total number of customers.
+	5. Get the details (first name, last name, email, phone number) of the customer with the highest customer_id.
+	6. Find customers who have email addresses containing 'example'.
+	7. Retrieve customers who have phone numbers starting with '98'.
+	8. Get the number of distinct last names among customers.
+	9. Retrieve customers sorted by last name in ascending order.
+	10. Find customers who do not have an email address specified.
+
+	**Addresses Table:**
+
+	11. Get all addresses in Mumbai.
+	12. Find the postal code of the address with the highest address_id.
+	13. Retrieve addresses in Karnataka.
+	14. Count the total number of addresses.
+	15. Get the country of the address with the lowest address_id.
+	16. Find addresses in cities starting with 'D'.
+	17. Retrieve addresses with postal codes ending with '001'.
+	18. Get distinct states from the addresses table.
+	19. Find addresses in India.
+	20. Retrieve addresses sorted by city in descending order.
+
+	**Orders Table:**
+
+	21. Retrieve all order IDs.
+	22. Get the total amount of the order with the highest order_id.
+	23. Find orders placed on '2024-03-15'.
+	24. Count the total number of orders.
+	25. Get the order date of the order with the lowest order_id.
+	26. Find orders with a total amount greater than 1000.00.
+	27. Retrieve orders placed before '2024-03-20'.
+	28. Get the average total amount of all orders.
+	29. Find orders placed by customer_id 3.
+	30. Retrieve orders sorted by total amount in descending order.
+
+	**Order_Items Table:**
+
+	31. Retrieve all order item IDs.
+	32. Get the product names of items with a quantity greater than 2.
+	33. Find the total price of all items.
+	34. Count the total number of order items.
+	35. Get the quantity of the item with the highest order_item_id.
+	36. Find items with a unit price less than 200.00.
+	37. Retrieve items with a product name containing 'Product G'.
+	38. Get the sum of the quantities of all items.
+	39. Find items with a unit price greater than 500.00.
+	40. Retrieve items sorted by unit price in ascending order.
+
+	41. Retrieve all customers who have placed an order.
+	42. Get the total number of orders placed by each customer.
+	43. Find the customer who has placed the most orders.
+	44. Retrieve the average total amount of orders placed by each customer.
+	45. Get the customer who has spent the most on orders.
+	46. Find the number of orders placed in each city.
+	47. Retrieve the highest total amount of orders placed in a single order.
+	48. Get the average quantity of items per order.
+	49. Find the customer who has purchased the most items.
+	50. Retrieve orders placed by customers with a specific email domain (e.g., '@example.com').
+
+	51. Retrieve the first and last names of customers along with their corresponding addresses.
+	52. Get the total amount of each order along with the corresponding customer's first name.
+	53. Find the average total amount of orders placed in each city.
+	54. Retrieve orders along with the customer's phone number and address city.
+	55. Get the product names along with their corresponding unit prices.
+	56. Find the total amount of each order along with the customer's last name.
+	57. Retrieve orders placed by customers with a specific area code in their phone number.
+	58. Get the order date and total amount of orders placed in each state.
+	59. Find the customer who has placed the most expensive order.
+	60. Retrieve orders along with the customer's first name and last name.
+
+	61. Retrieve the first name and last name of customers who have placed orders.
+	62. Get the total amount of orders placed in each country.
+	63. Find the order date and total amount of orders placed by a specific customer.
+	64. Retrieve the first name and email address of customers who have placed orders.
+	65. Get the order date and total amount of orders placed by a customer with a specific email address.
+	66. Find the customer who has placed the least expensive order.
+	67. Retrieve the first name and phone number of customers who have placed orders.
+	68. Get the total number of orders placed in each month.
+	69. Find the order date and total amount of orders placed by a customer with a specific phone number.
+	70. Retrieve the first name and address city of customers who have placed orders.
+
+	71. Retrieve the first name and last name of customers who have placed orders in Maharashtra.
+	72. Get the total number of orders placed in each city.
+	73. Find the order date and total amount of orders placed in Bangalore.
+	74. Retrieve the first name and email address of customers who have placed orders in Delhi.
+	75. Get the total number of orders placed in each state.
+	76. Find the order date and total amount of orders placed in Tamil Nadu.
+	77. Retrieve the first name and phone number of customers who have placed orders in Mumbai.
+	78. Get the total number of orders placed in each country.
+	79. Find the order date and total amount of orders placed in West Bengal.
+	80. Retrieve the first name and address postal code of customers who have placed orders in Chennai.
+
+	81. Retrieve the first name and last name of customers who have placed orders with a total amount greater than 1000.00.
+	82. Get the total amount of orders placed by customers with a specific last name.
+	83. Find the order date and total amount of orders placed by customers with a specific first name.
+	84. Retrieve the first name and email address of customers who have placed orders with a total amount less than 500.00.
+	85. Get the total amount of orders placed by customers with a specific phone number.
+	86. Find the order date and total amount of orders placed by customers with a specific email address.
+	87. Retrieve the first name and phone number of customers who have placed orders with a total amount greater than 750.00.
+	88. Get the total amount of orders placed by customers with a specific address city.
+	89. Find the order date and total amount of orders placed by customers with a specific address state.
+	90. Retrieve the first name and address postal code of customers who have placed orders with a total amount less than 600.00.
+
+	91. Retrieve the first name and last name of customers who have placed orders containing a specific product name.
+	92. Get the total amount of orders placed by customers with a specific address postal code.
+	93. Find the order date and total amount of orders placed by customers with a specific address country.
+	94. Retrieve the first name and email address of customers who have placed orders containing a specific product name.
+	95. Get the total amount of orders placed by customers with a specific email domain.
+	96. Find the order date and total amount of orders placed by customers with a specific phone number area code.
+	97. Retrieve the first name and phone number of customers who have placed orders containing a specific product name.
+	98. Get the total amount of orders placed by customers with a specific last name initial.
+	99. Find the order date and total amount of orders placed by customers with a specific first name initial.
+	100. Retrieve the first name and address city of customers who have placed orders containing a specific product name.
+
+
+	101. Retrieve the first name and last name of customers who have not placed any orders.
+	102. Get the total number of orders placed by customers with a specific email domain.
+	103. Find the average total amount of orders placed by customers in each city.
+	104. Retrieve orders placed on weekends (Saturday and Sunday).
+	105. Get the total amount of orders placed by customers with a specific area code in their phone number.
+	106. Find the order date and total amount of orders placed in each year.
+	107. Retrieve the first name and last name of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	108. Get the total number of orders placed by customers in each month of a specific year.
+	109. Find the order date and total amount of orders placed by customers with a specific last name.
+	110. Retrieve the first name and email address of customers who have placed orders with a total amount less than the average total amount of all orders.
+
+	111. Retrieve the first name and phone number of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	112. Get the total amount of orders placed by customers with a specific address city and state.
+	113. Find the order date and total amount of orders placed by customers with a specific first name.
+	114. Retrieve the first name and address postal code of customers who have placed orders with a total amount less than the average total amount of all orders.
+	115. Get the total amount of orders placed by customers with a specific last name initial.
+	116. Find the order date and total amount of orders placed by customers with a specific email address.
+	117. Retrieve the first name and phone number of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	118. Get the total amount of orders placed by customers with a specific address city and country.
+	119. Find the order date and total amount of orders placed by customers with a specific phone number.
+	120. Retrieve the first name and address city of customers who have placed orders with a total amount greater than the average total amount of all orders.
+
+	121. Retrieve the first name and last name of customers who have placed orders with a total amount less than the average total amount of all orders.
+	122. Get the total amount of orders placed by customers with a specific address state and country.
+	123. Find the order date and total amount of orders placed by customers with a specific address postal code.
+	124. Retrieve the first name and email address of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	125. Get the total amount of orders placed by customers with a specific email domain.
+	126. Find the order date and total amount of orders placed by customers with a specific phone number area code.
+	127. Retrieve the first name and phone number of customers who have placed orders with a total amount less than the average total amount of all orders.
+	128. Get the total amount of orders placed by customers with a specific address city, state, and country.
+	129. Find the order date and total amount of orders placed by customers with a specific last name initial.
+	130. Retrieve the first name and address postal code of customers who have placed orders with a total amount greater than the average total amount of all orders.
+
+	131. Retrieve the first name and last name of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	132. Get the total amount of orders placed by customers with a specific address city, state, and country.
+	133. Find the order date and total amount of orders placed by customers with a specific email domain.
+	134. Retrieve the first name and email address of customers who have placed orders with a total amount less than the average total amount of all orders.
+	135. Get the total amount of orders placed by customers with a specific phone number area code.
+	136. Find the order date and total amount of orders placed by customers with a specific address city and state.
+	137. Retrieve the first name and phone number of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	138. Get the total amount of orders placed by customers with a specific address city, state, and postal code.
+	139. Find the order date and total amount of orders placed by customers with a specific address city and postal code.
+	140. Retrieve the first name and address country of customers who have placed orders with a total amount less than the average total amount of all orders.
+
+	141. Retrieve the first name and last name of customers who have placed orders with a total amount less than the average total amount of all orders.
+	142. Get the total amount of orders placed by customers with a specific address state, postal code, and country.
+	143. Find the order date and total amount of orders placed by customers with a specific address state and postal code.
+	144. Retrieve the first name and email address of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	145. Get the total amount of orders placed by customers with a specific address city, postal code, and country.
+	146. Find the order date and total amount of orders placed by customers with a specific address city, postal code, and country.
+	147. Retrieve the first name and phone number of customers who have placed orders with a total amount less than the average total amount of all orders.
+	148. Get the total amount of orders placed by customers with a specific address state, postal code, and country.
+	149. Find the order date and total amount of orders placed by customers with a specific address city, state, and postal code.
+	150. Retrieve the first name and address city of customers who have placed orders with a total amount greater than the average total amount of all orders.
+
+	151. Retrieve the first name and last name of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	152. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	153. Find the order date and total amount of orders placed by customers with a specific address city, state, and country.
+	154. Retrieve the first name and email address of customers who have placed orders with a total amount less than the average total amount of all orders.
+	155. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	156. Find the order date and total amount of orders placed by customers with a specific address city, postal code, and country.
+	157. Retrieve the first name and phone number of customers who have placed orders with a total amount less than the average total amount of all orders.
+	158. Get the total amount of orders placed by customers with a specific address state, postal code, and country.
+	159. Find the order date and total amount of orders placed by customers with a specific address city, state, and postal code.
+	160. Retrieve the first name and address country of customers who have placed orders with a total amount greater than the average total amount of all orders.
+
+	161. Retrieve the first name and last name of customers who have placed orders with a total amount less than the average total amount of all orders.
+	162. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	163. Find the order date and total amount of orders placed by customers with a specific address city, state, and country.
+	164. Retrieve the first name and email address of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	165. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	166. Find the order date and total amount of orders placed by customers with a specific address city, postal code, and country.
+	167. Retrieve the first name and phone number of customers who have placed orders with a total amount less than the average total amount of all orders.
+	168. Get the total amount of orders placed by customers with a specific address state, postal code, and country.
+	169. Find the order date and total amount of orders placed by customers with a specific address city, state, and postal code.
+	170. Retrieve the first name and address country of customers who have placed orders with a total amount greater than the average total amount of all orders.
+
+	171. Retrieve the first name and last name of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	172. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	173. Find the order date and total amount of orders placed by customers with a specific address city, state, and country.
+	174. Retrieve the first name and email address of customers who have placed orders with a total amount less than the average total amount of all orders.
+	175. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	176. Find the order date and total amount of orders placed by customers with a specific address city, postal code, and country.
+	177. Retrieve the first name and phone number of customers who have placed orders with a total amount less than the average total amount of all orders.
+	178. Get the total amount of orders placed by customers with a specific address state, postal code, and country.
+	179. Find the order date and total amount of orders placed by customers with a specific address city, state, and postal code.
+	180. Retrieve the first name and address country of customers who have placed orders with a total amount greater than the average total amount of all orders.
+
+	181. Retrieve the first name and last name of customers who have placed orders with a total amount less than the average total amount of all orders.
+	182. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	183. Find the order date and total amount of orders placed by customers with a specific address city, state, and country.
+	184. Retrieve the first name and email address of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	185. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	186. Find the order date and total amount of orders placed by customers with a specific address city, postal code, and country.
+	187. Retrieve the first name and phone number of customers who have placed orders with a total amount less than the average total amount of all orders.
+	188. Get the total amount of orders placed by customers with a specific address state, postal code, and country.
+	189. Find the order date and total amount of orders placed by customers with a specific address city, state, and postal code.
+	190. Retrieve the first name and address country of customers who have placed orders with a total amount greater than the average total amount of all orders.
+
+	191. Retrieve the first name and last name of customers who have placed orders with a total amount greater than the average total amount of all orders.
+	192. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	193. Find the order date and total amount of orders placed by customers with a specific address city, state, and country.
+	194. Retrieve the first name and email address of customers who have placed orders with a total amount less than the average total amount of all orders.
+	195. Get the total amount of orders placed by customers with a specific address city, state, postal code, and country.
+	196. Find the order date and total amount of orders placed by customers with a specific address city, postal code, and country.
+	197. Retrieve the first name and phone number of customers who have placed orders with a total amount less than the average total amount of all orders.
+	198. Get the total amount of orders placed by customers with a specific address state, postal code, and country.
+	199. Find the order date and total amount of orders placed by customers with a specific address city, state, and postal code.
+	200. Retrieve the first name and address country of customers who have placed orders with a total amount greater than the average total amount of all orders.
+
+
+
+	===========================================================================================================================================================================================
+		MYSQL VS MongoDB
+		=================
+		
+		1. When to Use MySQL (Relational Database):
+		------------------------------------------
+		 # Scenario: Online Banking System (e.g., SBI, HDFC)
+
+		* Project: Core Banking Application
+		* Frontend: Angular or React for admin/customer portals
+		* Backend: Spring Boot with Spring Security, Spring Data JPA
+		* Database: MySQL
+
+		 # Why MySQL:
+
+		* You need strong relationships between tables (customers, accounts, transactions).
+		* Data integrity is critical (foreign keys, constraints).
+		* Complex JOINs are common (e.g., all transactions of a customer).
+		* ACID compliance is mandatory (Atomicity, Consistency, Isolation, Durability).
+
+		 # Example Tables:
+
+		* `Customer(id, name, email)`
+		* `Account(id, customer_id, type, balance)`
+		* `Transaction(id, account_id, amount, timestamp)`
+
+		 # Why Spring Boot + MySQL:
+
+		* You can use Spring Data JPA with entities and repositories.
+		* Relational data fits perfectly into Java's object model.
+		* Easy to write queries using JPQL.
+
+		Here is how the JSON document you shared would be represented in MySQL using a relational structure:
+		 # Example Relation Sturcture:
+
+		---
+
+		  Table: `product`
+
+		| id | product\_name | price |
+		| -- | ------------- | ----- |
+		| 1  | Laptop        | 45000 |
+
+		---
+
+		  Table: `specs`
+
+		| id | product\_id | cpu | ram  | storage   |
+		| -- | ----------- | --- | ---- | --------- |
+		| 1  | 1           | i5  | 16GB | 512GB SSD |
+
+		---
+
+		  Table: `review`
+
+		| id | product\_id | user | rating | comment  |
+		| -- | ----------- | ---- | ------ | -------- |
+		| 1  | 1           | Nani | 4      | Good one |
+
+		---
+
+		Each part of the JSON is broken into related tables with foreign key relationships:
+
+		* `specs.product_id` → references `product.id`
+		* `review.product_id` → references `product.id`
+
+		This normalized design ensures proper data integrity in relational databases like MySQL.
+
+		---
+
+		2. When to Use MongoDB (NoSQL Database):
+		------------------------------------------
+		 # Scenario: E-commerce Catalog or Social Media Feed (e.g., Amazon, Instagram)
+
+		* Project: Product Catalog / Social Media Feed
+		* Frontend: React or Angular for user dashboard
+		* Backend: Spring Boot REST API
+		* Database: MongoDB
+
+		 # Why MongoDB:
+
+		* Data is unstructured or semi-structured (products, reviews, tags).
+		* Frequent changes to data structure (e.g., adding new fields to products).
+		* Needs high scalability and fast read/write.
+		* Use of embedded documents and arrays (e.g., comments under posts).
+		* Less need for complex JOINs; use `$lookup` only if needed.
+
+		 # Example Documents:
+
+		```json
+		{
+		  "productName": "Laptop",
+		  "price": 45000,
+		  "specs": {
+			"cpu": "i5",
+			"ram": "16GB",
+			"storage": "512GB SSD"
+		  },
+		  "reviews": [
+			{ "user": "Nani", "rating": 4, "comment": "Good one" }
+		  ]
+		}
+		```
+
+		 # Why Spring Boot + MongoDB:
+
+		* Use Spring Data MongoDB with documents.
+		* Fast data access using repositories.
+		* Structure adapts to evolving data models (no migration needed).
+
+		---
+
+		  Summary:
+
+		| Feature                  | MySQL (Relational)                           | MongoDB (NoSQL)                                  |
+		| ------------------------ | -------------------------------------------- | ------------------------------------------------ |
+		| Use Case                 | Banking, ERP, HRMS                           | E-commerce, Social Apps, IoT                     |
+		| Data Structure           | Fixed schema, normalized                     | Flexible, JSON-like (documents)                  |
+		| Query Style              | SQL with JOINs                               | JSON queries, Aggregations                       |
+		| Scalability              | Vertical mostly                              | Horizontal (easy to scale)                       |
+		| Example App              | Core Banking System                          | Product Catalog, News Feed                       |
+		| Backend Integration      | Spring Boot + JPA                            | Spring Boot + MongoTemplate or Spring Data Mongo |
+		| Frontend (Same for both) | Angular / React (API calls using Axios/Http) | Angular / React (API calls using Axios/Http)     |
+
+		---
+
+	===============================================================================================================================================================================================================
+
+		  MongoDB Tutorial
+		=====================
+		Summary:
+		----------
+		Document = Record
+
+		Collection = Table
+
+		Embedded Document = Related Tables (with foreign keys in MySQL) - Employee Table With Address Table
+		
+		---
+
+		1. What is MongoDB :
+		   MongoDB is a NoSQL database that stores data in flexible, JSON-like documents.
+		   Unlike SQL databases (like MySQL), MongoDB does not use tables and rows.
+		   It is schema-less, which means each document can have a different structure.
+		   It is used in modern applications where fast read and write of large datasets is needed.
+		   ex: MongoDB stores employee records as documents instead of rows in a table.
+
+		---
+
+		2. Database :
+		   A database is a container that holds collections.
+		   You can create multiple databases in MongoDB.
+		   Each database contains collections (like tables in SQL).
+		   ex: A database named `company`.
+
+		```js
+		use company
+		```
+
+		---
+
+		3. Collection :
+		   A collection is a group of MongoDB documents.
+		   It is similar to a table in SQL but doesn't have a fixed schema.
+		   You can have multiple collections like `employees`, `addresses`, `departments`.
+		   ex: Collection named `employees`.
+
+		---
+
+		4. Document :
+		   A document is a single record in JSON (or BSON) format.
+		   It can have embedded documents and arrays.
+		   ex:
+
+		```js
+		{
+		  "name": "Nani",
+		  "age": 30,
+		  "designation": "Developer"
+		}
+		```
+
+		---
+
+		5. Insert One Document :
+		   Use `insertOne()` to insert a single document into a collection.
+		   ex:
+
+		```js
+		db.employees.insertOne({
+		  name: "Nani",
+		  age: 30,
+		  designation: "Developer"
+		})
+		```
+
+		---
+
+		6. Insert Many Documents :
+		   Use `insertMany()` to insert multiple documents at once.
+		   ex:
+
+		```js
+		db.employees.insertMany([
+		  { name: "Ravi", age: 28, designation: "Tester" },
+		  { name: "Anu", age: 26, designation: "HR" }
+		])
+		```
+
+		---
+
+		7. Show All Collections :
+		   Use `show collections` to list all collections in the current database.
+		   ex:
+
+		```js
+		show collections
+		```
+
+		---
+
+		8. Find All Documents :
+		   Use `find()` to get all documents in a collection.
+		   ex:
+
+		```js
+		db.employees.find()
+		```
+
+		---
+
+		9. Find With Condition :
+		   Use a query filter inside `find()` to match specific fields.
+		   ex:
+
+		```js
+		db.employees.find({ designation: "Developer" })
+		```
+
+		---
+
+		10. Update One Document :
+			Use `updateOne()` to update one matching document.
+			Use `$set` to set new values.
+			ex:
+
+		```js
+		db.employees.updateOne(
+		  { name: "Nani" },
+		  { $set: { age: 31 } }
+		)
+		```
+
+		---
+
+		11. Update Many Documents :
+			Use `updateMany()` to update all documents that match a condition.
+			ex:
+
+		```js
+		db.employees.updateMany(
+		  { designation: "Tester" },
+		  { $set: { department: "QA" } }
+		)
+		```
+
+		---
+
+		12. Delete One Document :
+			Use `deleteOne()` to remove one document.
+			ex:
+
+		```js
+		db.employees.deleteOne({ name: "Anu" })
+		```
+
+		---
+
+		13. Delete Many Documents :
+			Use `deleteMany()` to delete multiple documents.
+			ex:
+
+		```js
+		db.employees.deleteMany({ designation: "Intern" })
+		```
+
+		---
+
+		14. Drop a Collection :
+			Use `drop()` to delete an entire collection.
+			ex:
+
+		```js
+		db.employees.drop()
+		```
+
+		---
+
+		15. Drop a Database :
+			Use `db.dropDatabase()` to delete the current database.
+			ex:
+
+		```js
+		db.dropDatabase()
+		```
+
+		---
+
+		16. Embedded Documents :
+			You can store related data inside a document using nested fields.
+			ex: Store address inside employee document.
+
+		```js
+		db.employees.insertOne({
+		  name: "Nani",
+		  age: 30,
+		  designation: "Developer",
+		  address: {
+			city: "Hyderabad",
+			pincode: 500001
+		  }
+		})
+		```
+
+		---
+
+		17. Arrays in Documents :
+			You can store multiple values in an array field.
+			ex:
+
+		```js
+		db.employees.insertOne({
+		  name: "Ravi",
+		  skills: ["Java", "Spring Boot", "MongoDB"]
+		})
+		```
+
+		---
+
+		18. Create Index :
+			Indexes help improve performance of search queries.
+			ex:
+
+		```js
+		db.employees.createIndex({ name: 1 })
+		```
+
+		---
+
+		19. Relationships Using Manual References :
+			You can store `addressId` in employee document and match it with `_id` in `addresses` collection.
+			This is like a foreign key in SQL.
+			ex:
+			In addresses collection:
+
+		```js
+		db.addresses.insertOne({
+		  _id: 1,
+		  city: "Hyderabad",
+		  state: "Telangana"
+		})
+		```
+
+		In employees collection:
+
+		```js
+		db.employees.insertOne({
+		  name: "Kiran",
+		  addressId: 1
+		})
+		```
+
+		You can join them in code using two queries or in aggregation with `$lookup`.
+
+		---
+
+		20. Aggregation Example :
+			Aggregation is used to perform operations like sum, average, count, etc.
+			ex:
+
+		```js
+		db.employees.aggregate([
+		  { $group: { _id: "$designation", total: { $sum: 1 } } }
+		])
+		```
+
+		---
+
+		21. Lookup (Join) Example :
+			Use `$lookup` to join two collections.
+			ex:
+
+		```js
+		db.employees.aggregate([
+		  {
+			$lookup: {
+			  from: "addresses",
+			  localField: "addressId",
+			  foreignField: "_id",
+			  as: "addressDetails"
+			}
+		  }
+		])
+		```
+
+		---
+
+		22. Export and Import Data :
+			Use `mongoexport` to export data and `mongoimport` to import JSON or CSV files.
+			ex:
+
+		```bash
+		mongoexport --db=company --collection=employees --out=employees.json
+		mongoimport --db=company --collection=employees --file=employees.json
+		```
+
+		---
+
+		23. GUI Tool :
+			Use MongoDB Compass to visualize collections, documents, and run queries without the command line.
+
+		---
+
+		24. Comparison with SQL :
+			| Feature           | MongoDB             | SQL (MySQL, etc.)     |
+			|------------------|---------------------|------------------------|
+			| Data Format       | JSON/BSON Documents | Rows and Columns       |
+			| Schema            | Flexible            | Fixed                  |
+			| Joins             | Manual or `$lookup` | Built-in JOINs         |
+			| Scalability       | Easy (Horizontal)   | Harder (Vertical)      |
+			| Performance       | Fast with Big Data  | Slower for large joins |
+
+
+	=================================================================================================================================================================
+
+
+
+
+
+		KAFKA Tutorial
+		==============
+		Apache Kafka 
+		------------
+		Apache Kafka is a software platform which is based on a distributed streaming process. 
+		It is a publish-subscribe messaging system which let exchanging of data between applications, servers, and processors as well.
+
+		What is a messaging system
+		--------------------------
+		A messaging system is a simple exchange of messages between two or more persons, devices, etc. A publish-subscribe messaging system allows a sender to send/write the message and a receiver to read that message. 
+		In Apache Kafka, a sender is known as a producer who publishes messages, and a receiver is known as a consumer who consumes that message by subscribing it.
+
+		What is Streaming process
+		-------------------------
+		A streaming process is the processing of data in parallelly connected systems. 
+		This process allows different applications to limit the parallel execution of the data, where one record executes without waiting for the output of the previous record. 
+		Therefore, a distributed streaming platform enables the user to simplify the task of the streaming process and parallel execution.
+
+			Therefore, a streaming platform in Kafka has the following key capabilities:
+			1. As soon as the streams of records occur, it processes it.
+			2. It works similar to an enterprise messaging system where it publishes and subscribes streams of records.
+			3. It stores the streams of records in a fault-tolerant durable way.
+			
+			
+		Producer API: This API allows/permits an application to publish streams of records to one or more topics. (discussed in later section)
+
+		Consumer API: This API allows an application to subscribe one or more topics and process the stream of records produced to them.
+
+		Streams API: This API allows an application to effectively transform the input streams to the output streams. It permits an application to act as a stream processor which consumes an input stream from one or more topics, and produce an output stream to one or more output topics.
+
+		Connector API: This API executes the reusable producer and consumer APIs with the existing data systems or applications.
+
+		Why Apache Kafka
+		----------------
+
+		Apache Kafka is a software platform that has the following reasons which best describes the need of Apache Kafka.
+
+		1. Apache Kafka is capable of handling millions of data or messages per second.
+
+		2. Apache Kafka works as a mediator between the source system and the target system. 
+		Thus, the source system (producer) data is sent to the Apache Kafka, where it decouples the data, and the target system (consumer) consumes the data from Kafka.
+
+		3. Apache Kafka is having extremely high performance, i.e., it has really low latency value less than 10ms which proves it as a well-versed software.
+
+		4. Apache Kafka has a resilient architecture which has resolved unusual complications in data sharing.
+
+		5. Organizations such as NETFLIX, UBER, Walmart, etc. and over thousands of such firms make use of Apache Kafka.
+
+		6. Apache Kafka is able to maintain the fault-tolerance. Fault-tolerance means that sometimes a consumer successfully consumes the message that was delivered by the producer. 
+		But, the consumer fails to process the message back due to backend database failure, or due to presence of a bug in the consumer code. 
+		In such a situation, the consumer is unable to consume the message again. Consequently, Apache Kafka has resolved the problem by reprocessing the data
+
+
+		Kafka key Concepts 
+		==================
+
+		1. Producer: A producer is an application or service that sends data (messages or events) to a Kafka topic.
+		
+		2. Topic: A topic is a category or feed name where messages are published by producers and read by consumers. Topics help organize messages.
+		
+		3. Partition: Each topic can be divided into partitions. Partitions allow Kafka to scale horizontally and process data in parallel.
+		
+			Note : Scale horizontally means adding more machines or nodes to a system to handle increased load, instead of upgrading a single machine (which is called scaling vertically).
+
+		4. Offset: An offset is a unique identifier assigned to each message in a partition. It helps keep track of the read position for consumers.
+		
+		5. Consumer: A consumer is an application or service that reads data from a Kafka topic.
+		
+		6. Consumer Group: A consumer group is a group of consumers that work together to consume messages from a topic. Each message is delivered to only one consumer in the group.
+		
+		7. Broker: A broker is a Kafka server that stores messages and serves them to consumers. Kafka clusters usually have multiple brokers.
+		
+		8. Cluster: Kafka Cluster is a group of Kafka brokers(servers) working together to manage and distribute data via topics. A Cluster is a collection of brokers.
+		
+		9. ZooKeeper: ZooKeeper was used for managing Kafka’s cluster metadata and coordination. Starting from Kafka version 3.0, it is optional and can be replaced with Kafka’s built-in KRaft mode.
+
+
+		```
+		+-----------+          +--------+          +----------------+
+		| Producer  |  ----->  | Topic  |  ----->  | Partition(s)   |
+		+-----------+          +--------+          +----------------+
+													   |
+													   v
+												  +---------+
+												  | Offset  |
+												  +---------+
+
+														|
+														v
+		+------------+       +----------------+     +-------------+
+		| Consumer   | <---- | Consumer Group | <-- | Partition(s)|
+		+------------+       +----------------+     +-------------+
+
+														^
+														|
+												 +--------------+
+												 | Kafka Broker |
+												 +--------------+
+
+														^
+														|
+												 +--------------+
+												 | Kafka Cluster|
+												 +--------------+
+
+														^
+														|
+								 +------------------------------------------+
+								 | ZooKeeper (or KRaft in Kafka 3.0+)       |
+								 +------------------------------------------+
+		```
+		
+		This diagram outlines the flow from **Producer** to **Topic**, how data is stored in **Partitions** with **Offsets**, how **Consumers** (in **Consumer Groups**) read that data, and how everything is managed by **Brokers** in a **Cluster**, coordinated via **ZooKeeper or KRaft**.
+		
+		Example: Kafka in Uber-like Ride-Hailing System
+		------------------------------------------------
+		🧑 Rider (Uber App):
+		Opens the app and requests a ride.
+
+		Location data, ride request, and preferences are sent as events/messages to Kafka.
+
+		🔄 Kafka - Data Flow:
+		Producer: Rider app sends data to Kafka topic (e.g., ride-requests).
+
+		Topic & Partition: Kafka stores the message in a topic partition.
+
+		Broker: Kafka broker holds this message and makes it available.
+
+		Consumer Group (Ride Matching Service):
+
+		A backend service consuming from `ride-requests` topic.
+
+		Matches the rider with nearby drivers.
+
+		🚗 Driver (Uber Driver App):
+		Driver app receives ride request pushed via Kafka (e.g., topic driver-notifications).
+
+		Kafka pushes events to notify drivers in real-time (e.g., "New ride request", "Rider location updated").
+
+		| Kafka Topic     | Data Handled                                         |
+		| --------------- | ---------------------------------------------------- |
+		| `ride-requests` | Ride requests from riders                            |
+		| `driver-status` | Driver's live location and availability              |
+		| `trip-status`   | Updates like "ride accepted", "arrived", "completed" |
+		| `notifications` | Alerts and updates for riders and drivers            |
+
+
+		Example : how driver moving location works using kafka
+		--------------------------------------------
+		high-level flow
+
+		1. Driver's mobile app collects GPS data (latitude, longitude, timestamp) every few seconds
+		2. The app sends this data to a backend REST API or WebSocket endpoint
+		3. The backend service publishes this location update to a Kafka topic called `driver-location`
+		4. Multiple services (e.g., rider tracking service, ETA calculator, maps engine) consume messages from `driver-location` topic
+		5. Kafka ensures real-time, fault-tolerant, and scalable delivery of these updates
+
+		example kafka topic and message
+
+		* topic: `driver-location`
+		* message:
+
+		  ```
+		  {
+			"driverId": "D123",
+			"latitude": 17.385044,
+			"longitude": 78.486671,
+			"timestamp": "2025-05-07T10:15:30Z"
+		  }
+		  ```
+
+		consumer services reading from `driver-location`
+
+		* Rider UI backend: updates rider app with real-time map
+		* ETA Service: recalculates estimated arrival time
+		* Surge Pricing Engine: adjusts pricing in high-demand zones
+		* Analytics: stores historical movement for trends or fraud detection
+
+		how kafka helps
+
+		* handles millions of updates per second
+		* decouples producers (driver app) from consumers (rider UI, ETA, analytics)
+		* ensures messages are durable and can be replayed if needed
+
+
+		EXAMPLE TO IMPLEMENT WITH KAFKA
+		================================
+
+		---
+
+		## ✅ **Use Case: Ride Booking System (Rider-Driver App)**
+
+		### 🎯 **Scenario:**
+
+		A **Rider** requests a ride from the Rider app. This request is published to a **Kafka topic**. All **available Drivers** are subscribed to this topic. A **Driver** accepts the ride, and the match is confirmed via another topic.
+
+		---
+
+		### ⚙️ **Architecture Overview:**
+
+		```
+		[Rider Service] ---> [Kafka Topic: ride-requests] ---> [Driver Service]
+		   |                                                         |
+		   |<--- Kafka Topic: ride-matches <---[Driver Accepts Ride]-|
+		```
+
+		---
+
+		## 🔧 Microservices Involved:
+
+		### 1. 🚗 **Rider Service**
+
+		* Exposes REST APIs to request a ride.
+		* Publishes ride requests to Kafka topic: `ride-requests`.
+
+		### 2. 🧍‍♂️ **Driver Service**
+
+		* Subscribes to `ride-requests` Kafka topic.
+		* On matching, publishes to `ride-matches` topic.
+		* Optional: stores matched rides in DB (MongoDB/MySQL).
+
+		---
+
+		## 📦 Kafka Topics:
+
+		| Topic Name      | Purpose                                 |
+		| --------------- | --------------------------------------- |
+		| `ride-requests` | Rider requests a ride                   |
+		| `ride-matches`  | Driver accepts and matches with a Rider |
+
+		---
+
+		## 🔄 Sample Flow:
+
+		1. Rider sends `POST /request-ride` → `RiderService`
+		2. `RiderService` → Publishes message to Kafka topic `ride-requests`
+		3. `DriverService` (Kafka consumer) reads the message, decides to accept
+		4. `DriverService` publishes confirmation to `ride-matches`
+		5. `RiderService` listens on `ride-matches` topic to notify the Rider
+
+		---
+
+		## 🧪 Sample Payloads:
+
+		### 🛎️ Rider → Kafka (ride-requests)
+
+		```json
+		{
+		  "riderId": "rider123",
+		  "pickup": "Hyderabad",
+		  "drop": "Secunderabad",
+		  "timestamp": "2025-05-07T10:00:00"
+		}
+		```
+
+		### 🧑‍✈️ Driver → Kafka (ride-matches)
+
+		```json
+		{
+		  "driverId": "driver456",
+		  "riderId": "rider123",
+		  "vehicle": "TS09AB1234",
+		  "eta": 5
+		}
+		```
+
+		---
+
+		## 🧩 Tech Stack
+
+		* Spring Boot (REST APIs)
+		* Apache Kafka (Messaging)
+		* Spring Kafka
+		* MongoDB / MySQL (optional for persistence)
+		* Docker (containerized microservices)
+		* Swagger (API documentation)
+
+		---
+
+		## 📁 Folder Structure (Simplified)
+
+		```
+		ride-booking-app/
+		├── rider-service/
+		│   └── RideController.java
+		│   └── KafkaProducerService.java
+		│   └── KafkaConsumerService.java
+		├── driver-service/
+		│   └── DriverMatchConsumer.java
+		│   └── RideMatchProducer.java
+		└── common/
+			└── RideRequestDTO.java
+			└── RideMatchDTO.java
+		```
+
+		---
+
+		Would you like:
+
+		* ✅ **Code for these services**?
+		* 📄 **API documentation (Swagger)**?
+		* 🐳 **Docker + Kafka setup (docker-compose)**?
+		* 📦 **Downloadable project structure**?
+
+
+
+		---
+
+		### ✅ **Code for Rider and Driver Services using Spring Boot + Kafka**
+
+		#### 1. **Rider Service**
+
+		The **Rider Service** will be responsible for sending ride requests to Kafka.
+
+		**`RiderController.java`**
+
+		```java
+		@RestController
+		@RequestMapping("/rider")
+		public class RiderController {
+
+			@Autowired
+			private KafkaProducerService kafkaProducerService;
+
+			@PostMapping("/request-ride")
+			public ResponseEntity<String> requestRide(@RequestBody RideRequest rideRequest) {
+				kafkaProducerService.sendRideRequest(rideRequest);
+				return ResponseEntity.ok("Ride request sent successfully!");
+			}
+		}
+		```
+
+		**`KafkaProducerService.java`**
+
+		```java
+		@Service
+		public class KafkaProducerService {
+
+			private static final String TOPIC = "ride-requests";
+
+			@Autowired
+			private KafkaTemplate<String, RideRequest> kafkaTemplate;
+
+			public void sendRideRequest(RideRequest rideRequest) {
+				kafkaTemplate.send(TOPIC, rideRequest);
+			}
+		}
+		```
+
+		**`RideRequest.java`**
+
+		```java
+		public class RideRequest {
+			private String riderId;
+			private String pickupLocation;
+			private String dropLocation;
+			private String timestamp;
+
+			// Getters and Setters
+		}
+		```
+
+		#### 2. **Driver Service**
+
+		The **Driver Service** will consume ride requests from Kafka.
+
+		**`DriverMatchConsumer.java`**
+
+		```java
+		@Service
+		public class DriverMatchConsumer {
+
+			@KafkaListener(topics = "ride-requests", groupId = "driver-group")
+			public void consume(RideRequest rideRequest) {
+				System.out.println("Received ride request: " + rideRequest);
+				// Simulate accepting a ride
+				RideMatch rideMatch = new RideMatch(rideRequest.getRiderId(), "driver456", "TS09AB1234", 5);
+				// Send match back to Kafka
+				kafkaMatchProducer.sendRideMatch(rideMatch);
+			}
+		}
+		```
+
+		**`KafkaMatchProducer.java`**
+
+		```java
+		@Service
+		public class KafkaMatchProducer {
+
+			private static final String TOPIC = "ride-matches";
+
+			@Autowired
+			private KafkaTemplate<String, RideMatch> kafkaTemplate;
+
+			public void sendRideMatch(RideMatch rideMatch) {
+				kafkaTemplate.send(TOPIC, rideMatch);
+			}
+		}
+		```
+
+		**`RideMatch.java`**
+
+		```java
+		public class RideMatch {
+			private String riderId;
+			private String driverId;
+			private String vehicle;
+			private int eta;
+
+			// Getters and Setters
+		}
+			```
+
+		Great question! After the `KafkaMatchProducer` sends the ride match information to the `ride-matches` Kafka topic, the **Rider Service** (or another system component) should listen to this topic and notify the rider accordingly. Here's how it can continue:
+
+		### 1. **Rider Service listens to the `ride-matches` topic:**
+
+		To notify the rider, the **Rider Service** needs to consume the ride match message from Kafka. It will listen to the `ride-matches` topic, process the ride match data, and then notify the rider through an appropriate channel (such as a push notification, email, or SMS).
+
+		### 2. **Kafka Consumer in Rider Service**
+
+		The **Rider Service** will have a Kafka consumer that listens to the `ride-matches` topic for any ride match updates (like a driver accepting the ride). Once a message is received, the service can trigger a notification for the rider.
+
+		**`RiderMatchConsumer.java`**
+
+		```java
+		@Service
+		public class RiderMatchConsumer {
+
+			@Autowired
+			private NotificationService notificationService;
+
+			@KafkaListener(topics = "ride-matches", groupId = "rider-group")
+			public void consumeRideMatch(RideMatch rideMatch) {
+				// Logic to handle the ride match (e.g., send a notification to the rider)
+				System.out.println("Ride matched with driver: " + rideMatch.getDriverId());
+
+				// Notify the rider (this could be via email, SMS, or in-app push notification)
+				String message = "Your ride has been matched with driver " + rideMatch.getDriverId() +
+								 " in vehicle " + rideMatch.getVehicle() +
+								 ". Estimated time of arrival: " + rideMatch.getEta() + " minutes.";
+				notificationService.sendNotification(rideMatch.getRiderId(), message);
+			}
+		}
+		```
+
+		### 3. **NotificationService to Notify the Rider**
+
+		You'll need a `NotificationService` that handles the actual notification to the rider. It could use any notification system (like email, SMS, or an in-app push notification service).
+
+		**`NotificationService.java`**
+
+		```java
+		@Service
+		public class NotificationService {
+
+			public void sendNotification(String riderId, String message) {
+				// Simulating sending a notification (in reality, you could use email, SMS, or push notifications)
+				System.out.println("Notifying rider " + riderId + ": " + message);
+			}
+		}
+		```
+
+		### 4. **End-to-End Flow**
+
+		Here’s the end-to-end flow:
+
+		1. **Rider requests a ride** via the `RiderService`, which sends the ride request to the `ride-requests` Kafka topic.
+		2. **Driver accepts the ride** in the `DriverService`, which consumes from the `ride-requests` topic and sends the ride match details to the `ride-matches` Kafka topic.
+		3. **RiderService listens** to the `ride-matches` topic using `RiderMatchConsumer`. When it receives the ride match information, it triggers the `NotificationService` to send a message to the rider.
+
+		### 5. **Rider is notified:**
+
+		* Once the rider match is confirmed, the `NotificationService` sends a message to the rider (this could be via a push notification or any other notification system you use).
+
+		---
+
+		### Additional Details for Notification:
+
+		You could integrate an actual notification service such as:
+
+		* **Push Notifications**: Using Firebase or other platforms like OneSignal.
+		* **SMS**: Using an API like Twilio.
+		* **Email**: Using an SMTP service or something like SendGrid.
+
+		This ensures that as soon as a driver accepts the ride, the rider is notified in real-time.
+
+		---
+
+		### 📄 **API Documentation (Swagger)**
+
+		To generate API documentation using Swagger, add the following dependencies to your `pom.xml`:
+
+		```xml
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		```
+
+		Then, add a configuration class to enable Swagger:
+
+		**`SwaggerConfig.java`**
+
+		```java
+		@Configuration
+		@EnableOpenApi
+		public class SwaggerConfig {
+		}
+		```
+
+		This will automatically generate the Swagger UI at `http://localhost:8080/swagger-ui/`.
+
+		---
+
+		### 🐳 **Docker + Kafka Setup (docker-compose)**
+
+		**docker-compose.yml**
+
+		```yaml
+		version: '3.8'
+		services:
+		  zookeeper:
+			image: wurstmeister/zookeeper:3.4.6
+			ports:
+			  - "2181:2181"
+		  kafka:
+			image: wurstmeister/kafka:latest
+			ports:
+			  - "9093:9093"
+			environment:
+			  KAFKA_ADVERTISED_LISTENER: INSIDE_KAFKA:9093
+			  KAFKA_LISTENER_SECURITY_PROTOCOL: PLAINTEXT
+			  KAFKA_LISTENER_NAME: INSIDE_KAFKA
+			  KAFKA_LISTENERS: INSIDE_KAFKA://kafka:9093
+			  KAFKA_LISTENER_PORT: 9093
+			  KAFKA_LISTENER_NAME_INTERNAL: INSIDE_KAFKA
+			  KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+			  KAFKA_LISTENER_INTERCEPTOR_CLASSES: io.confluent.kafka.streams.serdes.avro.SchemaRegistryInterceptor
+			depends_on:
+			  - zookeeper
+		```
+
+		---
+
+		### 🎯 **Run Your Setup**
+
+		1. **Build and run the services**:
+
+		   * `docker-compose up -d` (This will start Zookeeper and Kafka).
+		   * Build and run the Spring Boot services:
+
+			 * `mvn clean install`
+			 * `mvn spring-boot:run`
+		2. **Testing**:
+
+		   * Use a tool like **Postman** to send a `POST` request to `http://localhost:8080/rider/request-ride` with a sample JSON body:
+
+			 ```json
+			 {
+			   "riderId": "rider123",
+			   "pickupLocation": "Hyderabad",
+			   "dropLocation": "Secunderabad",
+			   "timestamp": "2025-05-07T10:00:00"
+			 }
+			 ```
+		   * Check the Kafka topic to ensure the message is properly sent and consumed.
+
+		---
+
+		===========================================================================================================================================================================================
+		To build a full application for the ride-hailing system, here's an overview of the flow and the technologies involved:
+
+		### **Overview**
+
+		* **Rider:** Requests a ride from a pickup location.
+		* **Driver:** Accepts the ride request and moves towards the pickup location.
+		* **Notification:** Rider gets notified with the driver's status (moving towards pickup).
+		* **Pin Confirmation:** Rider confirms upon reaching the driver for the ride to start.
+		* **Drop Location:** Once the ride is completed, the driver drops the rider at the destination.
+
+		### **Technologies to Use**
+
+		1. **Kafka** - For messaging between the Rider and Driver, and managing events in real-time (e.g., ride request, status updates).
+		2. **Spring Boot** - Backend API for handling ride requests, notifications, and ride status.
+		3. **MongoDB** - Store user profiles, ride requests, ride history, and other data.
+		4. **Angular** - Frontend application for the Rider and Driver to interact with.
+		5. **Spring Security** (Optional) - For securing endpoints, such as for user authentication (Rider/Driver).
+
+		### **Steps to Implement**
+
+		1. **Set up Kafka locally:**
+
+		   * Install [Kafka](https://kafka.apache.org/quickstart) and run it locally. Kafka requires Zookeeper, so you need both Kafka and Zookeeper running for it to function.
+		   * You can follow the instructions from the Kafka Quickstart guide for local installation.
+
+		2. **Backend (Spring Boot + Kafka + MongoDB):**
+
+		   * Set up a Spring Boot project with dependencies:
+
+			 * **Kafka**: `spring-kafka`
+			 * **MongoDB**: `spring-boot-starter-data-mongodb`
+			 * **Spring Boot Starter Web** for creating REST APIs
+			 * **Spring Boot Starter Security** (optional)
+		   * Implement the following key components:
+
+			 * **Kafka Producer and Consumer**: For sending and receiving messages (e.g., for ride requests, status updates).
+			 * **Ride Service**: For handling ride requests and status changes.
+			 * **Rider and Driver Services**: For managing user information.
+			 * **MongoDB repositories** for storing user and ride data.
+			 * **Notifications**: Notify the Rider when the driver is en route.
+
+		3. **Frontend (Angular):**
+
+		   * Create an Angular project with components for:
+
+			 * **Rider**: Request a ride, confirm pickup, view ride status.
+			 * **Driver**: Accept the ride, update status, and complete the ride.
+		   * Use **RxJS** and **HTTP Client** for making API calls to the Spring Boot backend.
+
+		4. **Kafka Message Flow**:
+
+		   * When a rider requests a ride, a Kafka message is sent to a Kafka topic.
+		   * The driver listens for ride requests via Kafka, and when a match is found, it sends the driver’s status back to the rider.
+		   * Status updates (e.g., driver on the way, at the pickup location, ride started, etc.) are exchanged via Kafka.
+
+		5. **Pin Confirmation**:
+
+		   * Implement a feature where, upon reaching the rider, the driver requests a pin confirmation from the rider to start the ride. The rider confirms the pin before the ride begins.
+
+		6. **End Ride**:
+
+		   * When the driver reaches the drop location, the ride is marked as completed.
+
+		---
+
+		### **Backend (Spring Boot)**
+
+		Here’s an example of how to configure the backend:
+
+		#### **1. Dependencies (pom.xml)**
+
+		```xml
+		<dependencies>
+			<!-- Kafka dependencies -->
+			<dependency>
+				<groupId>org.springframework.kafka</groupId>
+				<artifactId>spring-kafka</artifactId>
+			</dependency>
+			
+			<!-- MongoDB dependencies -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			</dependency>
+			
+			<!-- Spring Web for RESTful APIs -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+
+			<!-- Spring Boot Security (optional) -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+			</dependency>
+
+			<!-- Kafka and MongoDB Integration -->
+			<dependency>
+				<groupId>org.springframework.kafka</groupId>
+				<artifactId>spring-kafka</artifactId>
+			</dependency>
+		</dependencies>
+		```
+
+		#### **2. Kafka Configuration**
+
+		**Kafka Producer and Consumer Config:**
+
+		```java
+		@Configuration
+		public class KafkaConfig {
+
+			@Bean
+			public ProducerFactory<String, String> producerFactory() {
+				return new DefaultKafkaProducerFactory<>(producerConfigs());
+			}
+
+			@Bean
+			public ConsumerFactory<String, String> consumerFactory() {
+				return new DefaultKafkaConsumerFactory<>(consumerConfigs());
+			}
+
+			@Bean
+			public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> kafkaListenerContainerFactory() {
+				ConcurrentMessageListenerContainerFactory<String, String> factory =
+						new ConcurrentMessageListenerContainerFactory<>();
+				factory.setConsumerFactory(consumerFactory());
+				return factory;
+			}
+		}
+		```
+
+		#### **3. Ride Service**
+
+		```java
+		@Service
+		public class RideService {
+
+			@Autowired
+			private KafkaTemplate<String, String> kafkaTemplate;
+
+			@Autowired
+			private RideRepository rideRepository;
+
+			public void requestRide(RideRequest request) {
+				// Store ride request in MongoDB
+				Ride ride = new Ride(request.getRiderId(), request.getPickupLocation(), "Pending");
+				rideRepository.save(ride);
+
+				// Send Kafka message about the ride request
+				kafkaTemplate.send("ride-requests", "Ride Request: " + ride.getId());
+			}
+
+			// Handle driver's acceptance and other ride events
+			public void handleDriverAcceptance(String driverId, String rideId) {
+				// Send Kafka message for ride acceptance
+				kafkaTemplate.send("ride-status", "Driver " + driverId + " accepted ride " + rideId);
+			}
+
+			// Notify rider when the driver is en route
+			public void notifyRider(String rideId, String status) {
+				kafkaTemplate.send("ride-status", "Driver is " + status + " for ride " + rideId);
+			}
+		}
+		```
+
+		#### **4. MongoDB Repository**
+
+		```java
+		@Repository
+		public interface RideRepository extends MongoRepository<Ride, String> {
+			List<Ride> findByRiderId(String riderId);
+		}
+		```
+
+		### **Frontend (Angular)**
+
+		Create the following components:
+
+		* **RideRequestComponent**: Rider can request a ride.
+		* **RideStatusComponent**: Rider can see the current ride status.
+		* **DriverComponent**: Driver can accept a ride request and start the ride.
+
+		Use **Angular services** to communicate with the backend via HTTP and use **RxJS** to handle asynchronous data.
+
+		#### **1. Ride Request Component**
+
+		```typescript
+		@Component({
+		  selector: 'app-ride-request',
+		  templateUrl: './ride-request.component.html',
+		  styleUrls: ['./ride-request.component.css']
+		})
+		export class RideRequestComponent {
+
+		  constructor(private rideService: RideService) { }
+
+		  requestRide() {
+			this.rideService.requestRide({ pickupLocation: 'XYZ' }).subscribe(response => {
+			  console.log('Ride requested successfully');
+			});
+		  }
+		}
+		```
+
+		#### **2. Ride Status Service**
+
+		```typescript
+		@Injectable({
+		  providedIn: 'root'
+		})
+		export class RideService {
+
+		  private apiUrl = 'http://localhost:8080/api/rides';  // Backend API URL
+
+		  constructor(private http: HttpClient) { }
+
+		  requestRide(request: any): Observable<any> {
+			return this.http.post(`${this.apiUrl}/request`, request);
+		  }
+
+		  getRideStatus(rideId: string): Observable<any> {
+			return this.http.get(`${this.apiUrl}/${rideId}/status`);
+		  }
+		}
+		```
+
+		### **Deployment & Setup**
+
+		1. **Kafka Setup**: Follow Kafka's installation guide to set up Kafka and Zookeeper locally.
+		2. **MongoDB Setup**: Install MongoDB locally or use a cloud service like MongoDB Atlas.
+		3. **Spring Boot Application**: Run your Spring Boot application locally.
+		4. **Angular App**: Run your Angular frontend locally.
+		5. **Docker & Kubernetes**: You can dockerize both Spring Boot and Angular applications and deploy them in Kubernetes for production environments.
+
+		### **Local Installation Checklist**
+
+		1. **Kafka**: Make sure Kafka and Zookeeper are running.
+		2. **MongoDB**: Ensure MongoDB is set up locally or connected to a cloud instance.
+		3. **Spring Boot**: Run Spring Boot with proper Kafka and MongoDB configurations.
+		4. **Angular**: Ensure the Angular app is built and running with live updates.
+
+		This approach provides the full architecture to handle ride requests, notifications, and ride status with Kafka, Spring Boot, Angular, and MongoDB.
+		===================================================================================================================================================================================
+
+
+		Here's a clear explanation of how the **Uber-like Kafka-based communication flow** works between the **Rider App**, **Driver App**, and **Matching Service**, based on the Spring Boot implementation I provided:
+
+		---
+
+		## 🛤️ **Step-by-Step Flow Explanation**
+
+		### 🔁 1. **Rider App Requests a Ride**
+
+		* Endpoint: `POST /rider/request`
+		* Sends a `RideRequest` JSON to Kafka topic `ride_requests`.
+		* Kafka acts as a message broker and stores this message temporarily.
+
+		**Example message:**
+
+		```json
+		{
+		  "riderId": "R123",
+		  "pickup": "37.7749,-122.4194",
+		  "destination": "37.8044,-122.2711",
+		  "timestamp": "2025-05-12T10:30:00Z"
+		}
+		```
+
+		---
+
+		### 🚗 2. **Driver Marks Themselves Available**
+
+		* Endpoint: `POST /driver/available`
+		* Sends a `DriverAvailability` JSON to Kafka topic `available_drivers`.
+
+		**Example message:**
+
+		```json
+		{
+		  "driverId": "D456",
+		  "location": "37.7750,-122.4183",
+		  "status": "available",
+		  "timestamp": "2025-05-12T10:30:05Z"
+		}
+		```
+
+		---
+
+		### 🧠 3. **Matching Service Matches Rider with Driver**
+
+		* The `MatchingService` is a Kafka consumer that:
+
+		  * Listens to both `ride_requests` and `available_drivers` topics.
+		  * Maintains in-memory queues for riders and available drivers.
+		* When both queues have entries, it **matches** one rider to one driver.
+		* It then **produces a `RideAssignment`** to the `ride_assignments` topic.
+
+		**Example `RideAssignment`:**
+
+		```json
+		{
+		  "rideId": "RID789",
+		  "riderId": "R123",
+		  "driverId": "D456",
+		  "pickup": "37.7749,-122.4194",
+		  "eta": "5 mins"
+		}
+		```
+
+		---
+
+		### 📲 4. **Driver Receives the Assignment**
+
+		* The `DriverController` listens (as a consumer) to the `ride_assignments` topic.
+		* It receives the `RideAssignment` message and logs or processes it.
+		* This tells the driver who the rider is, where to go, etc.
+
+		---
+
+		### 🚕 5. **Driver Sends Ride Updates**
+
+		* Endpoint: `POST /driver/update`
+		* Sends `RideUpdate` messages to Kafka topic `ride_updates` with current ride status.
+
+		**Example:**
+
+		```json
+		{
+		  "rideId": "RID789",
+		  "driverId": "D456",
+		  "status": "driver_arrived",
+		  "location": "37.7752,-122.4180"
+		}
+		```
+
+		---
+
+		### 👀 6. **(Optional) Rider App Subscribes to `ride_updates`**
+
+		* A consumer in the Rider App can listen to `ride_updates` topic.
+		* This allows real-time updates like "Driver has arrived", "Trip started", etc.
+
+		---
+
+		## 🎯 Summary of Kafka Topics and Their Roles
+
+		| Kafka Topic         | Who Produces?    | Who Consumes?        | Purpose                            |
+		| ------------------- | ---------------- | -------------------- | ---------------------------------- |
+		| `ride_requests`     | Rider App        | Matching Service     | New ride request by rider          |
+		| `available_drivers` | Driver App       | Matching Service     | Driver is available for assignment |
+		| `ride_assignments`  | Matching Service | Driver App           | Assigns rider to driver            |
+		| `ride_updates`      | Driver App       | Rider App (optional) | Status updates from driver         |
+
+		---
+
+		Would you like a **sequence diagram** to visualize this flow?
+		============================================================================================================================================================================================
+
+		EMPLOYEE CAB SERVICE
+		=======================
+
+		To expand your **Employee Management (Monolithic) Spring Boot application** by adding a **Cab Booking Service** and integrating it with **Apache Kafka** and **MongoDB**, here’s a step-by-step guide for both setup and implementation.
+
+		---
+
+		## ✅ OVERVIEW: What You Will Build
+
+		You'll extend your app to:
+
+		1. Keep **Employee** functionality as it is.
+		2. Add **Cab Booking functionality** (for employees).
+		3. Use **Apache Kafka** for messaging between Employee and Cab services.
+		4. Use **MongoDB** to store Cab Booking details.
+
+		---
+
+		## ⚙️ TOOLS & TECHNOLOGIES
+
+		* **Spring Boot**
+		* **Spring Data JPA** (for Employee + MySQL)
+		* **Spring Data MongoDB** (for CabBooking)
+		* **Apache Kafka**
+		* **MongoDB**
+		* **Lombok, Jackson, etc.**
+
+		---
+
+		## 🔧 STEP 1: Install Kafka & Zookeeper Locally
+
+		If you don’t have Kafka, follow these instructions:
+
+		### ✅ Install Kafka
+
+		1. **Download Kafka** from Apache:
+		   [https://kafka.apache.org/downloads](https://kafka.apache.org/downloads)
+
+		2. **Extract it** and go to the folder.
+
+		3. Start **Zookeeper**:
+
+		```bash
+		bin/zookeeper-server-start.sh config/zookeeper.properties
+		```
+
+		4. Start **Kafka Server**:
+
+		```bash
+		bin/kafka-server-start.sh config/server.properties
+		```
+
+		---
+
+		## 🔧 STEP 2: Install MongoDB (If not installed)
+
+		### ✅ Option 1: Install MongoDB locally
+
+		Use: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
+
+		Start with:
+
+		```bash
+		mongod
+		```
+
+		### ✅ Option 2: Use MongoDB Atlas (Cloud):
+
+		[https://www.mongodb.com/cloud/atlas/register](https://www.mongodb.com/cloud/atlas/register)
+
+		---
+
+		## 🧱 STEP 3: Project Structure
+
+		```plaintext
+		employee-management/
+		├── controller/
+		│   ├── EmployeeController.java
+		│   └── CabBookingController.java
+		├── entity/
+		│   ├── Employee.java (MySQL)
+		│   └── CabBooking.java (MongoDB)
+		├── repository/
+		│   ├── EmployeeRepository.java
+		│   └── CabBookingRepository.java
+		├── service/
+		│   ├── EmployeeService.java
+		│   └── CabBookingService.java
+		├── kafka/
+		│   ├── CabBookingProducer.java
+		│   └── CabBookingConsumer.java
+		├── config/
+		│   └── KafkaConfig.java
+		└── application.properties
+		```
+
+		---
+
+		## 📦 STEP 4: Maven Dependencies (`pom.xml`)
+
+		```xml
+		<dependencies>
+			<!-- Spring Boot -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+
+			<!-- JPA & MySQL -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+			</dependency>
+
+			<!-- MongoDB -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			</dependency>
+
+			<!-- Kafka -->
+			<dependency>
+				<groupId>org.springframework.kafka</groupId>
+				<artifactId>spring-kafka</artifactId>
+			</dependency>
+
+			<!-- Lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+		```
+
+		---
+
+		## ⚙️ STEP 5: application.properties
+
+		```properties
+		# MySQL
+		spring.datasource.url=jdbc:mysql://localhost:3306/employeedb
+		spring.datasource.username=root
+		spring.datasource.password=root
+		spring.jpa.hibernate.ddl-auto=update
+
+		# MongoDB
+		spring.data.mongodb.uri=mongodb://localhost:27017/cabdb
+
+		# Kafka
+		spring.kafka.bootstrap-servers=localhost:9092
+		spring.kafka.consumer.group-id=cab_group
+		spring.kafka.consumer.auto-offset-reset=earliest
+		spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+		spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+		spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+		spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+		```
+
+		---
+
+		## 🧾 STEP 6: Entity Classes
+
+		### 1. **Employee.java** (MySQL)
+
+		```java
+		@Entity
+		@Data
+		public class Employee {
+			@Id
+			@GeneratedValue
+			private Long id;
+
+			private String name;
+			private String department;
+		}
+		```
+
+		### 2. **CabBooking.java** (MongoDB)
+
+		```java
+		@Document(collection = "cab_bookings")
+		@Data
+		public class CabBooking {
+			@Id
+			private String id;
+			private Long employeeId;
+			private String pickupLocation;
+			private String dropLocation;
+			private LocalDateTime bookingTime;
+		}
+		```
+
+		---
+
+		## 💾 STEP 7: Repositories
+
+		### 1. **EmployeeRepository**
+
+		```java
+		public interface EmployeeRepository extends JpaRepository<Employee, Long> {}
+		```
+
+		### 2. **CabBookingRepository**
+
+		```java
+		public interface CabBookingRepository extends MongoRepository<CabBooking, String> {}
+		```
+
+		---
+
+		## 🔄 STEP 8: Kafka Config & Messaging
+
+		### **KafkaConfig.java**
+
+		```java
+		@Configuration
+		public class KafkaConfig {
+			@Bean
+			public ProducerFactory<String, String> producerFactory() {
+				return new DefaultKafkaProducerFactory<>(Map.of(
+					ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092",
+					ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
+					ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class
+				));
+			}
+
+			@Bean
+			public KafkaTemplate<String, String> kafkaTemplate() {
+				return new KafkaTemplate<>(producerFactory());
+			}
+		}
+		```
+
+		### **CabBookingProducer.java**
+
+		```java
+		@Component
+		@RequiredArgsConstructor
+		public class CabBookingProducer {
+			private final KafkaTemplate<String, String> kafkaTemplate;
+
+			public void sendBookingRequest(CabBooking booking) throws JsonProcessingException {
+				ObjectMapper mapper = new ObjectMapper();
+				String msg = mapper.writeValueAsString(booking);
+				kafkaTemplate.send("cab_booking_topic", msg);
+			}
+		}
+		```
+
+		### **CabBookingConsumer.java**
+
+		```java
+		@Component
+		@RequiredArgsConstructor
+		public class CabBookingConsumer {
+
+			private final CabBookingRepository cabBookingRepository;
+
+			@KafkaListener(topics = "cab_booking_topic", groupId = "cab_group")
+			public void consume(String message) throws JsonProcessingException {
+				ObjectMapper mapper = new ObjectMapper();
+				CabBooking booking = mapper.readValue(message, CabBooking.class);
+				booking.setBookingTime(LocalDateTime.now());
+				cabBookingRepository.save(booking);
+			}
+		}
+		```
+
+		---
+
+		## 🔧 STEP 9: Services
+
+		### **EmployeeService.java**
+
+		```java
+		@Service
+		@RequiredArgsConstructor
+		public class EmployeeService {
+			private final EmployeeRepository employeeRepository;
+
+			public List<Employee> getAll() {
+				return employeeRepository.findAll();
+			}
+		}
+		```
+
+		### **CabBookingService.java**
+
+		```java
+		@Service
+		@RequiredArgsConstructor
+		public class CabBookingService {
+			private final CabBookingProducer producer;
+
+			public String bookCab(CabBooking booking) throws JsonProcessingException {
+				producer.sendBookingRequest(booking);
+				return "Booking initiated!";
+			}
+		}
+		```
+
+		---
+
+		## 🌐 STEP 10: Controllers
+
+		### **EmployeeController.java**
+
+		```java
+		@RestController
+		@RequestMapping("/api/employees")
+		@RequiredArgsConstructor
+		public class EmployeeController {
+			private final EmployeeService service;
+
+			@GetMapping
+			public List<Employee> getAll() {
+				return service.getAll();
+			}
+		}
+		```
+
+		### **CabBookingController.java**
+
+		```java
+		@RestController
+		@RequestMapping("/api/cabs")
+		@RequiredArgsConstructor
+		public class CabBookingController {
+			private final CabBookingService service;
+
+			@PostMapping("/book")
+			public ResponseEntity<String> bookCab(@RequestBody CabBooking booking) throws JsonProcessingException {
+				return ResponseEntity.ok(service.bookCab(booking));
+			}
+		}
+		```
+
+		---
+
+		## 🧪 STEP 11: Test Your App
+
+		1. Start Zookeeper + Kafka
+		2. Start MongoDB (or Atlas)
+		3. Run your Spring Boot app
+		4. POST to `/api/cabs/book`:
+
+		```json
+		{
+		  "employeeId": 1,
+		  "pickupLocation": "Office",
+		  "dropLocation": "Home"
+		}
+		```
+
+		5. Check MongoDB:
+
+		```bash
+		use cabdb
+		db.cab_bookings.find()
+		```
+
+		---
+
+		## 📦 Kafka Topics
+
+		If you want to create the Kafka topic manually:
+
+		```bash
+		bin/kafka-topics.sh --create --topic cab_booking_topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+		```
+
+		---
+
+		## ✅ Summary
+
+		| Component            | Technology                  |
+		| -------------------- | --------------------------- |
+		| Employee Entity      | Spring Data JPA + MySQL     |
+		| Cab Booking Entity   | Spring Data MongoDB         |
+		| Messaging            | Kafka (Producer + Consumer) |
+		| Communication        | JSON over Kafka topic       |
+		| Architecture         | Monolithic, layered         |
+		| Controller + Service | REST API                    |
+
+		---
+
+		Would you like this **code zipped as a ready-to-run project** or a **Docker-based Kafka-Mongo setup** as well?
+
+		Let me know and I’ll prepare it for you.
