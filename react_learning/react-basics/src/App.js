@@ -2,6 +2,7 @@ import './App.css';
 import ClassComponent from './components/ClassComponent';
 import FunctionalComponent from './components/FunctionalComponent';
 import FunctionComponentUsingArrowFunction from './components/FunctionComponentUsingArraowFunction';
+import DataTypesDemo from './data_types/DataTypesDemo';
 import OnChangeExample from './events/OnChangeExample';
 import OnClickExample from './events/OnClickExample';
 import OnKeyDownExample from './events/OnKeyDownExample';
@@ -59,17 +60,22 @@ function App() {
 
       <div className='first-css'>
         <h4>HOOKS In React</h4>
-        <UseStateExample /> 
+        <UseStateExample />
         <UseEffectExample />
         <UseRefExample />
         <UseContextExample />
         <UseReducerExample />
         <UseMemoExample />
-        <UseCallBackExample/>
-        <UseFormExample/>
+        <UseCallBackExample />
+        <UseFormExample />
       </div>
       <div className='first-css'>
         <h4>REACT ROUTERS</h4>
+      </div>
+
+      <div className='first-css'>
+        <h4>React DataTypes</h4>
+        <DataTypesDemo />
       </div>
     </div>
   );

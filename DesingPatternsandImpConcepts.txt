@@ -1,0 +1,1235 @@
+	==========================================
+	### SOLID Principles
+	==========================================
+
+		The SOLID principles are a set of five design principles that help make software designs more understandable, flexible, and maintainable. They were introduced by Robert C. Martin (Uncle Bob). 
+		Let's go over each principle with real-world examples to better understand their application.
+		
+		Solid Priciples :
+		----------------
+		1. **Single Responsibility Principle (SRP)**
+		   A class should do only one specific task or job, so it has only one reason to change.
+
+		2. **Open/Closed Principle (OCP)**
+		   Your code should allow new features to be added without changing the existing working code.
+
+		3. **Liskov Substitution Principle (LSP)**
+		   Subclasses should be able to replace their parent classes without causing errors or unexpected behavior.
+
+		4. **Interface Segregation Principle (ISP)**
+		   Don’t force a class to implement methods it doesn’t use — create smaller, more focused interfaces.
+
+		5. **Dependency Inversion Principle (DIP)**
+		   High-level modules should not depend on low-level modules; both should depend on abstract interfaces.
+
+		---
+
+		1. **Single Responsibility Principle (SRP)**
+		---------------------------------------------
+		
+			**Definition:**
+			The Single Responsibility Principle states that a class should have only one reason to change, meaning it should focus on only one job or task.
+
+			**Real-World Example:**
+			Imagine a **Book** class in a library system. If the **Book** class is responsible for both storing book information (like title, author, etc.) and managing its printing format (e.g., PDF, HTML), it violates SRP. Instead, it would be better to split the responsibilities into two classes:
+
+			- **Book Class**: Handles book details.
+			- **BookPrinter Class**: Handles the printing functionality.
+
+			**Why it matters:**  
+			By adhering to SRP, each class can evolve independently. Changes to printing logic don’t affect the book’s properties and vice versa.
+
+		---
+
+
+		2. **Open/Closed Principle (OCP)**
+		-----------------------------------
+		
+			**Definition:**
+			Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+			simple terms : A class or module should be easily extended to add new features, but you shouldn’t have to change its existing code to do that.
+
+			**Better Explanation:**
+			When your software needs new behavior, you should be able to **add it by writing new code**, not by **modifying existing code** that is already working. This makes your code more stable and less likely to break when changes are needed.
+
+			This is usually done using:
+
+			* **Interfaces**
+			* **Abstract classes**
+			* **Polymorphism**
+
+			**Real-World Example:**
+			
+			Imagine you have a payment system that processes credit card payments. Later, you want to add PayPal support.
+			Instead of modifying the existing `PaymentProcessor` class, you should:
+
+			* Create a `Payment` interface (or abstract class)
+			* Have `CreditCardPayment` and `PayPalPayment` implement that interface
+
+			This way, your main code doesn’t change — you just **extend** it with new classes.
+
+			---
+
+			Let me know if you'd like examples in Java or another language.
+
+
+			## ❌ **Without Following OCP** (Bad Practice)
+
+			Here, we **modify the existing class** every time we add a new payment method.
+
+			```java
+			public class PaymentProcessor {
+				public void processPayment(String paymentType) {
+					if (paymentType.equals("creditcard")) {
+						System.out.println("Processing credit card payment");
+					} else if (paymentType.equals("paypal")) {
+						System.out.println("Processing PayPal payment");
+					} else if (paymentType.equals("upi")) {
+						System.out.println("Processing UPI payment");
+					}
+				}
+			}
+			```
+
+			### 🔴 Problems:
+
+			* If you want to add a new type (e.g., Google Pay), you must **modify the `processPayment()` method**.
+			* Over time, this class becomes harder to maintain and test.
+
+			---
+
+			## ✅ **With OCP (Open for Extension, Closed for Modification)**
+
+			Here, we **use an interface**, so we can extend functionality by adding **new classes** instead of changing existing ones.
+
+			### Step 1: Create an interface
+
+			```java
+			public interface Payment {
+				void pay();
+			}
+			```
+
+			### Step 2: Create separate classes for each payment type
+
+			```java
+			public class CreditCardPayment implements Payment {
+				public void pay() {
+					System.out.println("Processing credit card payment");
+				}
+			}
+
+			public class PayPalPayment implements Payment {
+				public void pay() {
+					System.out.println("Processing PayPal payment");
+				}
+			}
+
+			public class UPIPayment implements Payment {
+				public void pay() {
+					System.out.println("Processing UPI payment");
+				}
+			}
+			```
+
+			### Step 3: Use them in a loosely-coupled way
+
+			```java
+			public class PaymentProcessor {
+				public void processPayment(Payment payment) {
+					payment.pay();
+				}
+			}
+			```
+
+			### ✅ Now you can extend easily:
+
+			```java
+			public class Main {
+				public static void main(String[] args) {
+					PaymentProcessor processor = new PaymentProcessor();
+
+					processor.processPayment(new CreditCardPayment());
+					processor.processPayment(new PayPalPayment());
+					processor.processPayment(new UPIPayment());
+				}
+			}
+			```
+
+			### ✅ Benefits:
+
+			* No need to change `PaymentProcessor` when adding a new payment method.
+			* Follows **Open/Closed Principle**: open for extension, closed for modification.
+
+			---
+
+
+		3. **Liskov Substitution Principle (LSP)**
+		-------------------------------------------
+		
+		**Definition:**
+		Objects of a parent class should be able to be replaced with objects of its child class without breaking the functionality of the program.
+		
+		In other words, if a class B is a subclass of class A, you should be able to use an object of class B wherever class A is expected, and the program should still work correctly.
+
+		### **Without LSP (Problematic Approach)**
+
+		In this example, the `Refund` class is incorrectly extending the `Payment` class, which violates the Liskov Substitution Principle:
+
+		```java
+		// Base class for all payments
+		public class Payment {
+			public void pay() {
+				System.out.println("Processing payment...");
+			}
+		}
+
+		// Credit Card Payment subclass
+		public class CreditCardPayment extends Payment {
+			public void pay() {
+				System.out.println("Processing credit card payment...");
+			}
+		}
+
+		// Cash Payment subclass
+		public class CashPayment extends Payment {
+			public void pay() {
+				System.out.println("Processing cash payment...");
+			}
+		}
+
+		// Refund subclass (problematic)
+		public class Refund extends Payment {
+			@Override
+			public void pay() {
+				System.out.println("Processing refund..."); // Not a valid payment, it's a refund
+			}
+		}
+
+		public class Main {
+			public static void main(String[] args) {
+				Payment payment = new CreditCardPayment();
+				payment.pay(); // Expected: "Processing credit card payment..."
+				
+				payment = new CashPayment();
+				payment.pay(); // Expected: "Processing cash payment..."
+				
+				payment = new Refund();
+				payment.pay(); // Problem: "Processing refund..."
+			}
+		}
+		```
+
+		### ❌ **Problem:**
+
+		The `Refund` class, which isn't really a "payment," is wrongly inheriting from the `Payment` class. This can cause confusion in the system, especially if your code assumes that every subclass of `Payment` is related to making payments.
+
+		---
+
+		### **With LSP (Correct Approach)**
+
+		Here’s how to improve the design by following the Liskov Substitution Principle:
+
+		```java
+		// Base class for payment actions
+		public class PaymentAction {
+			public void execute() {
+				System.out.println("Executing payment action...");
+			}
+		}
+
+		// Subclass for Credit Card Payment action
+		public class CreditCardPaymentAction extends PaymentAction {
+			public void execute() {
+				System.out.println("Processing credit card payment...");
+			}
+		}
+
+		// Subclass for Cash Payment action
+		public class CashPaymentAction extends PaymentAction {
+			public void execute() {
+				System.out.println("Processing cash payment...");
+			}
+		}
+
+		// Refund class should be a separate action, not a Payment subclass
+		public class RefundAction {
+			public void execute() {
+				System.out.println("Processing refund...");
+			}
+		}
+
+		public class Main {
+			public static void main(String[] args) {
+				// Execute payment actions
+				PaymentAction paymentAction = new CreditCardPaymentAction();
+				paymentAction.execute(); // Expected: "Processing credit card payment..."
+				
+				paymentAction = new CashPaymentAction();
+				paymentAction.execute(); // Expected: "Processing cash payment..."
+				
+				// Refund should be handled separately
+				RefundAction refundAction = new RefundAction();
+				refundAction.execute(); // Expected: "Processing refund..."
+			}
+		}
+		```
+
+		### ✅ **Explanation:**
+
+		* The **`RefundAction`** is now a **separate class** because it represents something different from payments.
+		* The `PaymentAction` and its subclasses (like `CreditCardPaymentAction` and `CashPaymentAction`) are kept for actions related to payments.
+		* This way, we **maintain consistency** and **don’t violate the Liskov Substitution Principle** by ensuring that subclasses properly align with their intended roles.
+
+		---
+
+		This approach keeps the system predictable and easy to maintain!
+
+
+		4. **Interface Segregation Principle (ISP)**
+		--------------------------------------------
+		
+			**Definition:**
+			Clients should not be forced to depend on interfaces they do not use. This principle suggests that larger interfaces should be split into smaller, more specific ones.
+
+			**Real-World Example:**
+			Consider an interface for a **Printer** that includes methods for both printing and scanning:
+
+		```java
+		public interface MultiFunctionPrinter {
+			void print();
+			void scan();
+			void fax();
+		}
+
+		public class LaserPrinter implements MultiFunctionPrinter {
+			public void print() {
+				// Print document
+			}
+
+			public void scan() {
+				// Scan document
+			}
+
+			public void fax() {
+				// Fax document
+			}
+		}
+
+		public class InkjetPrinter implements MultiFunctionPrinter {
+			public void print() {
+				// Print document
+			}
+
+			public void scan() {
+				// This is problematic for an Inkjet printer that doesn't scan.
+			}
+
+			public void fax() {
+				// This is problematic for an Inkjet printer that doesn't fax.
+			}
+		}
+		```
+
+		The `InkjetPrinter` is forced to implement methods it doesn't need, violating ISP. Instead, we can separate the interfaces:
+
+		```java
+		public interface Printer {
+			void print();
+		}
+
+		public interface Scanner {
+			void scan();
+		}
+
+		public interface FaxMachine {
+			void fax();
+		}
+
+		public class LaserPrinter implements Printer, Scanner, FaxMachine {
+			public void print() { /* Print document */ }
+			public void scan() { /* Scan document */ }
+			public void fax() { /* Fax document */ }
+		}
+
+		public class InkjetPrinter implements Printer {
+			public void print() { /* Print document */ }
+		}
+		```
+
+		Now, `InkjetPrinter` only implements the `Printer` interface, adhering to the Interface Segregation Principle.
+
+		---
+
+		### 5. **Dependency Inversion Principle (DIP)**
+
+		#### **Definition:**
+		High-level modules should not depend on low-level modules. Both should depend on abstractions. Additionally, abstractions should not depend on details. Details should depend on abstractions.
+
+		#### **Real-World Example:**
+		In a **Payment System**, a high-level class might directly depend on a low-level class for payment processing. For instance:
+
+		```java
+		public class PaymentProcessor {
+			private CreditCardPayment creditCardPayment;
+
+			public PaymentProcessor() {
+				creditCardPayment = new CreditCardPayment();
+			}
+
+			public void processPayment() {
+				creditCardPayment.process();
+			}
+		}
+		```
+
+		Here, the `PaymentProcessor` is tightly coupled to `CreditCardPayment`, violating DIP. Instead, we can abstract the payment processing:
+
+		```java
+		public interface PaymentMethod {
+			void process();
+		}
+
+		public class CreditCardPayment implements PaymentMethod {
+			public void process() {
+				// Process credit card payment
+			}
+		}
+
+		public class PaymentProcessor {
+			private PaymentMethod paymentMethod;
+
+			public PaymentProcessor(PaymentMethod paymentMethod) {
+				this.paymentMethod = paymentMethod;
+			}
+
+			public void processPayment() {
+				paymentMethod.process();
+			}
+		}
+		```
+
+		Now, `PaymentProcessor` is not dependent on any specific payment method. You can inject any payment method, such as `PayPalPayment`, making it flexible and adhering to DIP.
+
+		---
+
+		### Summary of SOLID Principles
+
+		1. **SRP (Single Responsibility Principle)**: A class should have only one responsibility.
+		2. **OCP (Open/Closed Principle)**: A class should be open for extension but closed for modification.
+		3. **LSP (Liskov Substitution Principle)**: Subtypes must be substitutable for their base types.
+		4. **ISP (Interface Segregation Principle)**: Don't force clients to implement interfaces they don't need.
+		5. **DIP (Dependency Inversion Principle)**: High-level modules should depend on abstractions, not concrete classes.
+
+		By following these SOLID principles, you can create maintainable, flexible, and scalable software.
+
+========================
+DESIGN PATTERNS IN JAVA
+========================
+
+	Design patterns are common solutions to recurring design problems in object-oriented software development. They help in making code more reusable, flexible, and easier to maintain.
+
+	Creational Patterns
+	========================
+
+		1. **Singleton Pattern**
+
+		   * **Use**: The Singleton pattern ensures that a class has only one instance and provides a global point of access to that instance.
+		   * **When to Use**: Use it when you want to restrict instantiation of a class to a single object, such as in case of managing database connections or configuration settings.
+
+		   **Example**:
+
+		   ```java
+		   public class Singleton {
+			   private static Singleton instance;
+
+			   private Singleton() {}
+
+			   public static Singleton getInstance() {
+				   if (instance == null) {
+					   instance = new Singleton();
+				   }
+				   return instance;
+			   }
+		   }
+		   ```
+
+		2. **Factory Pattern**
+
+		   * **Use**: The Factory Design Pattern is used to create objects without specifying the exact class of object that will be created. 
+					  It defines a method for creating objects, allowing subclasses or other parts of the application to decide which class to instantiate.
+					  
+		   * **When to Use**: Use it when you don't know in advance what class objects you need to create or want to delegate the creation logic to subclasses.
+
+		   **Example**:
+
+		   ```java
+		   interface Animal {
+			   void speak();
+		   }
+
+		   class Dog implements Animal {
+			   public void speak() {
+				   System.out.println("Woof");
+			   }
+		   }
+
+		   class Cat implements Animal {
+			   public void speak() {
+				   System.out.println("Meow");
+			   }
+		   }
+
+		   class AnimalFactory {
+			   public Animal createAnimal(String type) {
+				   if(type.equals("dog")) {
+					   return new Dog();
+				   } else if(type.equals("cat")) {
+					   return new Cat();
+				   }
+				   return null;
+			   }
+		   }
+		   class Main {
+			   public static void main(String[] args){
+					AnimalFactory af = new AnimalFactory();
+					Animal animal = af.createAnimal("cat");
+					animal.speak(); // cat speak method will be called.
+			   }
+		   }
+		   ```
+
+		3. **Abstract Factory Pattern**
+
+		   * **Use**: The Abstract Factory pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+		   * **When to Use**: Use it when the client needs to create objects that belong to a particular family or type and wants to ensure the objects are compatible.
+
+		   **Example**:
+
+				### ✅ Code Structure: Notification System (SMS & Email)
+
+				```java
+				// Notification interface
+				interface Notification {
+					void send(String message);
+				}
+
+				// SMS Notification implementation
+				class SMSNotification implements Notification {
+					public void send(String message) {
+						System.out.println("Sending SMS: " + message);
+					}
+				}
+
+				// Email Notification implementation
+				class EmailNotification implements Notification {
+					public void send(String message) {
+						System.out.println("Sending Email: " + message);
+					}
+				}
+
+				// Abstract Factory
+				interface NotificationFactory {
+					Notification createNotification();
+				}
+
+				// SMS Factory
+				class SMSNotificationFactory implements NotificationFactory {
+					public Notification createNotification() {
+						return new SMSNotification();
+					}
+				}
+
+				// Email Factory
+				class EmailNotificationFactory implements NotificationFactory {
+					public Notification createNotification() {
+						return new EmailNotification();
+					}
+				}
+
+				// Main class to test the pattern
+				public class Main {
+					public static void main(String[] args) {
+						// Use SMS notification
+						NotificationFactory smsFactory = new SMSNotificationFactory();
+						Notification sms = smsFactory.createNotification();
+						sms.send("Your OTP is 123456");
+
+						// Use Email notification
+						NotificationFactory emailFactory = new EmailNotificationFactory();
+						Notification email = emailFactory.createNotification();
+						email.send("Welcome to our service!");
+					}
+				}
+				```
+
+				---
+
+				### 🧩 Output:
+
+				```
+				Sending SMS: Your OTP is 123456
+				Sending Email: Welcome to our service!
+				```
+
+		4. **Builder Pattern**
+
+		   * **Use**: The Builder pattern separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
+		   * **When to Use**: Use it when you need to create an object with many optional parts, especially if some of the parts need to be set in a specific order.
+
+		   **Example**:
+
+		   ```java
+				public class User {
+					// Required parameters
+					private final String username;
+					private final String email;
+
+					// Optional parameters
+					private final int age;
+					private final String phone;
+
+					// Private constructor that accepts builder
+					private User(UserBuilder builder) {
+						this.username = builder.username;
+						this.email = builder.email;
+						this.age = builder.age;
+						this.phone = builder.phone;
+					}
+
+					// Static inner Builder class
+					public static class UserBuilder {
+						// Required parameters
+						private final String username;
+						private final String email;
+
+						// Optional parameters - initialized to default values
+						private int age = 0;
+						private String phone = "";
+
+						// Builder constructor with required fields
+						public UserBuilder(String username, String email) {
+							this.username = username;
+							this.email = email;
+						}
+
+						// Setter-like methods that return the builder itself
+						public UserBuilder age(int age) {
+							this.age = age;
+							return this;
+						}
+
+						public UserBuilder phone(String phone) {
+							this.phone = phone;
+							return this;
+						}
+
+						// Build method that returns the final object
+						public User build() {
+							return new User(this);
+						}
+					}
+
+					// Getters (optional, for accessing fields)
+					public String getUsername() { return username; }
+					public String getEmail() { return email; }
+					public int getAge() { return age; }
+					public String getPhone() { return phone; }
+				}
+				
+				public class Main {
+					public static void main(String[] args) {
+						User user = new User.UserBuilder("nani", "nani@example.com")
+										.age(30)
+										.phone("9876543210")
+										.build();
+
+						System.out.println(user.getUsername()); // nani
+					}
+				}
+
+		   ```
+
+	Structural Patterns
+	=====================
+
+		1. **Adapter Pattern**
+
+		   * **Use**: The Adapter pattern allows two incompatible interfaces to work together by creating an intermediary (adapter) that converts one interface into another.
+		   * **When to Use**: Use it when you want to integrate two incompatible systems or classes that cannot communicate directly.
+
+		   **Example**:
+
+		   ```java
+				package company.com.design_patterns.structural;
+
+				// Existing interface used in your system
+				interface PaymentProcessor {
+					void pay(double amount);
+				}
+
+				// Third-party class with incompatible interface
+				class PayPalAPI {
+					public void makePayment(double amountInUSD) {
+						System.out.println("Payment of $" + amountInUSD + " made through PayPal.");
+					}
+				}
+
+				// Adapter class to bridge between your interface and PayPalAPI
+				class PayPalAdapter implements PaymentProcessor {
+
+					private final PayPalAPI payPalAPI;
+
+					public PayPalAdapter(PayPalAPI payPalAPI) {
+						this.payPalAPI = payPalAPI;
+					}
+
+					@Override
+					public void pay(double amount) {
+						payPalAPI.makePayment(amount);
+					}
+				}
+
+				public class AdapterPatternExample {
+					public static void main(String[] args) {
+
+						PayPalAPI payPalAPI  = new PayPalAPI();
+						PaymentProcessor paymentProcessor = new PayPalAdapter(payPalAPI);
+						paymentProcessor.pay(200);
+					}
+				}
+		   ```
+
+		2. **Decorator Pattern**
+
+		   * **Use**: The Decorator pattern allows you to add new behavior to an object without altering its structure. It enables dynamic enhancement of functionality at runtime. (OPEN/CLOSE Principle)
+		   * **When to Use**: Use it when you need to extend the functionalities of a class in a flexible and reusable way.
+
+		   **Example**:
+
+		   ```java
+				package company.com.design_patterns.structural;
+
+				interface Notification {
+					void send(String message);
+				}
+
+				class BasicNotification implements Notification {
+					@Override
+					public void send(String message) {
+						System.out.println("Sending basic notification: " + message);
+					}
+				}
+
+				class NotificationDecorator implements Notification {
+					protected Notification notification;
+
+					public NotificationDecorator(Notification notification) {
+						this.notification = notification;
+					}
+
+					@Override
+					public void send(String message) {
+						notification.send(message);
+					}
+				}
+
+				class SMSNotification extends NotificationDecorator {
+					public SMSNotification(Notification notification) {
+						super(notification);
+					}
+
+					@Override
+					public void send(String message) {
+						super.send(message);  // Send basic notification first
+						System.out.println("Sending SMS notification: " + message);  // Add SMS functionality
+					}
+				}
+
+				class EmailNotification extends NotificationDecorator {
+					public EmailNotification(Notification notification) {
+						super(notification);
+					}
+
+					@Override
+					public void send(String message) {
+						super.send(message);  // Send basic notification first
+						System.out.println("Sending Email notification: " + message);  // Add Email functionality
+					}
+				}
+
+
+				public class DecoratorPatternExample {
+					public static void main(String[] args) {
+						Notification notification = new BasicNotification();  // Basic notification
+
+						// Add SMS functionality to the notification
+						notification = new SMSNotification(notification);
+
+						// Add Email functionality to the notification
+						notification = new EmailNotification(notification);
+
+						// Final notification that now includes SMS and Email
+						notification.send("Hello, this is a test message!");
+					}
+				}
+				
+		   ```
+
+		3. **Facade Pattern**
+
+		   * **Use**: The Facade pattern provides a simplified interface to a complex system of classes, libraries, or frameworks.
+		   * **When to Use**: Instead of interacting with every part of a system individually, you use the Facade to interact with the system in a simpler way.
+
+		   **Example**:
+
+		   ```java
+			package company.com.design_patterns.structural;
+
+			class Engine {
+				void start() {
+					System.out.println("Engine started");
+				}
+			}
+
+			class Radio {
+				void turnOn() {
+					System.out.println("Radio turned on");
+				}
+			}
+
+			class AirConditioning {
+				void turnOn() {
+					System.out.println("Air conditioning turned on");
+				}
+			}
+
+			class CarFacade {
+				private Engine engine;
+				private Radio radio;
+				private AirConditioning ac;
+
+				CarFacade() {
+					engine = new Engine();
+					radio = new Radio();
+					ac = new AirConditioning();
+				}
+
+				void startCar() {
+					engine.start();
+					radio.turnOn();
+					ac.turnOn();
+				}
+			}
+
+			public class FacadePatternExample {
+				public static void main(String[] args) {
+					CarFacade car = new CarFacade();
+					car.startCar();
+				}
+			}
+		   ```
+
+	Behavioral Patterns
+	====================
+		1. **Observer Pattern**
+
+		   * **Use**: The Observer pattern defines a dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+		   * **When to Use**: Use it when you want to establish a one-to-many dependency between objects, such as in event handling or data binding.
+							When a YouTube channel uploads a new video, all subscribed users get a notification.
+
+
+		   **Example**:
+
+		   ```java
+				package company.com.design_patterns.behavioral;
+
+				import java.util.ArrayList;
+				import java.util.List;
+
+				interface Subscriber{
+					void update(String videoTitle);
+				}
+				class User implements Subscriber{
+					private String name;
+
+					public User(String name){
+						this.name = name;
+					}
+
+					@Override
+					public void update(String videoTitle) {
+						System.out.println(name+" got notified: New video uploaded : "+videoTitle);
+					}
+				}
+				class YoutubeChannel{
+					private List<Subscriber> subscribers = new ArrayList<>();
+
+					public void subscribe(Subscriber subscriber){
+						subscribers.add(subscriber);
+					}
+
+					public void uploadNewVideo(String title){
+						System.out.println("YouTube Channel uploaded: " + title);
+						notifySubscribers(title);
+					}
+
+					private  void notifySubscribers(String title){
+						for(Subscriber subscriber : subscribers){
+							subscriber.update(title);
+						}
+					}
+				}
+				public class ObserverPatternExample{
+					public static void main(String[] args) {
+
+						System.out.println("\n");
+
+						YoutubeChannel channel = new YoutubeChannel();
+
+						Subscriber user1 = new User("Alice");
+						Subscriber user2 = new User("Bob");
+
+						channel.subscribe(user1);
+						channel.subscribe(user2);
+
+						channel.uploadNewVideo("Learn AWS course in 10 minutes");
+
+						System.out.println("\n");
+					}
+				}
+		   ```
+
+		2. **Strategy Pattern**
+
+		   * **Use**: The Strategy pattern allows you to define a family of algorithms, encapsulate each one, and make them interchangeable.
+		   * **When to Use**: Use it when you have multiple ways of performing a task and want to switch between them dynamically.
+
+		   **Example**:
+
+		   ```java
+		   interface PaymentStrategy {
+			   void pay(int amount);
+		   }
+
+		   class CreditCardPayment implements PaymentStrategy {
+			   public void pay(int amount) {
+				   System.out.println("Paid " + amount + " using Credit Card");
+			   }
+		   }
+
+		   class PayPalPayment implements PaymentStrategy {
+			   public void pay(int amount) {
+				   System.out.println("Paid " + amount + " using PayPal");
+			   }
+		   }
+
+		   class PaymentContext {
+			   private PaymentStrategy strategy;
+
+			   public void setPaymentStrategy(PaymentStrategy strategy) {
+				   this.strategy = strategy;
+			   }
+
+			   public void executePayment(int amount) {
+				   strategy.pay(amount);
+			   }
+		   }
+		   ```
+
+		3. **Command Pattern**
+
+		   * **Use**: The Command pattern turns a request into a stand-alone object that contains all information about the request. It allows for parameterization of objects with operations.
+		   * **When to Use**: Use it when you need to decouple sender and receiver objects, or if you need to queue requests or log them for undo operations.
+
+		   **Example**:
+
+		   ```java
+		   interface Command {
+			   void execute();
+		   }
+
+		   class LightOnCommand implements Command {
+			   private Light light;
+
+			   public LightOnCommand(Light light) {
+				   this.light = light;
+			   }
+
+			   public void execute() {
+				   light.turnOn();
+			   }
+		   }
+
+		   class Light {
+			   public void turnOn() {
+				   System.out.println("Light is on");
+			   }
+
+			   public void turnOff() {
+				   System.out.println("Light is off");
+			   }
+		   }
+
+		   class RemoteControl {
+			   private Command command;
+
+			   public void setCommand(Command command) {
+				   this.command = command;
+			   }
+
+			   public void pressButton() {
+				   command.execute();
+			   }
+		   }
+		   ```
+
+		---
+
+
+
+
+		=============================
+		MICROSERVICES DESIGN PATTERN
+		=============================
+		---
+
+		1. GATEWAY PATTERN
+
+		Purpose: Acts as a single entry point for all client requests and routes them to the appropriate microservices. It also handles cross-cutting concerns like authentication, logging, and rate-limiting.
+
+		Spring Boot Tool: Spring Cloud Gateway
+
+		Example:
+
+		```
+		# application.yml (API Gateway)
+		spring:
+		  cloud:
+			gateway:
+			  routes:
+				- id: user-service
+				  uri: http://localhost:8081/
+				  predicates:
+					- Path=/users/**
+		```
+
+		Use Case: Instead of calling each microservice directly, clients talk to the API Gateway. It forwards requests to services dynamically.
+
+		---
+
+		2. SERVICE REGISTRY PATTERN
+
+		Purpose: Allows microservices to register themselves and discover other services at runtime instead of hardcoding URLs.
+
+		Spring Boot Tool: Eureka Server (Spring Cloud Netflix Eureka)
+
+		Example:
+
+		```java
+		// Eureka Server
+		@EnableEurekaServer
+		@SpringBootApplication
+		public class EurekaServerApp { }
+		```
+
+		```java
+		// Microservice client
+		@EnableEurekaClient
+		@SpringBootApplication
+		public class UserServiceApp { }
+		```
+
+		Use Case: Services register and discover each other dynamically via Eureka, enabling load balancing and failover.
+
+		---
+
+		3. CIRCUIT BREAKER PATTERN
+
+		Purpose: Protects the system from cascading failures when a service is down by stopping further requests temporarily.
+
+		Spring Boot Tool: Resilience4j or Spring Cloud Circuit Breaker
+
+		Example:
+
+		```java
+		@CircuitBreaker(name = "userService", fallbackMethod = "fallbackMethod")
+		public String getUserDetails() {
+			return restTemplate.getForObject("http://USER-SERVICE/users", String.class);
+		}
+
+		public String fallbackMethod(Exception e) {
+			return "User service is temporarily unavailable.";
+		}
+		```
+
+		Use Case: Prevents repeated failures when one service is not responding, and provides a fallback response.
+
+		---
+
+		4. SAGA PATTERN
+
+		Purpose: Manages distributed transactions in microservices using either orchestration or choreography.
+		
+		The Saga Pattern is a design pattern to manage distributed transactions across multiple microservices.
+		It helps maintain data consistency in a distributed system without using traditional ACID transactions (which are hard to implement across services).
+
+		- What Saga does:
+		  - It breaks a big task into small steps.
+		  - Each step happens one by one, and each step is done by a different microservice.
+		  - If everything goes well, all steps complete successfully.
+		  - If something goes wrong at any step, Saga makes sure to undo (rollback) the previous steps so the system doesn’t get messed up.
+			- Example Use Case
+			Imagine an e-commerce order process involving:
+
+			Order Service (creates order)
+
+			Payment Service (processes payment)
+
+			Inventory Service (reserves stock)
+
+			Shipping Service (arranges delivery)
+
+			Each step is a local transaction. If payment fails, the saga triggers compensations like cancelling order or releasing inventory.
+
+		Example (Event-based Saga):
+
+		* Order Service publishes "Order Created" event to Kafka
+		* Payment Service consumes the event and processes payment
+		* If payment fails, it emits "Payment Failed"
+		* Order Service listens and performs compensating actions
+
+		Use Case: Maintains data consistency across multiple services without using distributed transactions.
+
+		---
+
+		5. CQRS (COMMAND QUERY RESPONSIBILITY SEGREGATION)
+
+		Purpose: Separates the data model used to update data (commands) from the model used to read data (queries).
+
+		Spring Boot Implementation: Use different models/services/controllers for read and write operations.
+
+		Example:
+
+		```java
+		// Command Controller
+		@PostMapping("/orders")
+		public void createOrder(@RequestBody OrderRequest request) {
+			orderService.createOrder(request);
+		}
+
+		// Query Controller
+		@GetMapping("/orders/{id}")
+		public OrderDTO getOrder(@PathVariable String id) {
+			return orderService.getOrderById(id);
+		}
+		```
+
+		Use Case: Improves performance and scalability by optimizing read and write operations separately.
+
+		---
+
+		6. API COMPOSITION
+
+		Purpose: Combines data from multiple microservices into a single unified response for the client.
+
+		Spring Boot Implementation: Use API Gateway or a separate aggregator service to fetch data from other services.
+
+		Example:
+
+		```java
+		public OrderDetails getOrderDetails(String orderId) {
+			Order order = orderService.getOrder(orderId);
+			Payment payment = paymentService.getPaymentByOrderId(orderId);
+			return new OrderDetails(order, payment);
+		}
+		```
+
+		Use Case: Client receives complete information in a single API call instead of calling multiple services.
+
+		---
+
+		7. EVENT-DRIVEN ARCHITECTURE
+
+		Purpose: Microservices communicate asynchronously by publishing and consuming events.
+
+		Spring Boot Tool: Kafka, RabbitMQ, or Spring Cloud Stream
+
+		Example:
+
+		```java
+		// Producer
+		kafkaTemplate.send("order-events", new OrderCreatedEvent(order));
+
+		// Consumer
+		@KafkaListener(topics = "order-events")
+		public void handleOrderEvent(OrderCreatedEvent event) {
+			// process event
+		}
+		```
+
+		Use Case: Services are loosely coupled and can react to changes in other services asynchronously.
+
+		---
+
+		8. DATABASE PER SERVICE
+
+		Purpose: Each microservice manages its own database, ensuring independence and encapsulation.
+
+		Spring Boot Implementation: Configure a dedicated database connection in each microservice.
+
+		Example:
+
+		```
+		spring:
+		  datasource:
+			url: jdbc:mysql://localhost:3306/orderdb
+			username: root
+			password: password
+		```
+
+		Use Case: Allows each service to evolve independently without affecting others.
+
+		---
+
+		Sure! Here's the Retry Pattern in **plain text** format, using technical terms explained in a simple way — no bold styling, just clean and clear content.
+
+		---
+
+		9. RETRY PATTERN
+
+		Purpose: Automatically retries failed service calls that fail due to temporary problems like network issues, slow responses, or momentary unavailability. This pattern helps improve system stability and avoids failure due to short-lived issues.
+
+		Spring Boot Tool: Spring Retry or Resilience4j Retry
+
+		Example:
+
+		```java
+		// Using Resilience4j Retry with Spring Boot
+
+		@Retry(name = "retryService", fallbackMethod = "fallbackMethod")
+		public String callExternalService() {
+			// This method calls another microservice or external API
+			return restTemplate.getForObject("http://external-service/api/data", String.class);
+		}
+
+		// Fallback method when all retry attempts fail
+		public String fallbackMethod(Exception e) {
+			return "Service temporarily unavailable. Please try again later.";
+		}
+		```
+
+		application.yml:
+
+		```yaml
+		resilience4j.retry:
+		  instances:
+			retryService:
+			  max-attempts: 3
+			  wait-duration: 2s
+		```
+
+		Use Case: Suppose the order service tries to call the payment service, but due to a temporary issue (like a network timeout), it fails. Instead of failing immediately, the retry pattern automatically tries again up to 3 times. If all attempts fail, it returns a fallback message. This helps avoid unnecessary errors and provides a better experience for users.
+
+		---
+

@@ -51,6 +51,7 @@ public class ExampleProgram {
         System.out.println("str1, str2, str5, str6 -> String Constant Pool");
         System.out.println("str3, str4 -> Heap memory (new keyword)");
         System.out.println("StringBuilder and StringBuffer -> Heap memory, mutable");
+
     }
 
 }

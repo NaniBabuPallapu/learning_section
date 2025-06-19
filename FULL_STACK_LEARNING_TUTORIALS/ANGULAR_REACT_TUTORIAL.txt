@@ -1,0 +1,1964 @@
+ANGULAR VERSION - version-14v
+REACT VERSION - version-16.8v
+
+		MICRO-FRONT-END
+		===============
+		---
+
+		**Monolithic Frontend Architecture vs Micro Frontends Using React.js**
+		----------------------------------------------------------------------
+		---
+
+		### 1. Monolithic Frontend Architecture Using React
+
+		- A monolithic frontend is a single React application that contains all features, pages, modules, and logic in one codebase. 
+		- In Monolithic Architecture, Multiple components are combined into one large application.
+		- All modules are reside in single repository and we have single CI/CD pipeline to deploy all the changes.
+		- It is deployed as a single unit.
+
+		**Example Folder Structure:**
+
+		```
+		src/
+		├── components/
+		├── pages/
+		├── services/
+		├── App.jsx
+		├── index.js
+		```
+
+		**Advantages:**
+
+		* Simple setup: Easy to scaffold and develop using Create React App or Vite.
+		* Single deployment: One build and one deployment pipeline.
+		* Centralized state management: Easy to use tools like Redux, Context API, or Zustand.
+
+		**Disadvantages:**
+
+		* Scaling limitations: Becomes difficult to manage with a growing number of developers or features.
+		* Slower build times: Larger apps lead to longer build and deploy times.
+		* Tight coupling: Hard to isolate features or allow team-level autonomy.
+
+		---
+
+		### 2. Micro Frontend Architecture Using React
+		----------------------------------------------
+		- Micro front-ends are implemented on the base of micro services from backend.
+		- Micro frontends divide a large React application into smaller, independently developed and deployed applications. 
+		- They can have separate repository , CI/CD pipelines for managing codebase and deployement.
+		- Each micro frontend is responsible for a specific feature or domain and is usually managed by a dedicated team.
+		- Each micro frontend can be developed using its own technology stack (React, Angular, Vue.js, etc.).
+		- Micro frontends are integrated into a single user interface at runtime (via iframe, Webpack Module Federation, or Single-SPA).
+		
+		**Example Folder Structure:**
+
+		```
+		micro-frontends/
+		├── shell(or)container/    ← Main host app (handles routing and layout)
+		├── user-dashboard/        ← Micro frontend 1
+		├── policy-management/     ← Micro frontend 2
+		├── claim-status/          ← Micro frontend 3
+		```
+
+		**Common Tools Used:**
+
+		* Webpack Module Federation
+		* Single-SPA
+		* Qiankun
+		* Nx (monorepo management)
+		* Bit.dev (component sharing)
+
+		**Advantages:**
+
+		* Independent deployments: Each team can build and deploy its part of the app separately.
+		* Scalable architecture: Suited for large applications with multiple teams.
+		* Improved fault isolation: A failure in one micro frontend does not crash the entire application.
+
+		**Disadvantages:**
+
+		* Complex setup: Requires more advanced configuration for routing, communication, and deployment.
+		* Risk of code duplication: Especially for shared dependencies if not handled properly.
+		* Global state sharing: Requires patterns like pub-sub or shared libraries for cross-microfrontend communication.
+
+		---
+
+		### 3. Monolith vs Micro Frontends in React
+
+		| Feature            | Monolithic React App            | Micro Frontends (React)               |
+		| ------------------ | ------------------------------- | ------------------------------------- |
+		| Codebase           | Single                          | Multiple (per feature or team)        |
+		| Deployment         | One build and deploy            | Independent deployments               |
+		| Team Collaboration | Shared codebase (less scalable) | Team autonomy (more scalable)         |
+		| State Management   | Centralized                     | Needs shared or decoupled solutions   |
+		| Performance        | Slower for large apps           | Faster for smaller, isolated apps     |
+		| DevOps / CI-CD     | Simple                          | Complex (per micro frontend pipeline) |
+
+		---
+
+		### 4. When to Use What?
+
+		**Use Monolithic Frontend When:**
+
+		* Building small to medium-sized projects.
+		* You have a small or single development team.
+		* You need to deliver a quick MVP or short-term project.
+		* You prefer a simple CI/CD setup.
+
+		**Use Micro Frontends When:**
+
+		* Working on large enterprise-scale applications.
+		* Multiple independent teams are involved.
+		* You need independent deployments and modular scaling.
+		* You are planning a long-term, scalable project architecture.
+
+		---
+
+		### 5. Recommended React Tools and Libraries
+
+		**For Monolithic Architecture:**
+
+		* React Router
+		* Redux / Context API / Zustand
+		* React Query
+		* Create React App or Vite
+
+		**For Micro Frontends Architecture:**
+
+		* Webpack 5 Module Federation
+		* Single-SPA
+		* Qiankun
+		* Nx (monorepo support)
+		* Bit.dev (shared components)
+
+		---
+
+			SAMPLE PROJECT FOR MICRO-FRONT-END ORDER MANAGEMENT 
+			===================================================
+			---
+
+			# Micro Frontend Architecture using React for Order Management System
+
+			Micro Frontend Services:
+
+			* Customer Service – [http://localhost:3000](http://localhost:3000)
+			* Order Service – [http://localhost:3001](http://localhost:3001)
+			* Product Service – [http://localhost:3002](http://localhost:3002)
+
+			Unified via Container App/Shell
+
+			## High-Level Solution
+
+			We’ll use Module Federation from Webpack 5 to stitch together micro frontends.
+
+			Architecture:
+
+			* Container App (Shell): Loads and displays all the micro frontends.
+			* Each Micro Frontend (customer, order, product) is deployed separately.
+			* All services expose components via Module Federation.
+			* The container consumes and renders them dynamically.
+
+			## Technologies Used
+
+			* React
+			* Webpack 5
+			* Module Federation
+			* Separate repositories + deployments
+			* Single routing shell app
+
+			## Project Structure
+
+			microfrontend-root/
+			├── container/          (Main shell app)
+			├── customer/           (Micro frontend - Customer)
+			├── orders/             (Micro frontend - Order)
+			└── products/           (Micro frontend - Product)
+
+			1. Micro Frontend Setup (Customer, Orders, Products)
+
+			---
+
+			Each micro frontend will:
+
+			* Have its own webpack.config.js
+			* Expose components via Module Federation
+			* Run on its own port
+
+			## Example: customer/ Micro Frontend
+
+			customer/package.json
+
+			```json
+			{
+			  "name": "customer",
+			  "scripts": {
+				"start": "webpack serve --mode development --port 3000"
+			  },
+			  "dependencies": {
+				"react": "^18.0.0",
+				"react-dom": "^18.0.0"
+			  },
+			  "devDependencies": {
+				"webpack": "^5",
+				"webpack-cli": "^4",
+				"webpack-dev-server": "^4",
+				"html-webpack-plugin": "^5",
+				"babel-loader": "^8"
+			  }
+			}
+			```
+
+			customer/webpack.config.js
+
+			```js
+			const HtmlWebpackPlugin = require('html-webpack-plugin');
+			const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+
+			module.exports = {
+			  entry: './src/index.js',
+			  mode: 'development',
+			  devServer: {
+				port: 3000
+			  },
+			  output: {
+				publicPath: 'auto'
+			  },
+			  module: {
+				rules: [
+				  {
+					test: /\.js$/,
+					loader: 'babel-loader',
+					exclude: /node_modules/
+				  }
+				]
+			  },
+			  plugins: [
+				new ModuleFederationPlugin({
+				  name: 'customer',
+				  filename: 'remoteEntry.js',
+				  exposes: {
+					'./CustomerApp': './src/CustomerApp'
+				  },
+				  shared: { react: { singleton: true }, 'react-dom': { singleton: true } }
+				}),
+				new HtmlWebpackPlugin({
+				  template: './public/index.html'
+				})
+			  ]
+			}
+			```
+
+			customer/src/index.js
+
+			```js
+			import('./CustomerApp');
+			```
+
+			customer/src/CustomerApp.js
+
+			```js
+			import React from 'react';
+			import ReactDOM from 'react-dom';
+
+			const App = () => <div>🧑 Customer Service Component</div>;
+
+			ReactDOM.render(<App />, document.getElementById('root'));
+
+			export default App;
+			```
+
+			Repeat similar setup for orders/ on port 3001 and products/ on 3002.
+			Replace './CustomerApp' with './OrderApp' or './ProductApp' accordingly.
+
+			2. Container App (Main Shell UI)
+
+			---
+
+			container/package.json
+
+			```json
+			{
+			  "name": "container",
+			  "scripts": {
+				"start": "webpack serve --mode development --port 8080"
+			  },
+			  "dependencies": {
+				"react": "^18.0.0",
+				"react-dom": "^18.0.0",
+				"react-router-dom": "^6.0.0"
+			  },
+			  "devDependencies": {
+				"webpack": "^5",
+				"webpack-cli": "^4",
+				"webpack-dev-server": "^4",
+				"html-webpack-plugin": "^5",
+				"babel-loader": "^8"
+			  }
+			}
+			```
+
+			container/webpack.config.js
+
+			```js
+			const HtmlWebpackPlugin = require('html-webpack-plugin');
+			const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+
+			module.exports = {
+			  entry: './src/index.js',
+			  mode: 'development',
+			  devServer: {
+				port: 8080
+			  },
+			  output: {
+				publicPath: 'auto'
+			  },
+			  module: {
+				rules: [
+				  {
+					test: /\.js$/,
+					loader: 'babel-loader',
+					exclude: /node_modules/
+				  }
+				]
+			  },
+			  plugins: [
+				new ModuleFederationPlugin({
+				  name: 'container',
+				  remotes: {
+					customer: 'customer@http://localhost:3000/remoteEntry.js',
+					orders: 'orders@http://localhost:3001/remoteEntry.js',
+					products: 'products@http://localhost:3002/remoteEntry.js'
+				  },
+				  shared: { react: { singleton: true }, 'react-dom': { singleton: true } }
+				}),
+				new HtmlWebpackPlugin({
+				  template: './public/index.html'
+				})
+			  ]
+			}
+			```
+
+			container/src/index.js
+
+			```js
+			import React from 'react';
+			import ReactDOM from 'react-dom/client';
+			import App from './App';
+
+			const root = ReactDOM.createRoot(document.getElementById('root'));
+			root.render(<App />);
+			```
+
+			container/src/App.js
+
+			```js
+			import React, { Suspense } from 'react';
+			import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
+			const CustomerApp = React.lazy(() => import('customer/CustomerApp'));
+			const OrderApp = React.lazy(() => import('orders/OrderApp'));
+			const ProductApp = React.lazy(() => import('products/ProductApp'));
+
+			const App = () => (
+			  <BrowserRouter>
+				<nav>
+				  <Link to="/">Home</Link> | 
+				  <Link to="/customer">Customer</Link> | 
+				  <Link to="/order">Order</Link> | 
+				  <Link to="/product">Product</Link>
+				</nav>
+
+				<Suspense fallback={<div>Loading...</div>}>
+				  <Routes>
+					<Route path="/" element={<div>🏠 Home - Order Management System</div>} />
+					<Route path="/customer" element={<CustomerApp />} />
+					<Route path="/order" element={<OrderApp />} />
+					<Route path="/product" element={<ProductApp />} />
+				  </Routes>
+				</Suspense>
+			  </BrowserRouter>
+			);
+
+			export default App;
+			```
+
+			container/public/index.html
+
+			```html
+			<!DOCTYPE html>
+			<html>
+			  <head><title>Micro Frontend Container</title></head>
+			  <body>
+				<div id="root"></div>
+			  </body>
+			</html>
+			```
+
+			## Run All Apps
+
+			1. Start micro frontends:
+
+			```bash
+			cd customer && npm install && npm start  
+			cd orders && npm install && npm start  
+			cd products && npm install && npm start
+			```
+
+			2. Start container:
+
+			```bash
+			cd container && npm install && npm start
+			```
+
+			## Final Result
+
+			Unified UI accessible at: [http://localhost:8080](http://localhost:8080)
+
+			* /customer → renders CustomerApp from [http://localhost:3000](http://localhost:3000)
+			* /order → renders OrderApp from [http://localhost:3001](http://localhost:3001)
+			* /product → renders ProductApp from [http://localhost:3002](http://localhost:3002)
+
+
+			
+		
+		========================================================================================================================================================================================
+
+		ANGULAR TUTORIAL 
+		========================================================================================================================================================================================
+
+		Here's the Angular tutorial structured with theory followed by the code examples, as per your request:
+
+		---
+
+		### **angular: overview**
+
+		Angular is a framework used to build dynamic web applications using TypeScript. It supports components, routing, forms, services, dependency injection, and observables.
+
+		---
+
+		### **setup: install**
+
+		To start an Angular project, install the Angular CLI, create a new project using `ng new`, and serve it using `ng serve`.
+
+		**Code:**
+
+		```bash
+		npm install -g @angular/cli
+		ng new my-app
+		cd my-app
+		ng serve
+		```
+
+		---
+
+		### **component: creation**
+
+		A component is the basic building block of an Angular app. It contains HTML, CSS, and logic in TypeScript. You can create it using the CLI.
+
+		**Code:**
+
+		```bash
+		ng generate component my-component
+		```
+
+		---
+
+		### **component: basic structure**
+
+		A component has a selector (HTML tag), template or HTML file, and a class where we write business logic. The class contains properties and methods.
+
+		**Code:**
+
+		```ts
+		import { Component } from '@angular/core';
+
+		@Component({
+		  selector: 'app-my-component',
+		  templateUrl: './my-component.component.html',
+		})
+		export class MyComponent {
+		  title = 'Hello Angular';
+		}
+		```
+
+		---
+
+		### **template: interpolation**
+
+		Interpolation is used to display data from the component class into the HTML using double curly braces `{{}}`.
+
+		**Code:**
+
+		```html
+		<h1>{{ title }}</h1>
+		```
+
+		---
+
+		### **binding: types**
+
+		#### **property binding:**
+
+		It binds a property from the component to an element's property in HTML using square brackets `[ ]`.
+
+		**Code:**
+
+		```html
+		<input [value]="title" />
+		```
+
+		#### **event binding:**
+
+		It allows you to listen to user events like clicks and call methods using parentheses `( )`.
+
+		**Code:**
+
+		```html
+		<button (click)="handleClick()">Click Me</button>
+		```
+
+		#### **two-way binding:**
+
+		It combines property and event binding to update data in both component and template. It uses `[(ngModel)]` and requires FormsModule.
+
+		**Code:**
+
+		```html
+		<input [(ngModel)]="title" />
+		```
+
+		---
+
+		### **directive: types**
+
+		#### **structural directives:**
+
+		Structural directives are special Angular syntax that modify the structure of the DOM by adding, removing, or altering elements dynamically based on certain conditions. 
+		They are prefixed with an asterisk (*) and control how elements are rendered in the view.
+		
+		**Code:**
+
+		* `*ngIf`
+
+			```html
+			<p *ngIf="isVisible">Visible</p>
+			```
+		
+		* `*ngIf-else`
+
+			```html
+			<div *ngIf="isLoggedIn; else loginBlock">
+			  Welcome, user!
+			</div>
+
+			<ng-template #loginBlock>
+			  <p>Please log in</p>
+			</ng-template>
+			```
+
+		* `*ngFor`
+
+			```html
+			<li *ngFor="let item of items">{{ item }}</li>
+			```
+		
+		* `ngSwitch`
+
+			```html
+				<div [ngSwitch]="selectedRole">
+				  <div *ngSwitchCase="'admin'">You have admin access</div>
+				  <div *ngSwitchCase="'user'">You are a regular user</div>
+				  <div *ngSwitchCase="'guest'">You are a guest</div>
+				  <div *ngSwitchDefault>Select a role</div>
+				</div>
+			```
+
+		#### **attribute directives:**
+
+		Attribute directives are used to modify the appearance, behavior, or layout of DOM elements without changing their structure. Examples are `ngClass` and `ngStyle`.
+
+		* `ngClass`
+
+		```html
+		<p [ngClass]="{'active': isActive}">Class Binding</p>
+		```
+
+		* `ngStyle`
+
+		```html
+		<p [ngStyle]="{'color': isRed ? 'red' : 'blue'}">Style Binding</p>
+		```
+
+		#### **custom directive:**
+
+		You can create your own directive to modify DOM behavior, like changing background color.
+
+		**Code:**
+
+		```ts
+		import { Directive, ElementRef } from '@angular/core';
+
+		@Directive({
+		  selector: '[appHighlight]'
+		})
+		export class HighlightDirective {
+		  constructor(el: ElementRef) {
+			el.nativeElement.style.backgroundColor = 'yellow';
+		  }
+		}
+		
+		<!-- app.component.html -->
+		<p appHighlight>This paragraph has a yellow background!</p>
+		
+		```
+
+		---
+
+		### **module: definition**
+
+		A module is a container for components, services, pipes, and other code. The root module is called AppModule and is defined using the `@NgModule` decorator.
+
+		**Code:**
+
+		```ts
+		import { NgModule } from '@angular/core';
+		import { BrowserModule } from '@angular/platform-browser';
+		import { FormsModule } from '@angular/forms';
+
+		@NgModule({
+		  declarations: [AppComponent],
+		  imports: [BrowserModule, FormsModule],
+		  bootstrap: [AppComponent]
+		})
+		export class AppModule {}
+		```
+
+		---
+
+		### **service: creation**
+
+		A service in Angular is used to write reusable code like API calls, shared data, or business logic.
+		It helps you keep your code clean and organized by moving common logic out of components.
+
+		Services are shared across components using Dependency Injection, so the same data or logic can be reused easily.
+		
+		**Code:**
+
+		```bash
+		ng generate service data
+		```
+
+		---
+
+		### **service: usage**
+
+		Services are marked with `@Injectable` so they can be injected into components or other services. You write reusable methods in the service class.
+
+		**Code:**
+
+		```ts
+		@Injectable({ providedIn: 'root' })
+		export class DataService {
+		  getData() {
+			return ['Item 1', 'Item 2'];
+		  }
+		}
+		```
+
+		---
+
+		### **inject service in component:**
+
+		You use dependency injection by adding the service to the constructor of a component and then calling its methods.
+
+		**Code:**
+
+		```ts
+		export class ItemListComponent implements OnInit {
+
+			items: string[] = [];
+			
+			constructor(private dataService: DataService) {}
+
+			ngOnInit() {
+			  this.items = this.dataService.getData();
+			}
+		}
+		```
+		Note :  Angular does not automatically implement the OnInit interface for your components. 
+				You need to manually implement the OnInit interface in your component if you want to use its ngOnInit() lifecycle hook.
+		
+		---
+
+		### **routing: configuration**
+
+		Routing is used to navigate between different views or pages in the app. You define routes using an array and register them using `RouterModule`.
+		
+		Install : npm install @angular/router
+
+		**Code:**
+
+		```ts
+			const appRoutes: Routes = [
+			  { path: '', component: HomeComponent },
+			  { path: 'about', component: AboutComponent }
+			];
+
+			@NgModule({
+			  declarations: [AppComponent, HomeComponent, AboutComponent],
+			  imports: [
+				BrowserModule,
+				RouterModule.forRoot(appRoutes)  // This configures the routes for the app
+			  ],
+			  providers: [],
+			  bootstrap: [AppComponent]
+			})
+			export class AppModule {}
+		```
+
+		---
+
+		### **observables: basic**
+
+		Observables represent a stream of data that arrives over time. You use them to handle asynchronous operations like HTTP requests.
+
+		**Code:**
+
+		```ts
+		import { Observable } from 'rxjs';
+
+		const observable = new Observable(observer => {
+		  observer.next('Hello from observable');
+		});
+		```
+
+		---
+
+		### **subscribe: usage**
+
+		You use `.subscribe()` to listen to an observable and get the emitted data. This is how you handle responses from HTTP requests.
+
+		**Code:**
+
+		```ts
+		observable.subscribe(data => {
+		  console.log(data);
+		});
+		```
+
+		---
+
+		### **httpclient: use**
+
+		Angular’s HttpClient is used to make API calls. It returns an observable. You need to import `HttpClientModule` to use it.
+
+		**Code:**
+
+		```ts
+		constructor(private http: HttpClient) {}
+
+		getUsers() {
+		  this.http.get('https://jsonplaceholder.typicode.com/users')
+			.subscribe(data => {
+			  this.users = data;
+			});
+		}
+		```
+
+		---
+
+		### **forms: template-driven**
+
+		Template-driven forms are created using HTML form elements with Angular directives like `ngModel`. They are easy to use for simple forms.
+
+		**Code:**
+
+		```html
+		<form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
+		  <input name="username" ngModel />
+		  <button type="submit">Submit</button>
+		</form>
+		
+		.ts file: 
+		
+		export class UserFormComponent {
+		  
+		  // Method to handle form submission
+		  submitForm(userForm: any) {
+			// Check if form is valid
+			if (userForm.valid) {
+			  console.log('Form Submitted:', userForm.value);
+			  // You can now send the data to an API or perform other operations here
+			} else {
+			  console.log('Form is invalid');
+			}
+		  }
+		}
+		```
+
+		---
+
+		### **forms: reactive and validations**
+
+		Reactive forms are more powerful and structured. They are built in TypeScript using `FormBuilder` and `FormGroup`.
+
+		**Code:**
+		
+			To add **validations** in **Reactive Forms**, you use Angular's built-in `Validators` from `@angular/forms`.
+
+			## ✅ Full Example
+
+			```ts
+			// app.component.ts
+			
+			import { Component } from '@angular/core';
+			import { FormBuilder, Validators } from '@angular/forms';
+
+			@Component({
+			  selector: 'app-root',
+			  templateUrl: './app.component.html',
+			})
+			export class AppComponent {
+			  constructor(private fb: FormBuilder) {}
+
+			  form = this.fb.group({
+				username: ['', [Validators.required, Validators.minLength(3)]]
+			  });
+
+
+			  submitForm() {
+				console.log(this.form.value);
+			  }
+			}
+			```
+
+			```html
+			<!-- app.component.html -->
+			
+			<form [formGroup]="form" (ngSubmit)="submitForm()">
+			  <input formControlName="username" placeholder="Enter username" />
+			  
+			  <div *ngIf="form.get('username')?.touched && form.get('username')?.invalid">
+				<small *ngIf="form.get('username')?.errors?.['required']">Username is required.</small>
+				<small *ngIf="form.get('username')?.errors?.['minlength']">
+				  Minimum 3 characters required.
+				</small>
+			  </div>
+
+			  <button type="submit" [disabled]="form.invalid">Submit</button>
+			</form>
+			```
+
+			---
+
+			## ✅ Common Validators in Angular
+
+			| Validator        | Usage Example                        |
+			| ---------------- | ------------------------------------ |
+			| `required`       | `Validators.required`                |
+			| `minLength(x)`   | `Validators.minLength(3)`            |
+			| `maxLength(x)`   | `Validators.maxLength(10)`           |
+			| `email`          | `Validators.email`                   |
+			| `pattern(regex)` | `Validators.pattern('[A-Za-z]{3,}')` |
+
+			---
+
+		---
+
+		### **lifecycle hooks:**
+
+		Angular provides hooks that let you tap into the lifecycle of components.
+
+			* ngOnChanges: Called when input properties change.
+
+			* ngOnInit: Called once after the component’s data-bound properties are initialized.
+
+			* ngDoCheck: Called during every change detection cycle (manual detection).
+
+			* ngAfterContentInit: Called once after the component content (projected content) is initialized.
+
+			* ngAfterContentChecked: Called after every check of the content (projected content).
+
+			* ngAfterViewInit: Called once after the component’s view and its child views are initialized.
+
+			* ngAfterViewChecked: Called after every check of the component’s view and its child views.
+
+			* ngOnDestroy: Called just before the component is destroyed.
+			
+		**Code:** (imp lifecycle hooks)
+
+		* `ngOnInit`
+
+		```ts
+		ngOnInit() {
+		  // component initialization
+		}
+		```
+
+		* `ngOnChanges`
+
+		```ts
+		ngOnChanges(changes: SimpleChanges) {
+		  console.log(changes);
+		}
+		```
+
+		* `ngOnDestroy`
+
+		```ts
+		  private users: Subscription;
+		  
+		ngOnDestroy() {
+			  this.users.unsubscribe();
+		}
+		```
+
+		---
+
+		### **guard: route protection**
+
+		Guards are used to protect routes from being accessed without permission. You implement `CanActivate` and return true or false.
+
+		**Code:**
+
+		in routes .ts class
+		```
+		{ path: 'dashboard',component: DashboardComponent,canActivate: [AuthGuard],  // Protect this route with the AuthGuard },
+		```
+		```ts
+		@Injectable({ providedIn: 'root' })
+		export class AuthGuard implements CanActivate {
+		  canActivate(): boolean {
+			return true; // add logic here
+		  }
+		}
+		```
+
+		---
+
+		### **pipe: built-in**
+
+		Pipes are used to transform data in the template. Examples include `date`, `uppercase`, `currency`, etc.
+
+		**Code:**
+
+		```html
+		<p>{{ today | date }}</p>
+		<p>{{ amount | currency }}</p> <!-- Example Output: $1,234.56 -->
+		<p>{{ amount | currency:'EUR' }}</p> <!-- Example Output: €1,234.56 -->
+		<p>{{ 'hello world' | uppercase }}</p>  <!-- Output: HELLO WORLD -->
+		<p>{{ 'HELLO WORLD' | lowercase }}</p>  <!-- Output: hello world -->
+		<p>{{ object | json }}</p> <!-- Output: {"name":"John","age":30} -->
+		```
+
+		---
+
+		### **pipe: custom**
+
+		You can create a custom pipe using `@Pipe` and `PipeTransform` to define your own data transformations.
+
+		**Code:**
+
+		```ts
+		@Pipe({ name: 'capitalize',   pure: true}) // pure : false impure pipes
+		export class CapitalizePipe implements PipeTransform {
+		  transform(value: string): string {
+			return value.charAt(0).toUpperCase() + value.slice(1);
+		  }
+		}
+		```
+			### Pure Pipe
+
+			**Answer:** Runs only when the input changes.
+			**Example:** `{{ name | uppercase }}` — changes only if `name` changes.
+
+			---
+
+			### Impure Pipe
+
+			**Answer:** Runs every time Angular checks for changes, even if input stays the same.
+			**Example:** A pipe that shows current time and updates every second.
+		---
+
+		### **module types:**
+
+		* **Root module:** AppModule
+		* **Feature module:** Custom reusable module
+		* **Shared module:** Shared pipes, directives
+		* **Core module:** Singleton services
+
+		---
+
+		### **lazy loading:**
+
+		Lazy loading is a way to load modules only when needed. This improves performance by reducing initial load time.
+
+		**Code:**
+
+		```ts
+		const routes: Routes = [
+		  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
+		];
+		```
+
+		---
+
+		### **dependency injection:**
+
+		It is a way to provide services or objects where needed. Angular automatically injects services if they are listed in providers or marked with `providedIn`.
+
+		---
+
+		### **unit testing:**
+
+		Unit tests are written to test the functionality of components and services. TestBed is used to configure and create component instances.
+
+		**Code:**
+
+		```ts
+		it('should create', () => {
+		  const fixture = TestBed.createComponent(MyComponent);
+		  const comp = fixture.componentInstance;
+		  expect(comp).toBeTruthy();
+		});
+		```
+
+		---
+
+		This concludes the structured Angular tutorial with theory followed by the code examples.
+
+
+		======================================================================================================================================================================================
+
+		REACT TUTORIAL
+		 
+		========================================================================================================================================================================================
+
+		---
+
+		### **React Overview**
+
+		React is a powerful JavaScript library developed by Facebook for building dynamic and interactive user interfaces (UIs). 
+		It allows developers to create reusable components, which are the building blocks of a React application. 
+		React uses a virtual DOM (a lightweight copy of the real DOM) to efficiently update and render only the parts of the UI that change, making it fast and performance-optimized.
+
+		🔹 Key Features of React:
+		Component-Based Architecture: Build encapsulated components that manage their own state.
+
+		Virtual DOM: Updates the UI efficiently without reloading the whole page.
+
+		Declarative Syntax: Easily describe how the UI should look for different states.
+
+		Reusable Components: Write once, reuse anywhere in your application.
+		
+		#### **Code:**
+
+		```jsx
+		function MyComponent() {
+		  return <h1>Hello React</h1>;
+		}
+		```
+
+		---
+
+		### **Setup: Install**
+
+		To install React, use the following commands:
+
+		```bash
+		npx create-react-app my-app
+		cd my-app
+		npm start
+		```
+
+		---
+
+		### **Component: Creation**
+
+		A component is a reusable part of the user interface (UI) in React, created using a function or class. It helps organize and manage different sections of the UI.
+
+		#### **Function Component:**
+
+		```jsx
+		function MyComponent() {
+		  return <h1>Hello React</h1>;
+		}
+		```
+
+		#### **Class Component:**
+
+		```jsx
+		class MyComponent extends React.Component {
+		  render() {
+			return <h1>Hello React</h1>;
+		  }
+		}
+		```
+
+		---
+
+		### **JSX: Definition**
+
+		JSX is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript, making it easier to define the structure of the UI in React.
+
+		#### **Code:**
+
+		```jsx
+		const element = <h1>Hello JSX</h1>;
+		```
+
+		---
+
+		### **Props: Definition**
+
+		Props are used to pass data from a parent component to a child component as attributes, enabling the child component to receive and display dynamic values.
+		
+		There are two main types of props:
+		1. String, Number, and Boolean Props: Simple data types like text, numbers, or true/false values.
+		2. Object, Array, or Function Props: More complex data types like objects, arrays, or even functions that can be passed for more dynamic behavior.
+
+		#### **Code:**
+
+		```jsx
+		function Welcome(props) {
+		  return <h1>Hello, {props.name}</h1>;
+		}
+
+		<Welcome name="Nani" />
+		```
+
+		---
+
+		### **State: useState**
+
+		In React, state is a way to store data that can change over time in a component. When the state changes, React updates the UI automatically to reflect those changes.
+
+		Because it helps your component:
+
+		a. Remember things (like user input or a counter value)
+		b. React to changes (like a button click)
+		c. Re-render when something updates
+		
+		#### **Code (Class Component):**
+
+		```jsx
+		class Counter extends React.Component {
+		  state = { count: 0 };
+
+		  render() {
+			return <p>{this.state.count}</p>;
+		  }
+		}
+		```
+
+		#### **Code (Function Component):**
+
+		```jsx
+		function Counter() {
+		  const [count, setCount] = useState(0);
+		  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+		}
+		```
+
+		---
+
+		### **Event Handling**
+
+		Events like `onClick`, `onChange` are used to handle user actions and bind them to functions.
+
+		#### **Code:**
+
+		```jsx
+		<button onClick={handleClick}>Click Me</button>
+		```
+
+		---
+
+		### **Conditional Rendering**
+
+		Render different JSX based on conditions using ternary operators or `&&`.
+
+		#### **Code:**
+
+		```jsx
+		{isLoggedIn ? <Logout /> : <Login />}
+		```
+
+		---
+
+		### **List Rendering**
+
+		Use `.map()` to loop through arrays and render elements with a `key` attribute.
+
+		#### **Code:**
+
+		```jsx
+		const items = ['A', 'B', 'C'];
+		<ul>{items.map((item, i) => <li key={i}>{item}</li>)}</ul>
+		```
+
+		---
+
+		### **Form Handling**
+
+		Use controlled components by setting the value and handling changes with the onChange event. This approach lets you manage form inputs and submission in React using component state.
+
+		#### **Code:**
+
+		```jsx
+		function Form() {
+		  const [name, setName] = useState('');
+		  const handleSubmit = e => {
+			e.preventDefault();
+			alert(name);
+		  };
+		  return (
+			<form onSubmit={handleSubmit}>
+			  <input value={name} onChange={e => setName(e.target.value)} />
+			  <button type="submit">Submit</button>
+			</form>
+		  );
+		}
+		```
+
+		---
+
+		### **Hook: useEffect**
+
+		useEffect is a React hook used to handle side effects, such as fetching data, updating the DOM, or setting up timers. 
+		It runs after the component renders and can re-run when specified values change.
+
+		#### **Code:**
+
+		```jsx
+		useEffect(() => {
+		  console.log('Component mounted');
+		}, []);
+		```
+
+		---
+
+		### **Hook: useContext**
+
+		useContext is a React hook that lets you access shared values or state across components by using a context provider, avoiding the need to pass props manually through every level.
+
+		#### **Code:**
+
+		```jsx
+		const UserContext = createContext();
+
+		function App() {
+		  return (
+			<UserContext.Provider value="Nani">
+			  <Profile />
+			</UserContext.Provider>
+		  );
+		}
+
+		function Profile() {
+		  const name = useContext(UserContext);
+		  return <p>{name}</p>;
+		}
+		```
+
+		---
+
+		### **Hook: useReducer**
+
+		useReducer is a React hook used to manage complex state logic. It's a good alternative to useState when the state depends on previous values or involves multiple sub-values.
+		
+		#### **Code:**
+
+		```jsx
+		const reducer = (state, action) => {
+		  if (action.type === 'inc') return { count: state.count + 1 };
+		  return state;
+		};
+
+		const [state, dispatch] = useReducer(reducer, { count: 0 });
+		```
+
+		---
+
+		### **Custom Hook**
+
+		You can create reusable logic in custom hooks using any hook inside a function starting with `use`.
+
+		#### **Code:**
+
+		```jsx
+		function useCounter() {
+		  const [count, setCount] = useState(0);
+		  const increment = () => setCount(count + 1);
+		  return [count, increment];
+		}
+		```
+
+		---
+
+		### **Context: Create and Provide**
+
+		Create a context using `createContext`, provide it using `Context.Provider`, and consume with `useContext`.
+
+		#### **Code:**
+
+		```jsx
+		const ThemeContext = createContext();
+
+		function App() {
+		  return (
+			<ThemeContext.Provider value="dark">
+			  <Child />
+			</ThemeContext.Provider>
+		  );
+		}
+
+		function Child() {
+		  const theme = useContext(ThemeContext);
+		  return <p>{theme}</p>;
+		}
+		```
+
+		---
+
+		### **Lifting State Up**
+
+		Move state to the closest common parent if multiple components need to share it.
+
+		#### **Code:**
+
+		```jsx
+		function Parent() {
+		  const [data, setData] = useState('');
+		  return <Child onSend={setData} />;
+		}
+
+		function Child({ onSend }) {
+		  return <button onClick={() => onSend('Hello')}>Send</button>;
+		}
+		```
+
+		---
+
+		### **Routing: Setup**
+
+		Install `react-router-dom` and wrap the app with `BrowserRouter`.
+
+		#### **Code:**
+
+		```bash
+		npm install react-router-dom
+		```
+
+		---
+
+		### **Routing: Basic Usage**
+
+		Define routes using `<Routes>` and `<Route>` with a path and component to render.
+
+		#### **Code:**
+
+		```jsx
+		<BrowserRouter>
+		  <Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/about" element={<About />} />
+		  </Routes>
+		</BrowserRouter>
+		```
+
+		---
+
+		### **Ref: Usage**
+
+		Attach `ref` to an element and access it using `ref.current` for DOM manipulation.
+
+		#### **Code:**
+
+		```jsx
+		const inputRef = useRef();
+
+		function focusInput() {
+		  inputRef.current.focus();
+		}
+
+		<input ref={inputRef} />
+		```
+
+		---
+
+		### **Memo: React.memo**
+
+		`React.memo` prevents re-rendering if props don’t change, used for performance optimization.
+
+		#### **Code:**
+
+		```jsx
+		const MemoComponent = React.memo(function MyComponent(props) {
+		  return <p>{props.name}</p>;
+		});
+		```
+
+		---
+
+		### **Callback: useCallback**
+
+		`useCallback` memoizes a function so that it doesn’t get recreated on every render.
+
+		#### **Code:**
+
+		```jsx
+		const handleClick = useCallback(() => {
+		  console.log('Clicked');
+		}, []);
+		```
+
+		---
+
+		### **Unit Testing (Jest + React Testing Library)**
+
+		Test components with `render`, `screen`, and `fireEvent`.
+
+		#### **Code:**
+
+		```jsx
+		test('renders Hello', () => {
+		  render(<h1>Hello</h1>);
+		  expect(screen.getByText('Hello')).toBeInTheDocument();
+		});
+		```
+
+		---
+
+		### **Lifecycle Methods (Class Components)**
+
+		#### **componentDidMount:**
+
+		```jsx
+		componentDidMount() {
+		  console.log('Component mounted');
+		}
+		```
+
+		#### **componentDidUpdate:**
+
+		```jsx
+		componentDidUpdate(prevProps) {
+		  console.log('Updated');
+		}
+		```
+
+		#### **componentWillUnmount:**
+
+		```jsx
+		componentWillUnmount() {
+		  console.log('Cleaning up');
+		}
+		```
+
+		---
+
+		### **Error Boundary**
+
+		Catch runtime errors using a class component with `componentDidCatch` and `getDerivedStateFromError`.
+
+		#### **Code:**
+
+		```jsx
+		class ErrorBoundary extends React.Component {
+		  state = { hasError: false };
+
+		  static getDerivedStateFromError() {
+			return { hasError: true };
+		  }
+
+		  render() {
+			if (this.state.hasError) return <h1>Error occurred</h1>;
+			return this.props.children;
+		  }
+		}
+		```
+
+		---
+
+		Let me know if you'd like this as a downloadable text or PDF file or if you'd like to dive into Redux, TypeScript with React, or advanced topics!
+===============================================================================================================================================================================================
+
+
+	   
+	   
+
+	============================================================================================================================================================================================
+	### **1. Angular Service Integration**
+	============================================================================================================================================================================================
+
+
+	1. **Install HttpClientModule**
+
+	   First, ensure that `HttpClientModule` is imported in your Angular `AppModule`.
+
+	   ```typescript
+	   import { NgModule } from '@angular/core';
+	   import { BrowserModule } from '@angular/platform-browser';
+	   import { HttpClientModule } from '@angular/common/http';
+	   import { AppComponent } from './app.component';
+
+	   @NgModule({
+		 declarations: [AppComponent],
+		 imports: [BrowserModule, HttpClientModule],
+		 providers: [],
+		 bootstrap: [AppComponent],
+	   })
+	   export class AppModule {}
+	   ```
+
+	2. **Create Employee Service in Angular**
+
+	   In Angular, you would create a service to handle HTTP requests to your backend API for CRUD operations.
+
+	   ```typescript
+	   import { Injectable } from '@angular/core';
+	   import { HttpClient } from '@angular/common/http';
+	   import { Observable } from 'rxjs';
+
+	   interface Employee {
+		 id: number;
+		 name: string;
+		 designation: string;
+		 salary: number;
+	   }
+
+	   @Injectable({
+		 providedIn: 'root',
+	   })
+	   export class EmployeeService {
+		 private apiUrl = 'http://localhost:8080/api/employees'; // Change to your backend URL
+
+		 constructor(private http: HttpClient) {}
+
+		 // Get all employees
+		 getEmployees(): Observable<Employee[]> {
+		   return this.http.get<Employee[]>(this.apiUrl);
+		 }
+
+		 // Get a single employee by ID
+		 getEmployee(id: number): Observable<Employee> {
+		   return this.http.get<Employee>(`${this.apiUrl}/${id}`);
+		 }
+
+		 // Create or update an employee
+		 saveEmployee(employee: Employee): Observable<Employee> {
+		   return this.http.post<Employee>(this.apiUrl, employee);
+		 }
+
+		 // Delete an employee by ID
+		 deleteEmployee(id: number): Observable<void> {
+		   return this.http.delete<void>(`${this.apiUrl}/${id}`);
+		 }
+	   }
+	   ```
+
+	3. **Using Employee Service in Component (CRUD Example)**
+
+	   Here's how you can use the `EmployeeService` in a component:
+
+	   ```typescript
+	   import { Component, OnInit } from '@angular/core';
+	   import { EmployeeService } from './employee.service';
+
+	   interface Employee {
+		 id: number;
+		 name: string;
+		 designation: string;
+		 salary: number;
+	   }
+
+	   @Component({
+		 selector: 'app-root',
+		 templateUrl: './app.component.html',
+		 styleUrls: ['./app.component.css'],
+	   })
+	   export class AppComponent implements OnInit {
+		 employees: Employee[] = [];
+
+		 constructor(private employeeService: EmployeeService) {}
+
+		 ngOnInit() {
+		   this.getEmployees();
+		 }
+
+		 getEmployees() {
+		   this.employeeService.getEmployees().subscribe((data) => {
+			 this.employees = data;
+		   });
+		 }
+
+		 deleteEmployee(id: number) {
+		   this.employeeService.deleteEmployee(id).subscribe(() => {
+			 this.getEmployees(); // Refresh the list after deletion
+		   });
+		 }
+	   }
+	   ```
+
+	4. **HTML Template Example for Displaying Employees**
+
+	   ```html
+	   <div *ngFor="let employee of employees">
+		 <p>{{ employee.name }} ({{ employee.designation }})</p>
+		 <button (click)="deleteEmployee(employee.id)">Delete</button>
+	   </div>
+	   ```
+	   
+	   
+	   
+	   
+	   
+
+	============================================================================================================================================================================================
+	### **2. React Service Integration**
+	============================================================================================================================================================================================
+
+	1. **Create Employee Service in React**
+
+	   In React, you can use `axios` to make HTTP requests. Here's how you can create a service file.
+
+	   First, install `axios`:
+
+	   ```bash
+	   npm install axios
+	   ```
+
+	   Then, create a `EmployeeService.js` file:
+
+	   ```javascript
+	   import axios from 'axios';
+
+	   const apiUrl = 'http://localhost:8080/api/employees'; // Change to your backend URL
+
+	   const EmployeeService = {
+		 // Get all employees
+		 getEmployees: async () => {
+		   try {
+			 const response = await axios.get(apiUrl);
+			 return response.data;
+		   } catch (error) {
+			 console.error('Error fetching employees', error);
+			 throw error;
+		   }
+		 },
+
+		 // Get a single employee by ID
+		 getEmployee: async (id) => {
+		   try {
+			 const response = await axios.get(`${apiUrl}/${id}`);
+			 return response.data;
+		   } catch (error) {
+			 console.error('Error fetching employee', error);
+			 throw error;
+		   }
+		 },
+
+		 // Create or update an employee
+		 saveEmployee: async (employee) => {
+		   try {
+			 const response = await axios.post(apiUrl, employee);
+			 return response.data;
+		   } catch (error) {
+			 console.error('Error saving employee', error);
+			 throw error;
+		   }
+		 },
+
+		 // Delete an employee by ID
+		 deleteEmployee: async (id) => {
+		   try {
+			 await axios.delete(`${apiUrl}/${id}`);
+		   } catch (error) {
+			 console.error('Error deleting employee', error);
+			 throw error;
+		   }
+		 },
+	   };
+
+	   export default EmployeeService;
+	   ```
+
+	2. **Using Employee Service in a React Component**
+
+	   Here's an example of using the `EmployeeService` in a React component.
+
+	   ```javascript
+	   import React, { useState, useEffect } from 'react';
+	   import EmployeeService from './EmployeeService';
+
+	   const EmployeeList = () => {
+		 const [employees, setEmployees] = useState([]);
+
+		 useEffect(() => {
+		   // Fetch employees when the component mounts
+		   const fetchEmployees = async () => {
+			 try {
+			   const data = await EmployeeService.getEmployees();
+			   setEmployees(data);
+			 } catch (error) {
+			   console.error('Error fetching employees:', error);
+			 }
+		   };
+
+		   fetchEmployees();
+		 }, []);
+
+		 const deleteEmployee = async (id) => {
+		   try {
+			 await EmployeeService.deleteEmployee(id);
+			 setEmployees((prevEmployees) => prevEmployees.filter(emp => emp.id !== id));
+		   } catch (error) {
+			 console.error('Error deleting employee:', error);
+		   }
+		 };
+
+		 return (
+		   <div>
+			 <h1>Employee List</h1>
+			 {employees.map((employee) => (
+			   <div key={employee.id}>
+				 <p>{employee.name} ({employee.designation})</p>
+				 <button onClick={() => deleteEmployee(employee.id)}>Delete</button>
+			   </div>
+			 ))}
+		   </div>
+		 );
+	   };
+
+	   export default EmployeeList;
+	   ```
+
+	### Summary:
+
+	* **Angular:** You use Angular's `HttpClient` to send requests to the backend, and you manage CRUD operations in a service file.
+	* **React:** You use `axios` to interact with the backend and perform CRUD operations in the service file. The state is managed using React hooks (`useState`, `useEffect`).
+
+	These services can be integrated with the respective components, and the employees' data will be handled in the frontend while interacting with the backend endpoints.
+
+	Let me know if you need further help!
+===========================================================================================================================================================================================
+
+REACT FORMS - ALL IN ONE 
+=========================
+import React, { useState } from 'react';
+
+const MyForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    gender: '',
+    selectedHobbies: [],
+    country: '',
+    agreeToTerms: false,
+    file: null,
+  });
+
+  // Handle form input changes
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+    if (type === 'checkbox') {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: checked,
+      }));
+    } else if (type === 'radio') {
+      setFormData((prevData) => ({
+        ...prevData,
+        gender: value,
+      }));
+    } else if (type === 'file') {
+      setFormData((prevData) => ({
+        ...prevData,
+        file: files[0],
+      }));
+    } else if (type === 'select-multiple') {
+      const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+      setFormData((prevData) => ({
+        ...prevData,
+        selectedHobbies: selectedOptions,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  // Handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(JSON.stringify(formData, null, 2));
+  };
+
+  return (
+    <div>
+      <h1>Sample Form</h1>
+      <form onSubmit={handleSubmit}>
+        {/* Name */}
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Email */}
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Gender (Radio buttons) */}
+        <div>
+          <label>Gender:</label>
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="male"
+              checked={formData.gender === 'male'}
+              onChange={handleChange}
+            />
+            Male
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="female"
+              checked={formData.gender === 'female'}
+              onChange={handleChange}
+            />
+            Female
+          </label>
+        </div>
+
+        {/* Hobbies (Checkboxes) */}
+        <div>
+          <label>Hobbies:</label>
+          <label>
+            <input
+              type="checkbox"
+              name="hobbyReading"
+              value="reading"
+              checked={formData.selectedHobbies.includes('reading')}
+              onChange={(e) => {
+                const { checked, value } = e.target;
+                setFormData((prevData) => ({
+                  ...prevData,
+                  selectedHobbies: checked
+                    ? [...prevData.selectedHobbies, value]
+                    : prevData.selectedHobbies.filter((hobby) => hobby !== value),
+                }));
+              }}
+            />
+            Reading
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="hobbyTraveling"
+              value="traveling"
+              checked={formData.selectedHobbies.includes('traveling')}
+              onChange={(e) => {
+                const { checked, value } = e.target;
+                setFormData((prevData) => ({
+                  ...prevData,
+                  selectedHobbies: checked
+                    ? [...prevData.selectedHobbies, value]
+                    : prevData.selectedHobbies.filter((hobby) => hobby !== value),
+                }));
+              }}
+            />
+            Traveling
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="hobbyCooking"
+              value="cooking"
+              checked={formData.selectedHobbies.includes('cooking')}
+              onChange={(e) => {
+                const { checked, value } = e.target;
+                setFormData((prevData) => ({
+                  ...prevData,
+                  selectedHobbies: checked
+                    ? [...prevData.selectedHobbies, value]
+                    : prevData.selectedHobbies.filter((hobby) => hobby !== value),
+                }));
+              }}
+            />
+            Cooking
+          </label>
+        </div>
+
+        {/* Country (Dropdown) */}
+        <div>
+          <label htmlFor="country">Country:</label>
+          <select
+            id="country"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select a country</option>
+            <option value="usa">USA</option>
+            <option value="canada">Canada</option>
+            <option value="uk">UK</option>
+            <option value="australia">Australia</option>
+          </select>
+        </div>
+
+        {/* Terms & Conditions (Checkbox) */}
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              name="agreeToTerms"
+              checked={formData.agreeToTerms}
+              onChange={handleChange}
+            />
+            I agree to the terms and conditions
+          </label>
+        </div>
+
+        {/* File Upload */}
+        <div>
+          <label htmlFor="file">Upload File:</label>
+          <input
+            type="file"
+            id="file"
+            name="file"
+            onChange={handleChange}
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default MyForm;

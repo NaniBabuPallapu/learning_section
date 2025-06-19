@@ -2,7 +2,7 @@ package company.com.array_programs;
 
 public class SearchElementInArray {
 
-    public static void search(int[] array, int target) {
+    public static void linearSearch(int[] array, int target) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == target) {
                 System.out.println("Element Found At " + i + " position");
@@ -28,7 +28,7 @@ public class SearchElementInArray {
     }
 
     public static void main(String[] args) {
-        search(new int[]{2, 7, 2, 5, 5, 6, 8, 10}, 5);
+        linearSearch(new int[]{2, 7, 2, 5, 5, 6, 8, 10}, 5);
 
         System.out.println("\n");
 

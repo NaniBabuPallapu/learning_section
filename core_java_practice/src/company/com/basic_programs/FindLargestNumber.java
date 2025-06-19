@@ -41,6 +41,18 @@ public class FindLargestNumber {
         System.out.println("Largest Number : " + max);
     }
 
+    public static void findLargestNumberPrivateMethod(int a, int b, int c) {
+        int max = Math.max(a, b);
+        max = Math.max(max, c);
+        System.out.println("Largest Number : " + max);
+    }
+
+    public  void findLargestNumberPrivateNonStaticMethod(int a, int b, int c) {
+        int max = Math.max(a, b);
+        max = Math.max(max, c);
+        System.out.println("Largest Number : " + max);
+    }
+
 
     public static void main(String[] args) throws IOException {
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
